@@ -1,0 +1,12 @@
+{
+    "C_Cpp.dimInactiveRegions": false,
+    "files.associations": {
+        "*.ipp": "c",
+        "hash_map": "c",
+        "chrono": "c",
+        "future": "c",
+        "system_error": "c",
+        "limits": "c",
+        "algorithm": "c"
+    }
+}
