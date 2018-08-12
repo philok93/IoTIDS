@@ -97,7 +97,7 @@ uip_ipaddr_t hostaddr;
     }
   }
   rpl_recalculate_ranks();
-  PRINTF("malICIOUS SENDING DIS:%d\n",RPL_DIS_INTERVAL);
+  //PRINTF("malICIOUS SENDING DIS:%d\n",RPL_DIS_INTERVAL);
   /* handle DIS */
 #if RPL_DIS_SEND
   next_dis++;
