@@ -266,9 +266,13 @@ static void
 packet_input(void)
 {
 
-//uint16_t shortaddr=(linkaddr_node_addr.u8[0] << 8)+linkaddr_node_addr.u8[1];
-//frame802154_t frame1;
-//frame802154_parse(original_dataptr, original_datalen, &frame1);
+#if NULLRDC_SEND_802154_ACK
+  int original_datalen;
+  uint8_t *original_dataptr;
+
+  original_datalen = packetbuf_datalen();
+  original_dataptr = packetbuf_dataptr();
+#endif
 
 #if NULLRDC_802154_AUTOACK
   if(packetbuf_datalen() == ACK_LEN) {
@@ -279,21 +283,26 @@ packet_input(void)
   if(NETSTACK_FRAMER.parse() < 0) {
     PRINTF("nullrdc: failed to parse %u\n", packetbuf_datalen());
   } else {
-
     int duplicate = 0;
+
+#if NULLRDC_802154_AUTOACK || NULLRDC_802154_AUTOACK_HW
+#if RDC_WITH_DUPLICATE_DETECTION
+    /* Check for duplicate packet. */
     duplicate = mac_sequence_is_duplicate();
     if(duplicate) {
+      /* Drop the packet. */
       PRINTF("nullrdc: drop duplicate link layer packet %u\n",
              packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
     } else {
       mac_sequence_register_seqno();
     }
-
+#endif /* RDC_WITH_DUPLICATE_DETECTION */
+#endif /* NULLRDC_802154_AUTOACK */
+/*
 #if NULLRDC_SEND_802154_ACK
     {
       frame802154_t info154;
       frame802154_parse(original_dataptr, original_datalen, &info154);
-       
       if(info154.fcf.frame_type == FRAME802154_DATAFRAME &&
          info154.fcf.ack_required != 0 &&
          linkaddr_cmp((linkaddr_t *)&info154.dest_addr,
@@ -306,11 +315,13 @@ packet_input(void)
         NETSTACK_RADIO.send(ackdata, ACK_LEN);
       }
     }
-#endif /* NULLRDC_SEND_ACK */
-    NETSTACK_MAC.input();
-    
-    
+#endif 
+*/
+    if(!duplicate) {
+      NETSTACK_MAC.input();
+    }
   }
+
 }
 /*---------------------------------------------------------------------------*/
 static int

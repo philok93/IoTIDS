@@ -1,363 +1,106 @@
-[21:00:14 - AWT-EventQueue-1] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
-[21:00:14 - AWT-EventQueue-1] [Cooja.java:2886] [INFO] - External tools user settings: /root/.cooja.user.properties
-[21:00:30 - Thread-1] [Simulation.java:422] [INFO] - Simulation random seed: -7850819415749851482
-[21:00:31 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: 6632646704001584318
-[21:00:47 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[21:00:58 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[21:01:30 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[21:01:30 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:01:32 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:01:32 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:01:32 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[21:01:35 - Thread-1] [Visualizer.java:256] [INFO] - Registered external visualizer: org.contikios.cooja.plugins.skins.DGRMVisualizerSkin
-[21:01:46 - Thread-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[21:01:50 - Thread-1] [LogScriptEngine.java:265] [INFO] - Script timeout in 1800000 ms
-[21:01:53 - Thread-1] [ScriptRunner.java:387] [INFO] - Test script activated
-[21:04:08 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[21:04:10 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[21:04:24 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[21:04:56 - Thread-8] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532109896285
-[21:05:10 - Thread-8] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532109910335	Duration: 14050 ms	Simulated time 26293 ms	Ratio 1.871387900355872
-[21:06:29 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[21:06:29 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[21:06:43 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[21:06:50 - Thread-10] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532110010452
-[21:06:54 - Thread-10] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 5718.4 sec
-[21:07:00 - Thread-10] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532110020796	Duration: 10344 ms	Simulated time 132069 ms	Ratio 12.767691415313225
-[21:07:41 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[21:07:42 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[21:07:55 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[21:07:56 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[21:08:05 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[21:08:12 - Thread-12] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532110092948
-[21:08:15 - Thread-12] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532110095032	Duration: 2084 ms	Simulated time 135940 ms	Ratio 65.23032629558541
-[21:08:25 - Thread-13] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532110105325
-[21:08:54 - Thread-13] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 3791.1 sec
-[21:09:58 - Thread-13] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 2748.3 sec
-[21:10:28 - Thread-13] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532110228544	Duration: 123219 ms	Simulated time 313228 ms	Ratio 2.542043029078308
-[23:02:14 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[23:02:20 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:02:37 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:02:47 - Thread-15] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532116967436
-[23:03:11 - Thread-15] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@2dfefec3
-[23:03:14 - Thread-15] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 29124.7 sec
-[23:03:20 - Thread-15] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 21860.7 sec
-[23:03:24 - Thread-15] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 17013.7 sec
-[23:03:25 - Thread-15] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532117005372	Duration: 37936 ms	Simulated time 545013 ms	Ratio 14.3666438211725
-[23:37:16 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[23:37:18 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:37:29 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:37:41 - Thread-17] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532119061567
-[23:37:49 - Thread-17] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 17375.0 sec
-[23:37:52 - Thread-17] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532119072076	Duration: 10509 ms	Simulated time 674548 ms	Ratio 64.18764868208203
-[23:43:08 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[23:43:09 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:43:20 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[23:43:31 - Thread-19] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532119411248
-[23:43:36 - Thread-19] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 14554.2 sec
-[23:43:45 - Thread-19] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 11870.5 sec
-[23:43:51 - Thread-19] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532119431678	Duration: 20430 ms	Simulated time 870932 ms	Ratio 42.63005384238864
-[23:44:36 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[23:44:37 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:44:46 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[23:45:00 - Thread-21] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532119500098
-[23:45:04 - Thread-21] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 9791.1 sec
-[23:45:15 - Thread-21] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 8019.7 sec
-[23:45:26 - Thread-21] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 6541.8 sec
-[23:45:36 - Thread-21] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 5289.3 sec
-[23:45:41 - Thread-21] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532119541142	Duration: 41044 ms	Simulated time 1204943 ms	Ratio 29.357348211675276
-[23:45:53 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
-[23:45:54 - AWT-EventQueue-1] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:46:03 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[23:46:16 - Thread-23] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532119576661
-[23:46:16 - Thread-23] [Simulation.java:293] [FATAL] - Simulation stopped due to error: Jumping to a time that is further than possible not LPM maxCycles:2670023003 cycles: 2670022757
-java.lang.IllegalArgumentException: Jumping to a time that is further than possible not LPM maxCycles:2670023003 cycles: 2670022757
-	at se.sics.mspsim.core.MSP430.stepMicros(MSP430.java:242)
-	at org.contikios.cooja.mspmote.MspMote.execute(MspMote.java:337)
-	at org.contikios.cooja.mspmote.MspMoteTimeEvent.execute(MspMoteTimeEvent.java:53)
-	at org.contikios.cooja.mspmote.interfaces.Msp802154Radio$5.execute(Msp802154Radio.java:263)
-	at org.contikios.cooja.Simulation.run(Simulation.java:281)
-	at java.lang.Thread.run(Thread.java:748)
-[23:46:19 - Thread-23] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532119579223	Duration: 2562 ms	Simulated time 1204943 ms	Ratio 470.3134270101483
-[23:46:22 - Thread-25] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/udp-client-mal.z1 with /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
-[23:46:22 - Thread-25] [Cooja.java:4140] [WARN] - Path is not portable: '/root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:22 - Thread-25] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/udp-client-mal.z1 with /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
-[23:46:22 - Thread-25] [Cooja.java:4140] [WARN] - Path is not portable: '/root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:22 - Thread-25] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/udp-client-mal.z1 with /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
-[23:46:22 - Thread-25] [Cooja.java:4140] [WARN] - Path is not portable: '/root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:22 - Thread-25] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/udp-client-mal.z1 with /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
-[23:46:22 - Thread-25] [Cooja.java:4140] [WARN] - Path is not portable: '/root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:22 - Thread-25] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/udp-client-mal.z1 with /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
-[23:46:22 - Thread-25] [Cooja.java:4140] [WARN] - Path is not portable: '/root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:23 - Thread-6] [LogScriptEngine.java:309] [INFO] - Test script finished
-[23:46:23 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[23:46:23 - Thread-25] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@3c4c03b9
-[23:46:23 - Thread-25] [Simulation.java:422] [INFO] - Simulation random seed: 6632646704001584318
-[23:46:23 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:46:23 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:46:24 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:46:24 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:46:24 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:46:25 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-mal.z1 TARGET=z1 
-[23:46:25 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:46:25 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:46:25 - Thread-25] [CompileContiki.java:140] [INFO] - > make udp-client-ids.z1 TARGET=z1 
-[23:46:25 - Thread-25] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[23:46:26 - Thread-25] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[23:46:26 - Thread-25] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[23:46:27 - Thread-25] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-mal.z1
-[23:46:27 - Thread-25] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[23:46:28 - Thread-25] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[23:46:28 - Thread-25] [LogScriptEngine.java:265] [INFO] - Script timeout in 1800000 ms
-[23:46:28 - Thread-25] [ScriptRunner.java:387] [INFO] - Test script activated
-[23:46:30 - Thread-27] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532119590244
-[23:46:38 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 182.7 sec
-[23:46:43 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 133.2 sec
-[23:46:48 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 115.1 sec
-[23:46:53 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 100.3 sec
-[23:46:59 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 92.1 sec
-[23:47:03 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 80.6 sec
-[23:47:07 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 72.9 sec
-[23:47:11 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 64.8 sec
-[23:47:16 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 58.7 sec
-[23:47:21 - Thread-27] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 53.0 sec
-[23:47:21 - Thread-27] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532119641918	Duration: 51674 ms	Simulated time 904079 ms	Ratio 17.495819948136393
-[21:10:49 - Thread-26] [LogScriptEngine.java:309] [INFO] - Test script finished
-[21:10:49 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[21:10:59 - Thread-28] [Simulation.java:422] [INFO] - Simulation random seed: -5098900980532554347
-[21:54:40 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: 7464994545539862655
-[21:55:02 - Thread-28] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[21:55:03 - Thread-28] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:55:04 - Thread-28] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:55:04 - Thread-28] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:55:04 - Thread-28] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[21:55:05 - Thread-28] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[21:55:05 - Thread-28] [LogScriptEngine.java:265] [INFO] - Script timeout in 1800000 ms
-[21:55:05 - Thread-28] [ScriptRunner.java:387] [INFO] - Test script activated
-[21:56:02 - Thread-33] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532285762833
-[21:56:11 - Thread-33] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 1242.8 sec
-[21:56:19 - Thread-33] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 660.1 sec
-[21:56:26 - Thread-33] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 457.2 sec
-[21:56:28 - Thread-33] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532285788187	Duration: 25354 ms	Simulated time 310329 ms	Ratio 12.239843811627356
-[22:14:25 - Thread-32] [LogScriptEngine.java:309] [INFO] - Test script finished
-[22:14:25 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[22:14:28 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[22:14:41 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[22:14:53 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:14:55 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:14:55 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:15:09 - AWT-EventQueue-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[22:16:15 - Thread-37] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532286975519
-[22:17:03 - Thread-37] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532287023331	Duration: 47812 ms	Simulated time 550580 ms	Ratio 11.515519116539782
-[10:22:16 - Thread-38] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[10:22:18 - Thread-38] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[10:22:24 - Thread-38] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[10:22:26 - Thread-38] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[10:22:27 - Thread-38] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[10:22:27 - Thread-38] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[10:22:41 - Thread-39] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532330561920
-[10:22:45 - Thread-39] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532330565188	Duration: 3268 ms	Simulated time 991 ms	Ratio 0.3032435740514076
-[10:22:47 - Thread-40] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532330567383
-[10:22:49 - Thread-40] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532330569038	Duration: 1655 ms	Simulated time 2178 ms	Ratio 1.316012084592145
-[10:23:13 - Thread-41] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532330593920
-[10:23:57 - Thread-41] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532330637217	Duration: 43297 ms	Simulated time 134736 ms	Ratio 3.1119015174261495
-[10:24:00 - Thread-42] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532330640958
-[10:24:27 - Thread-42] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532330667131	Duration: 26173 ms	Simulated time 611315 ms	Ratio 23.356703473044742
-[11:22:59 - Thread-43] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[11:23:00 - Thread-43] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[11:23:01 - Thread-43] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:23:04 - Thread-43] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:23:04 - Thread-43] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:23:05 - Thread-43] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[11:24:28 - Thread-44] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[11:24:30 - Thread-44] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[11:24:30 - Thread-44] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:24:31 - Thread-44] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:24:31 - Thread-44] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:24:31 - Thread-44] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[11:24:40 - Thread-45] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532334280879
-[11:24:44 - Thread-45] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532334284507	Duration: 3628 ms	Simulated time 28474 ms	Ratio 7.8484013230429985
-[11:27:09 - Thread-47] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[11:27:10 - Thread-47] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[11:27:11 - Thread-47] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:27:12 - Thread-47] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:27:13 - Thread-47] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:27:13 - Thread-47] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[11:27:34 - Thread-48] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532334454701
-[11:27:37 - Thread-48] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532334457669	Duration: 2968 ms	Simulated time 26063 ms	Ratio 8.78133423180593
-[11:28:38 - Thread-49] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[11:28:38 - Thread-49] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[11:28:39 - Thread-49] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:28:40 - Thread-49] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:28:40 - Thread-49] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[11:28:40 - Thread-49] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[11:29:23 - Thread-50] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532334563423
-[11:29:27 - Thread-50] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532334567516	Duration: 4093 ms	Simulated time 30514 ms	Ratio 7.455167358905448
-[12:05:34 - Thread-51] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@ddbcc95
-[12:05:55 - Thread-51] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:05:55 - Thread-51] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:05:58 - Thread-51] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:05:59 - Thread-51] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:05:59 - Thread-51] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:06:00 - Thread-51] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:06:07 - Thread-52] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532336767522
-[12:06:10 - Thread-52] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532336770344	Duration: 2822 ms	Simulated time 20966 ms	Ratio 7.429482636428065
-[12:07:30 - Thread-53] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:07:30 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:07:31 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:07:33 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:07:33 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:07:33 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:07:48 - Thread-54] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532336868220
-[12:07:53 - Thread-54] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532336873361	Duration: 5141 ms	Simulated time 39210 ms	Ratio 7.626920832522855
-[12:12:49 - Thread-55] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:12:49 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:12:50 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:12:51 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:12:51 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:12:51 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:14:22 - Thread-56] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532337262311
-[12:14:26 - Thread-56] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532337266422	Duration: 4111 ms	Simulated time 51765 ms	Ratio 12.591826806129895
-[12:15:14 - Thread-57] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:15:14 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:15:14 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:15:15 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:15:15 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:15:15 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:15:17 - Thread-58] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532337317564
-[12:15:59 - Thread-58] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532337359380	Duration: 41816 ms	Simulated time 912864 ms	Ratio 21.83049550411326
-[12:18:03 - Thread-59] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:18:03 - Thread-59] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:18:04 - Thread-59] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:18:04 - Thread-59] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:18:04 - Thread-59] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:18:04 - Thread-59] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:18:22 - Thread-60] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532337502009
-[12:19:35 - Thread-60] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532337575821	Duration: 73812 ms	Simulated time 1806349 ms	Ratio 24.47229447786268
-[12:35:55 - Thread-61] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:35:56 - Thread-61] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:35:56 - Thread-61] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:35:57 - Thread-61] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:35:57 - Thread-61] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:35:57 - Thread-61] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:36:06 - Thread-62] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532338566264
-[12:36:08 - Thread-62] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532338568907	Duration: 2643 ms	Simulated time 978 ms	Ratio 0.37003405221339386
-[12:36:10 - Thread-63] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532338570290
-[12:36:11 - Thread-63] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532338571651	Duration: 1361 ms	Simulated time 17168 ms	Ratio 12.61425422483468
-[12:37:14 - Thread-64] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:37:14 - Thread-64] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:37:14 - Thread-64] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:37:15 - Thread-64] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:37:15 - Thread-64] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:37:15 - Thread-64] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:38:16 - Thread-65] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532338696611
-[12:38:31 - Thread-65] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532338711634	Duration: 15023 ms	Simulated time 84263 ms	Ratio 5.608932969446848
-[12:40:04 - Thread-66] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:40:04 - Thread-66] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:40:04 - Thread-66] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:40:05 - Thread-66] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:40:05 - Thread-66] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:40:05 - Thread-66] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:40:23 - Thread-67] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532338823137
-[12:40:55 - Thread-67] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532338855608	Duration: 32471 ms	Simulated time 914711 ms	Ratio 28.17009023436297
-[12:46:14 - Thread-68] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@25302cd8
-[12:46:15 - Thread-68] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:46:15 - Thread-68] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:46:16 - Thread-68] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:46:17 - Thread-68] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:46:17 - Thread-68] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:46:17 - Thread-68] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:47:00 - Thread-69] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532339220352
-[12:47:04 - Thread-69] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532339224065	Duration: 3713 ms	Simulated time 66337 ms	Ratio 17.866145973606248
-[12:47:19 - Thread-70] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:47:19 - Thread-70] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:47:20 - Thread-70] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:20 - Thread-70] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:20 - Thread-70] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:21 - Thread-70] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:47:50 - Thread-71] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[12:47:50 - Thread-71] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[12:47:50 - Thread-71] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:50 - Thread-71] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:50 - Thread-71] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[12:47:51 - Thread-71] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[12:47:52 - Thread-72] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532339272468
-[12:48:02 - Thread-72] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532339282453	Duration: 9985 ms	Simulated time 190991 ms	Ratio 19.127791687531296
-[13:29:05 - Thread-73] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[13:29:06 - Thread-73] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[13:29:07 - Thread-73] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[13:29:08 - Thread-73] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[13:29:08 - Thread-73] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[13:29:08 - Thread-73] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[13:29:15 - Thread-74] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532341755563
-[13:29:52 - Thread-74] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532341792250	Duration: 36687 ms	Simulated time 904793 ms	Ratio 24.662496252078395
-[21:52:58 - Thread-75] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[21:53:01 - Thread-75] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[21:53:04 - Thread-75] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:53:06 - Thread-75] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:53:06 - Thread-75] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[21:53:06 - Thread-75] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[21:55:16 - Thread-76] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532372116251
-[21:55:50 - Thread-76] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532372150206	Duration: 33955 ms	Simulated time 323365 ms	Ratio 9.523339714327786
-[22:05:56 - Thread-77] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[22:05:57 - Thread-77] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[22:05:58 - Thread-77] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:05:59 - Thread-77] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:05:59 - Thread-77] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:06:00 - Thread-77] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[22:09:40 - Thread-78] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532372980456
-[22:09:45 - Thread-78] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532372985969	Duration: 5513 ms	Simulated time 108544 ms	Ratio 19.688735715581352
-[22:15:49 - Thread-79] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532373349287
-[22:16:00 - Thread-79] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532373360950	Duration: 11663 ms	Simulated time 434723 ms	Ratio 37.2736860156049
-[22:24:19 - Thread-80] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[22:24:19 - Thread-80] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[22:24:20 - Thread-80] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:24:21 - Thread-80] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:24:21 - Thread-80] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:24:21 - Thread-80] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[22:24:33 - Thread-81] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532373873316
-[22:24:42 - Thread-81] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532373882928	Duration: 9612 ms	Simulated time 161982 ms	Ratio 16.852059925093634
-[22:25:09 - Thread-82] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532373909841
-[22:25:24 - Thread-82] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532373924486	Duration: 14645 ms	Simulated time 620451 ms	Ratio 42.366063502902016
-[22:41:48 - Thread-83] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[22:41:48 - Thread-83] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[22:41:49 - Thread-83] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:41:49 - Thread-83] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:41:49 - Thread-83] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[22:41:49 - Thread-83] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[22:45:20 - Thread-84] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532375120069
-[22:45:24 - Thread-84] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532375124919	Duration: 4850 ms	Simulated time 84169 ms	Ratio 17.35443298969072
-[22:51:33 - Thread-85] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532375493789
-[22:54:19 - Thread-85] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532375659239	Duration: 165450 ms	Simulated time 3044699 ms	Ratio 18.40253248715624
-[23:08:13 - Thread-86] [Simulation.java:422] [INFO] - Simulation random seed: 8354108122520696125
-[23:08:13 - Thread-86] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-server.z1
-[23:08:14 - Thread-86] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[23:08:14 - Thread-86] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[23:08:14 - Thread-86] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/re-normal/udp-client.z1
-[23:08:14 - Thread-86] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/Orig-repo-Contiki-mod/examples/ipv6/rpl-udp/udp-client-ids.z1
-[23:08:40 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
-[23:08:41 - AWT-EventQueue-1] [LogScriptEngine.java:265] [INFO] - Script timeout in 1800000 ms
-[23:08:41 - AWT-EventQueue-1] [ScriptRunner.java:387] [INFO] - Test script activated
-[23:09:08 - Thread-88] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1532376548237
-[23:09:13 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 608.7 sec
-[23:09:16 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 315.0 sec
-[23:09:23 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 238.0 sec
-[23:09:27 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 182.0 sec
-[23:09:30 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 146.2 sec
-[23:09:33 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 120.9 sec
-[23:09:36 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 102.0 sec
-[23:09:39 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 86.6 sec
-[23:09:42 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 74.4 sec
-[23:09:45 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 64.0 sec
-[23:09:48 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 54.8 sec
-[23:09:51 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 46.5 sec
-[23:09:54 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 39.2 sec
-[23:09:57 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 32.4 sec
-[23:10:00 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 26.2 sec
-[23:10:03 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 20.3 sec
-[23:10:06 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 14.9 sec
-[23:10:08 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 9.7 sec
-[23:10:11 - Thread-88] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 4.7 sec
-[23:10:14 - Thread-88] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
-[23:10:15 - Thread-87] [LogScriptEngine.java:309] [INFO] - Test script finished
-[23:10:15 - Thread-88] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1532376615231	Duration: 66994 ms	Simulated time 1800000 ms	Ratio 26.868077738304923
+[19:00:25 - AWT-EventQueue-1] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
+[19:00:25 - AWT-EventQueue-1] [Cooja.java:2886] [INFO] - External tools user settings: /root/.cooja.user.properties
+[19:00:34 - Thread-1] [Simulation.java:422] [INFO] - Simulation random seed: -6029104204286901284
+[19:00:36 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: 6666021002083889696
+[19:00:44 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1
+[19:00:46 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:00:46 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:00:46 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:00:46 - Thread-1] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client-ids.z1
+[19:00:49 - Thread-1] [Visualizer.java:256] [INFO] - Registered external visualizer: org.contikios.cooja.plugins.skins.DGRMVisualizerSkin
+[19:00:53 - Thread-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:00:57 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:00:58 - AWT-EventQueue-1] [LogScriptEngine.java:265] [INFO] - Script timeout in 900000 ms
+[19:00:58 - AWT-EventQueue-1] [ScriptRunner.java:387] [INFO] - Test script activated
+[19:01:19 - Thread-8] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1533312079465
+[19:01:29 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 588.7 sec
+[19:01:31 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 297.9 sec
+[19:01:33 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 198.8 sec
+[19:01:35 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 147.1 sec
+[19:01:37 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 116.1 sec
+[19:01:39 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 95.6 sec
+[19:01:41 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 79.5 sec
+[19:01:43 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 66.6 sec
+[19:01:44 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 56.5 sec
+[19:01:48 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 49.7 sec
+[19:01:50 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 42.2 sec
+[19:01:51 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 35.3 sec
+[19:01:53 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 29.5 sec
+[19:01:56 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 24.6 sec
+[19:01:57 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 19.8 sec
+[19:01:59 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 15.3 sec
+[19:02:02 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 11.2 sec
+[19:02:04 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 7.3 sec
+[19:02:06 - Thread-8] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 3.6 sec
+[19:02:07 - Thread-8] [LogScriptEngine.java:375] [INFO] - Timeout event @ 900000000
+[19:02:07 - Thread-7] [LogScriptEngine.java:309] [INFO] - Test script finished
+[19:02:07 - Thread-8] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1533312127907	Duration: 48442 ms	Simulated time 900155 ms	Ratio 18.582118822509393
+[19:03:15 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:03:19 - Thread-9] [Simulation.java:422] [INFO] - Simulation random seed: 158877230608932342
+[19:03:20 - Thread-9] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1
+[19:03:20 - Thread-9] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:03:20 - Thread-9] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:03:20 - Thread-9] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:03:20 - Thread-9] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client-ids.z1
+[19:03:21 - Thread-9] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:03:23 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:03:23 - AWT-EventQueue-1] [LogScriptEngine.java:265] [INFO] - Script timeout in 900000 ms
+[19:03:23 - AWT-EventQueue-1] [ScriptRunner.java:387] [INFO] - Test script activated
+[19:03:49 - Thread-11] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1533312229119
+[19:03:54 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 583.8 sec
+[19:03:56 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 289.9 sec
+[19:03:57 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 192.3 sec
+[19:03:59 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 144.0 sec
+[19:04:01 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 113.1 sec
+[19:04:03 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 91.4 sec
+[19:04:04 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 75.8 sec
+[19:04:06 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 63.5 sec
+[19:04:08 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 54.2 sec
+[19:04:10 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 46.3 sec
+[19:04:12 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 39.4 sec
+[19:04:13 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 33.1 sec
+[19:04:16 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 28.6 sec
+[19:04:18 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 23.6 sec
+[19:04:21 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 19.1 sec
+[19:04:23 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 14.8 sec
+[19:04:25 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 10.9 sec
+[19:04:27 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 7.1 sec
+[19:04:29 - Thread-11] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 3.5 sec
+[19:04:31 - Thread-11] [LogScriptEngine.java:375] [INFO] - Timeout event @ 900000000
+[19:04:31 - Thread-11] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1533312271340	Duration: 42221 ms	Simulated time 900000 ms	Ratio 21.316406527557376
+[19:04:31 - Thread-10] [LogScriptEngine.java:309] [INFO] - Test script finished
+[19:05:13 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:05:13 - Thread-12] [Simulation.java:422] [INFO] - Simulation random seed: 3616258699295966088
+[19:05:16 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: -6716646394867672016
+[19:05:21 - Thread-12] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1
+[19:05:21 - Thread-12] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:05:21 - Thread-12] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:05:21 - Thread-12] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[19:05:21 - Thread-12] [MspMote.java:235] [INFO] - Loading firmware from: /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client-ids.z1
+[19:05:22 - Thread-12] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:05:25 - AWT-EventQueue-1] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:05:25 - AWT-EventQueue-1] [LogScriptEngine.java:265] [INFO] - Script timeout in 900000 ms
+[19:05:25 - AWT-EventQueue-1] [ScriptRunner.java:387] [INFO] - Test script activated
+[19:05:51 - Thread-18] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1533312351415
+[19:05:54 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 552.9 sec
+[19:05:56 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 276.6 sec
+[19:05:58 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 184.6 sec
+[19:06:01 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 143.8 sec
+[19:06:04 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 116.5 sec
+[19:06:06 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 94.9 sec
+[19:06:08 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 79.1 sec
+[19:06:10 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 66.3 sec
+[19:06:12 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 56.7 sec
+[19:06:14 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 48.2 sec
+[19:06:15 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 40.8 sec
+[19:06:17 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 34.3 sec
+[19:06:18 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 28.6 sec
+[19:06:20 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 23.4 sec
+[19:06:22 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 18.9 sec
+[19:06:24 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 14.5 sec
+[19:06:26 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 10.7 sec
+[19:06:30 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 7.2 sec
+[19:06:33 - Thread-18] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 3.5 sec
+[19:06:35 - Thread-18] [LogScriptEngine.java:375] [INFO] - Timeout event @ 900000000
+[19:06:35 - Thread-17] [LogScriptEngine.java:309] [INFO] - Test script finished
+[19:06:35 - Thread-18] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1533312395362	Duration: 43947 ms	Simulated time 900228 ms	Ratio 20.484401665642707

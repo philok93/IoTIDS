@@ -91,11 +91,11 @@ void RPL_DEBUG_DIO_INPUT(uip_ipaddr_t *, rpl_dio_t *);
 void RPL_DEBUG_DAO_OUTPUT(rpl_parent_t *);
 #endif
 
-static uint8_t nbr_num=0,nodes=10;
-static uint8_t counterDIS[10];
-static uint8_t sources[10];
-static unsigned long timestamp[10];
-static unsigned long AVG_TIME=0,AVG_DIS=0;
+//static uint8_t nbr_num=0,nodes=10;
+//static uint8_t counterDIS[10];
+//static uint8_t sources[10];
+//static unsigned long timestamp[10];
+//static unsigned long AVG_TIME=0,AVG_DIS=0;
 static uint8_t dao_sequence = RPL_LOLLIPOP_INIT;
 
 #if RPL_WITH_MULTICAST
@@ -215,7 +215,7 @@ dis_input(void)
 {
   rpl_instance_t *instance;
   rpl_instance_t *end;
-  clock_time_t clock_now = (unsigned long)clock_seconds();
+  //clock_time_t clock_now = (unsigned long)clock_seconds();
     
   /* DAG Information Solicitation */
   PRINTF("RPL: Received a DIS from ");
