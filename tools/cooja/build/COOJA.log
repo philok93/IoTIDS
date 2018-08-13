@@ -1,5 +1,6 @@
-[20:05:48 - AWT-EventQueue-1] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
-[20:05:48 - AWT-EventQueue-1] [Cooja.java:2886] [INFO] - External tools user settings: /root/.cooja.user.properties
-[20:05:54 - Thread-1] [Simulation.java:422] [INFO] - Simulation random seed: 2267467471579301003
-[20:05:55 - AWT-EventQueue-1] [Simulation.java:422] [INFO] - Simulation random seed: -6246561563926081893
-[20:05:56 - Thread-1] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/normal/udp-server.z1 with /root/Documents/cont3-Instant&attacks/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
+[13:31:59 - main] [Cooja.java:3172] [WARN] - JAVA_HOME environment variable not set, Cooja motes may not compile
+[13:32:01 - AWT-EventQueue-0] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_macosx.config
+[13:32:01 - AWT-EventQueue-0] [Cooja.java:2886] [INFO] - External tools user settings: /Users/phil/.cooja.user.properties
+[13:33:25 - Thread-0] [Simulation.java:422] [INFO] - Simulation random seed: -4388770472514399072
+[13:33:26 - AWT-EventQueue-0] [Simulation.java:422] [INFO] - Simulation random seed: -5588000368073059368
+[13:33:28 - Thread-0] [Cooja.java:4261] [WARN] - Replaced [CONTIKI_DIR]/examples/ipv6/rpl-udp/normal/udp-server.z1 with /Volumes/Backup_Disk/University/Development Code/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1 (default: ../../..), but could not find it. This does not have to be an error, as the file might be created later.
