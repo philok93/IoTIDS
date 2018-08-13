@@ -51,7 +51,7 @@
 #include "sys/cooja_mt.h"
 #endif /* CONTIKI_TARGET_COOJA || CONTIKI_TARGET_COOJA_IP64 */
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -296,7 +296,7 @@ packet_input(void)
     duplicate = mac_sequence_is_duplicate();
     if(duplicate) {
       /* Drop the packet. */
-      PRINTF("nullrdc: drop duplicate link layer packet %u\n",
+      PRINTF("nullrdc:nor drop duplicate link layer packet %u\n",
              packetbuf_attr(PACKETBUF_ATTR_MAC_SEQNO));
     } else {
       mac_sequence_register_seqno();
