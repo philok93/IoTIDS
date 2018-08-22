@@ -216,8 +216,8 @@ static uint32_t AVG_DIS=0,AVG_MSG=0;
 //IDS control struct
 struct IDS_ctr{
   uint8_t address;
-  uint8_t counterMsg;
-  uint8_t counterDIS;
+  uint32_t counterMsg;
+  uint32_t counterDIS;
   uint8_t msgtype;
   unsigned long intervals;
   unsigned long timestamp;
@@ -994,23 +994,28 @@ void calcAvg(void *ptr){
 
 	//PRINTF("entering IDS\n");
 	unsigned long clock_now = (unsigned long)clock_seconds();
-	int i=0,tmp2=0,tmp3=0,c_allmsg=0,c_dis=0,c_int=0;
+	int i=0,tmpdis=0,tmpdio=0,c_allmsg=0,c_dis=0,c_int=0;
 	unsigned long tmp=0;
 
 
 	int j=0,nodes_num=10;
 
 	for (j=0; j<nodes_num;j++){
-        if (nodes[j].address!=0){
+        if (nodes[j].address!=0 && nodes[j].address!=1){
           if (nodes[j].intervals!=999){
           	tmp=(unsigned long)(nodes[j].intervals)+tmp;
           	c_int++;
           	}
           
-            tmp3+=nodes[j].counterDIS;
+            if (nodes[j].counterDIS!=0){
+            tmpdis+=nodes[j].counterDIS;
             c_dis++;
-            tmp2+=nodes[j].counterMsg;          
+          }
+
+          if (nodes[j].counterMsg!=0){
+            tmpdio+=nodes[j].counterMsg;          
             c_allmsg++;
+          }
           
           
           //if node not active >5 min make it zero
@@ -1036,9 +1041,9 @@ void calcAvg(void *ptr){
 	  if (c_int!=0)
 	  	AVG_TIME=tmp/c_int;
 	  if (c_dis!=0)
-      AVG_DIS=tmp3/c_dis;
+      AVG_DIS=tmpdis/c_dis;
     if (c_allmsg!=0)
-      AVG_MSG=tmp2/c_allmsg;
+      AVG_MSG=tmpdio/c_allmsg;
 	}
 	
 
@@ -1058,10 +1063,10 @@ void calcAvg(void *ptr){
 	for (i=0; i<nodes_num;i++){
 		if (nodes[i].address==0)
 			continue;
-		PRINTF("i:%d adr:%d disnum:%d time_in:%lu\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].intervals);
+		PRINTF("i:%d adr:%d disnum:%lu %lu time_in:%lu\n",i,nodes[i].address,nodes[i].counterDIS,nodes[i].counterMsg,nodes[i].intervals);
 		if (nodes[i].counterMsg-AVG_MSG>1 && nodes[i].intervals==min/*((median>60 && median-nodes[i].timestamp<10) || (median<30 && nodes[i].intervals<=median))*/){
 			//PRINTF("timeavgs:%lu tmst:%lu avgdis:%lu\n",AVG_TIME,nodes[i].timestamp,AVG_DIS);
-			PRINTF("warning uip!!! ID malicious %d!",nodes[i].address);
+			PRINTF("warning uip!!! ID malicious %d!\n",nodes[i].address);
 			
 		 }
 	 }
@@ -1102,7 +1107,7 @@ int i=0;//,tmp2=0,c_msg=0,c_int=0;
 
 for (i=0;i<nodes_num;i++){
 			//Find the average time and average number of DIS		
-	  PRINTF("nodes i:%d adr:%d cntr:%d d:%d interv:%lu\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].counterDIS,nodes[i].intervals);
+	  PRINTF("nodes i:%d adr:%d cntr:%lu d:%lu interv:%lu\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].counterDIS,nodes[i].intervals);
     
     //skip node 1
     
@@ -1456,7 +1461,7 @@ uip_process(uint8_t flag)
 #endif /* UIP_CONF_IPV6_CHECKS */
 
 //My addition:just update statistics, never forward or process header
-  PRINTF("here I got IP:%d",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+  PRINTF("here I got IP:%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
   if(UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 &&
        !uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
        !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr)) {
@@ -1478,7 +1483,10 @@ uip_process(uint8_t flag)
             break;
           }
         }*/
-  }
+  
+  UIP_STAT(++uip_stat.ip.drop);
+  goto drop;
+  
 
  
   
@@ -1592,12 +1600,16 @@ uip_process(uint8_t flag)
 
   //int i=0;
   //PRINTF("ANYY packet not for me but sniff\n");
-  PRINTF("here2 I got IP:%u",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+  PRINTF("here2 I got IP:%u\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
   if(!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
        !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr)
        && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1) {
         checkIDS();
        }
+  
+  UIP_STAT(++uip_stat.ip.drop);
+  goto drop;
+  
         
 
 #if UIP_IPV6_MULTICAST

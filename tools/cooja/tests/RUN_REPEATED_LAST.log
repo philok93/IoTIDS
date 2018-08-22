@@ -1,0 +1,21 @@
+[2018-08-15 00:04:22] ../../../../testNwithout_cmd: FAIL
+-- NO TEST INFO AVAILABLE (../../../../testNwithout_cmd.info) --
+-- TEST OUTPUT (tail ../../../../testNwithout_cmd.log) --
+898784.774 ID:5 here2 I got IP:1
+last msg: here2 I got IP:1
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 900000000
+-- COOJA OUTPUT (tail ../../../../testNwithout_cmd.cooja_log) --
+[00:04:48 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 9.1 sec
+[00:04:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 7.6 sec
+[00:04:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 6.0 sec
+[00:04:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 4.5 sec
+[00:04:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 3.0 sec
+[00:04:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 1.5 sec
+[00:04:56 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 900000000
+[00:04:56 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:04:56 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1534280696121	Duration: 29055 ms	Simulated time 900000 ms	Ratio 30.97573567372225
+[00:04:56 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
