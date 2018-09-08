@@ -1046,7 +1046,7 @@ void calcAvg(void *ptr){
       AVG_MSG=tmpdio/c_allmsg;
 	}
 	
-
+  PRINTF("normal:%lu %d %d %d %d %d\n",tmp,tmpdis,tmpdio,c_int,c_dis,c_allmsg);
 	PRINTF("AVGTIME:%lu AVGDIS:%lu AVGM:%lu c:%d,cdis:%d,call:%d\n",AVG_TIME,AVG_DIS,AVG_MSG,c_int,c_dis,c_allmsg);
   //PRINTF("IP STAT REC:%d %d sent:%d fw:%d drop:%d\n",uip_stat.ip.recv,uip_stat.icmp.recv,uip_stat.ip.sent,uip_stat.ip.forwarded,uip_stat.icmp.drop);
 
