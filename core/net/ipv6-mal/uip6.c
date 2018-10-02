@@ -1019,14 +1019,14 @@ void calcAvg(void *ptr){
           
           
           //if node not active >5 min make it zero
-          if ((unsigned long)clock_now-(unsigned long)(nodes[j].timestamp)>300){
+          /*if ((unsigned long)clock_now-(unsigned long)(nodes[j].timestamp)>300){
             PRINTF("Node %d is deactivated after 4 min",nodes[j].address);
             nodes[j].address=0;
             nodes[j].counterMsg=0;
             nodes[j].counterDIS=0;
             nodes[j].timestamp=0;
             nodes[j].intervals=999;
-          }
+          }*/
         }
         
     }
@@ -1050,7 +1050,7 @@ void calcAvg(void *ptr){
 	PRINTF("AVGTIME:%lu AVGDIS:%lu AVGM:%lu c:%d,cdis:%d,call:%d\n",AVG_TIME,AVG_DIS,AVG_MSG,c_int,c_dis,c_allmsg);
   //PRINTF("IP STAT REC:%d %d sent:%d fw:%d drop:%d\n",uip_stat.ip.recv,uip_stat.icmp.recv,uip_stat.ip.sent,uip_stat.ip.forwarded,uip_stat.icmp.drop);
 
-	unsigned long min=999;
+	/*unsigned long min=999;
 
 	for( i = 0; i < nodes_num; i++)
 	{
@@ -1064,12 +1064,12 @@ void calcAvg(void *ptr){
 		if (nodes[i].address==0)
 			continue;
 		PRINTF("i:%d adr:%d disnum:%lu %lu time_in:%lu\n",i,nodes[i].address,nodes[i].counterDIS,nodes[i].counterMsg,nodes[i].intervals);
-		if (nodes[i].counterMsg-AVG_MSG>1 && nodes[i].intervals==min/*((median>60 && median-nodes[i].timestamp<10) || (median<30 && nodes[i].intervals<=median))*/){
-			//PRINTF("timeavgs:%lu tmst:%lu avgdis:%lu\n",AVG_TIME,nodes[i].timestamp,AVG_DIS);
+		if (nodes[i].counterMsg-AVG_MSG>1 && nodes[i].intervals==min){
+
 			PRINTF("warning uip!!! ID malicious %d!\n",nodes[i].address);
 			
 		 }
-	 }
+	 }*/
  
 	
  struct ctimer* ct_ptr = ptr;
@@ -1483,7 +1483,7 @@ uip_process(uint8_t flag)
             break;
           }
         }*/
-  
+  }
   UIP_STAT(++uip_stat.ip.drop);
   goto drop;
   
