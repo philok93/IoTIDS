@@ -1,21 +1,1408 @@
-[2018-08-15 00:04:22] ../../../../testNwithout_cmd: FAIL
--- NO TEST INFO AVAILABLE (../../../../testNwithout_cmd.info) --
--- TEST OUTPUT (tail ../../../../testNwithout_cmd.log) --
-898784.774 ID:5 here2 I got IP:1
-last msg: here2 I got IP:1
+[2018-10-22 21:19:00] testwith4fixed2mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed2mals.info) --
+-- TEST OUTPUT (tail testwith4fixed2mals.log) --
+1499976697 ID:5 type:155,code:2
+last msg: type:155,code:2
 TEST TIMEOUT
 TEST FAILED
-Test ended at simulation time: 900000000
--- COOJA OUTPUT (tail ../../../../testNwithout_cmd.cooja_log) --
-[00:04:48 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 9.1 sec
-[00:04:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 7.6 sec
-[00:04:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 6.0 sec
-[00:04:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 4.5 sec
-[00:04:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 3.0 sec
-[00:04:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 1.5 sec
-[00:04:56 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 900000000
-[00:04:56 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
-[00:04:56 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1534280696121	Duration: 29055 ms	Simulated time 900000 ms	Ratio 30.97573567372225
-[00:04:56 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed2mals.cooja_log) --
+[21:33:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 368.9 sec
+[21:34:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 309.4 sec
+[21:35:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 246.4 sec
+[21:36:30 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 184.7 sec
+[21:37:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 123.4 sec
+[21:38:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 62.7 sec
+[21:39:34 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[21:39:34 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[21:39:34 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540233574644	Duration: 1230722 ms	Simulated time 1500000 ms	Ratio 1.2187967713260996
+[21:39:35 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
 
 
+[2018-10-22 21:39:35] testwith4fixed2mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed2mals.info) --
+-- TEST OUTPUT (tail testwith4fixed2mals.log) --
+1499934297 ID:7 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed2mals.cooja_log) --
+[21:54:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 386.1 sec
+[21:56:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 327.0 sec
+[21:57:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 263.3 sec
+[21:58:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 196.4 sec
+[21:59:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 130.7 sec
+[22:00:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 65.3 sec
+[22:01:21 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[22:01:21 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:01:21 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540234881579	Duration: 1302410 ms	Simulated time 1500000 ms	Ratio 1.151710174438023
+[22:01:22 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-22 22:01:22] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499927775 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[22:20:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 389.5 sec
+[22:22:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 310.4 sec
+[22:23:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 232.4 sec
+[22:24:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 154.7 sec
+[22:25:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 77.5 sec
+[22:27:13 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[22:27:13 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:27:13 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540236433120	Duration: 1547817 ms	Simulated time 1500000 ms	Ratio 0.9691068130147169
+[22:27:13 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[22:27:13 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-22 22:27:13] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499995766 ID:4 RPL: DIO option 4, length: 14
+last msg: RPL: DIO option 4, length: 14
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[22:44:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 455.5 sec
+[22:46:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 382.1 sec
+[22:47:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 307.3 sec
+[22:49:20 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 233.6 sec
+[22:50:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 157.0 sec
+[22:52:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 79.0 sec
+[22:53:40 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[22:53:40 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:53:40 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540238020963	Duration: 1584351 ms	Simulated time 1500000 ms	Ratio 0.9467599035819714
+[22:53:41 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-22 22:53:41] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499942366 ID:1 RPL: Sending a multicast-DIO with rank 128
+last msg: RPL: Sending a multicast-DIO with rank 128
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[23:12:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 485.9 sec
+[23:13:57 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 404.0 sec
+[23:15:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 322.1 sec
+[23:16:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 240.7 sec
+[23:17:44 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 159.9 sec
+[23:19:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 79.8 sec
+[23:20:15 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[23:20:15 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:20:15 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540239615069	Duration: 1589654 ms	Simulated time 1500000 ms	Ratio 0.9436015636106977
+[23:20:15 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-22 23:20:15] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499976643 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[23:39:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 378.3 sec
+[23:40:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 302.1 sec
+[23:41:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 226.8 sec
+[23:42:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 151.1 sec
+[23:44:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 75.9 sec
+[23:45:38 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[23:45:38 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:45:38 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540241138666	Duration: 1520168 ms	Simulated time 1500000 ms	Ratio 0.9867330452949937
+[23:45:39 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[23:45:39 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-22 23:45:39] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499996482 ID:4 RPL: DIO Timer interval doubled 13
+last msg: RPL: DIO Timer interval doubled 13
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[00:04:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 480.6 sec
+[00:05:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 400.0 sec
+[00:07:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 319.4 sec
+[00:08:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 239.5 sec
+[00:09:33 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 159.0 sec
+[00:10:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 79.4 sec
+[00:12:05 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[00:12:05 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:12:05 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540242725079	Duration: 1582283 ms	Simulated time 1500000 ms	Ratio 0.9479972925197325
+[00:12:05 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 00:12:05] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499966512 ID:7 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[00:30:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 462.6 sec
+[00:31:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 385.9 sec
+[00:32:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 308.2 sec
+[00:33:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 231.2 sec
+[00:35:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 154.1 sec
+[00:36:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 77.1 sec
+[00:37:52 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[00:37:52 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:37:52 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540244272262	Duration: 1543539 ms	Simulated time 1500000 ms	Ratio 0.9717927438179405
+[00:37:52 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 00:37:53] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499957212 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[00:56:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 471.3 sec
+[00:57:38 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 394.1 sec
+[00:59:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 316.1 sec
+[01:00:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 237.0 sec
+[01:01:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 158.2 sec
+[01:03:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 79.3 sec
+[01:04:23 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[01:04:23 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:04:23 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540245863547	Duration: 1587230 ms	Simulated time 1500000 ms	Ratio 0.9450426214222262
+[01:04:24 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 01:04:24] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499998555 ID:5 nodes i:0 adr:9 cntr:309 d:1 interv:4
+last msg: nodes i:0 adr:9 cntr:309 d:1 interv:4
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[01:24:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 391.0 sec
+[01:25:20 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 313.3 sec
+[01:26:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 236.2 sec
+[01:28:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 157.6 sec
+[01:29:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 78.9 sec
+[01:30:42 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[01:30:42 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:30:42 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540247442803	Duration: 1575141 ms	Simulated time 1500000 ms	Ratio 0.9522956992421631
+[01:30:43 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[01:30:43 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-23 01:30:43] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499984702 ID:6 RPL: Preferred parent update, rank changed from 591 to 540
+last msg: RPL: Preferred parent update, rank changed from 591 to 540
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[01:49:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 491.4 sec
+[01:51:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 406.4 sec
+[01:52:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 324.7 sec
+[01:53:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 242.1 sec
+[01:54:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 160.7 sec
+[01:56:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 79.9 sec
+[01:57:16 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[01:57:16 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:57:16 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540249036319	Duration: 1589457 ms	Simulated time 1500000 ms	Ratio 0.9437185151910369
+[01:57:16 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 01:57:17] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499946184 ID:4 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[02:14:55 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 452.2 sec
+[02:16:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 376.7 sec
+[02:17:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 300.6 sec
+[02:18:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 225.1 sec
+[02:19:51 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 150.1 sec
+[02:21:03 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 74.9 sec
+[02:22:17 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[02:22:17 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[02:22:17 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540250537131	Duration: 1496948 ms	Simulated time 1500000 ms	Ratio 1.0020388149755368
+[02:22:17 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 02:22:17] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499995214 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[02:40:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 355.3 sec
+[02:41:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 284.0 sec
+[02:42:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 213.1 sec
+[02:43:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.2 sec
+[02:44:51 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.1 sec
+[02:46:02 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[02:46:02 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[02:46:02 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540251962492	Duration: 1421894 ms	Simulated time 1500000 ms	Ratio 1.0549309582852167
+[02:46:02 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[02:46:03 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 02:46:03] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499998950 ID:8 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[03:02:44 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 427.8 sec
+[03:03:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 356.7 sec
+[03:05:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 285.4 sec
+[03:06:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 214.4 sec
+[03:07:31 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.8 sec
+[03:08:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.4 sec
+[03:09:55 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[03:09:56 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[03:09:56 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540253396004	Duration: 1430049 ms	Simulated time 1500000 ms	Ratio 1.0489151071047216
+[03:09:56 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 03:09:56] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499961636 ID:8 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[03:26:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 429.8 sec
+[03:27:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 357.9 sec
+[03:29:03 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 286.0 sec
+[03:30:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 214.0 sec
+[03:31:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.7 sec
+[03:32:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.4 sec
+[03:33:46 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[03:33:46 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[03:33:46 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540254826265	Duration: 1426636 ms	Simulated time 1500000 ms	Ratio 1.0514244698717823
+[03:33:46 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 03:33:47] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499999922 ID:8 RPL: nbr   9   548,   650 =>  1198 --  8    (last tx 22 min ago)
+last msg: RPL: nbr   9   548,   650 =>  1198 --  8    (last tx 22 min ago)
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[03:50:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 426.8 sec
+[03:51:35 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 355.3 sec
+[03:52:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 284.1 sec
+[03:53:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 213.3 sec
+[03:55:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.1 sec
+[03:56:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.0 sec
+[03:57:30 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[03:57:30 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[03:57:30 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540256250062	Duration: 1420278 ms	Simulated time 1500000 ms	Ratio 1.056131264442595
+[03:57:30 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 03:57:30] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499967445 ID:6 RPL: Sending a DAO with sequence number 77, lifetime 10, prefix fd00::c30c:0:0:6 to fe80::c30c:0:0:1 , parent fe80::c30c:0:0:1
+last msg: RPL: Sending a DAO with sequence number 77, lifetime 10, prefix fd00::c30c:0:0:6 to fe80::c30c:0:0:1 , parent fe80::c30c:0:0:1
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[04:14:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 437.5 sec
+[04:15:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 364.0 sec
+[04:16:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 290.3 sec
+[04:18:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 217.6 sec
+[04:19:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 144.8 sec
+[04:20:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.3 sec
+[04:21:38 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[04:21:38 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[04:21:38 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540257698939	Duration: 1445300 ms	Simulated time 1500000 ms	Ratio 1.0378468138102817
+[04:21:39 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 04:21:39] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499997257 ID:5 nodes i:0 adr:4 cntr:119 d:2725 interv:1
+last msg: nodes i:0 adr:4 cntr:119 d:2725 interv:1
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[04:38:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 425.7 sec
+[04:39:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 355.0 sec
+[04:40:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 284.2 sec
+[04:41:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 213.6 sec
+[04:43:03 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.3 sec
+[04:44:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.1 sec
+[04:45:26 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[04:45:26 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[04:45:26 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540259126484	Duration: 1424059 ms	Simulated time 1500000 ms	Ratio 1.053327144451178
+[04:45:26 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 04:45:27] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499912204 ID:6 RPL: rpl_process_parent_event recalculate_ranks
+last msg: RPL: rpl_process_parent_event recalculate_ranks
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[05:02:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 433.8 sec
+[05:03:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 362.5 sec
+[05:04:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 290.8 sec
+[05:06:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 218.2 sec
+[05:07:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 145.4 sec
+[05:08:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.5 sec
+[05:09:38 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[05:09:38 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[05:09:38 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540260578529	Duration: 1448562 ms	Simulated time 1500000 ms	Ratio 1.035509698583837
+[05:09:39 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 05:09:39] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499997118 ID:7 RPL: nbr   6   381,   256 =>   637 --  0    (last tx 24 min ago)
+last msg: RPL: nbr   6   381,   256 =>   637 --  0    (last tx 24 min ago)
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[05:26:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 431.6 sec
+[05:27:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 359.9 sec
+[05:28:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 288.2 sec
+[05:30:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 215.9 sec
+[05:31:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 143.8 sec
+[05:32:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.9 sec
+[05:33:40 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[05:33:40 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[05:33:40 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540262020598	Duration: 1438841 ms	Simulated time 1500000 ms	Ratio 1.0425057389940933
+[05:33:41 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 05:33:41] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499997945 ID:8 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500002217
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[05:50:35 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 433.4 sec
+[05:51:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 361.1 sec
+[05:52:57 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 288.3 sec
+[05:54:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 215.8 sec
+[05:55:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 143.8 sec
+[05:56:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.8 sec
+[05:57:40 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[05:57:40 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[05:57:40 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540263460183	Duration: 1436081 ms	Simulated time 1500002 ms	Ratio 1.044510720495571
+[05:57:40 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 05:57:41] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499999057 ID:7 Going to:ff02::1a
+last msg: Going to:ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[06:14:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 429.6 sec
+[06:15:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 358.0 sec
+[06:16:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 286.6 sec
+[06:18:01 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 214.9 sec
+[06:19:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 143.1 sec
+[06:20:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.6 sec
+[06:21:34 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[06:21:34 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[06:21:34 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540264894955	Duration: 1431192 ms	Simulated time 1500000 ms	Ratio 1.048077406804957
+[06:21:35 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 06:21:35] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499784825 ID:4 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[06:38:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 425.0 sec
+[06:39:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 353.1 sec
+[06:40:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 282.7 sec
+[06:41:38 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 211.7 sec
+[06:42:44 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 140.7 sec
+[06:43:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 70.3 sec
+[06:44:59 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[06:44:59 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[06:44:59 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540266299791	Duration: 1401387 ms	Simulated time 1500000 ms	Ratio 1.0703681424189035
+[06:45:00 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 06:45:00] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499914269 ID:2 RPL: Preferred parent update, rank changed from 489 to 454
+last msg: RPL: Preferred parent update, rank changed from 489 to 454
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[07:01:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 431.5 sec
+[07:03:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 359.6 sec
+[07:04:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 287.6 sec
+[07:05:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 215.5 sec
+[07:06:38 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 143.9 sec
+[07:07:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.1 sec
+[07:09:03 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[07:09:03 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[07:09:03 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540267743574	Duration: 1440271 ms	Simulated time 1500000 ms	Ratio 1.0414706676729588
+[07:09:04 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 07:09:04] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499869804 ID:4 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[07:25:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 427.0 sec
+[07:26:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 356.4 sec
+[07:28:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 285.0 sec
+[07:29:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 213.7 sec
+[07:30:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 142.5 sec
+[07:31:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 71.2 sec
+[07:32:51 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[07:32:51 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[07:32:51 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540269171697	Duration: 1424586 ms	Simulated time 1500000 ms	Ratio 1.0529374849956408
+[07:32:52 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 07:32:52] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499998710 ID:7 Going to:ff02::1a
+last msg: Going to:ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[07:51:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 363.3 sec
+[07:52:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 290.5 sec
+[07:53:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 217.6 sec
+[07:54:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 145.1 sec
+[07:55:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.5 sec
+[07:57:01 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[07:57:01 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[07:57:01 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540270621956	Duration: 1446766 ms	Simulated time 1500000 ms	Ratio 1.036795169363947
+[07:57:02 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[07:57:02 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-23 07:57:02] testwith4fixed3mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed3mals.info) --
+-- TEST OUTPUT (tail testwith4fixed3mals.log) --
+1499998934 ID:5 nodes i:1 adr:2 cntr:304 d:1 interv:9
+last msg: nodes i:1 adr:2 cntr:304 d:1 interv:9
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed3mals.cooja_log) --
+[08:15:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 361.6 sec
+[08:16:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 289.2 sec
+[08:17:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 216.9 sec
+[08:18:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 144.4 sec
+[08:19:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.1 sec
+[08:21:10 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[08:21:10 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[08:21:10 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540272070917	Duration: 1445396 ms	Simulated time 1500000 ms	Ratio 1.0377778823242905
+[08:21:11 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[08:21:11 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-23 08:21:11] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499998619 ID:9 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[08:41:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 411.1 sec
+[08:43:09 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 328.8 sec
+[08:44:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 246.7 sec
+[08:45:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 164.6 sec
+[08:47:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 82.3 sec
+[08:48:41 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[08:48:41 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[08:48:41 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540273721690	Duration: 1647179 ms	Simulated time 1500000 ms	Ratio 0.9106478409450339
+[08:48:42 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[08:48:42 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 08:48:42] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499982960 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[09:10:03 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 426.0 sec
+[09:11:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 340.6 sec
+[09:12:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 255.4 sec
+[09:14:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 169.8 sec
+[09:15:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 84.8 sec
+[09:17:02 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[09:17:02 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[09:17:02 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540275422565	Duration: 1697356 ms	Simulated time 1500000 ms	Ratio 0.8837273971989377
+[09:17:03 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[09:17:03 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-23 09:17:03] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499924722 ID:4 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[09:38:44 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 432.7 sec
+[09:40:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 348.4 sec
+[09:41:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 262.7 sec
+[09:43:33 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 176.4 sec
+[09:45:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 88.7 sec
+[09:46:48 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[09:46:48 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[09:46:48 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540277208798	Duration: 1782697 ms	Simulated time 1500000 ms	Ratio 0.8414217334746174
+[09:46:49 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[09:46:49 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 09:46:49] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499964235 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[10:11:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 501.5 sec
+[10:13:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 400.1 sec
+[10:15:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 298.4 sec
+[10:16:51 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 199.6 sec
+[10:18:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 99.9 sec
+[10:20:08 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[10:20:08 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[10:20:08 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540279208657	Duration: 1994164 ms	Simulated time 1500000 ms	Ratio 0.752194904732008
+[10:20:09 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[10:20:09 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@1e178745
+
+
+[2018-10-23 10:20:09] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499994646 ID:7 RPL: nbr   8   274,   217 =>   491 --  1    (last tx 2 min ago)
+last msg: RPL: nbr   8   274,   217 =>   491 --  1    (last tx 2 min ago)
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[10:42:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 568.2 sec
+[10:43:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 473.8 sec
+[10:45:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 378.1 sec
+[10:46:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 282.9 sec
+[10:48:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 189.3 sec
+[10:50:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 94.7 sec
+[10:51:42 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[10:51:42 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[10:51:42 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540281102977	Duration: 1889705 ms	Simulated time 1500000 ms	Ratio 0.7937746897002442
+[10:51:43 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 10:51:43] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499999139 ID:8 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[11:13:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 557.4 sec
+[11:14:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 462.4 sec
+[11:16:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 369.4 sec
+[11:17:57 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 277.1 sec
+[11:19:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 185.0 sec
+[11:21:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 92.6 sec
+[11:22:34 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[11:22:34 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[11:22:34 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540282954774	Duration: 1847756 ms	Simulated time 1500000 ms	Ratio 0.8117954968080201
+[11:22:35 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 11:22:35] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499936477 ID:10 RPL: rpl_process_parent_event recalculate_ranks
+last msg: RPL: rpl_process_parent_event recalculate_ranks
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[11:44:01 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 549.7 sec
+[11:45:30 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 457.1 sec
+[11:46:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 364.6 sec
+[11:48:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 272.7 sec
+[11:49:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 181.3 sec
+[11:51:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 92.4 sec
+[11:53:25 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[11:53:25 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[11:53:25 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540284805624	Duration: 1847061 ms	Simulated time 1500000 ms	Ratio 0.8121009538937805
+[11:53:26 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 11:53:26] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499997127 ID:5 nodes i:0 adr:4 cntr:106 d:2172 interv:0
+last msg: nodes i:0 adr:4 cntr:106 d:2172 interv:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[12:19:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 659.2 sec
+[12:20:48 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 546.3 sec
+[12:22:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 434.2 sec
+[12:24:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 324.2 sec
+[12:25:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 214.6 sec
+[12:27:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 106.5 sec
+[12:28:51 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[12:28:51 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[12:28:51 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540286931487	Duration: 2121834 ms	Simulated time 1500000 ms	Ratio 0.7069356038219766
+[12:28:51 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 12:28:52] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499989628 ID:7 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500004141
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[12:52:30 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 606.3 sec
+[12:54:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 503.1 sec
+[12:55:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 401.9 sec
+[12:57:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 300.6 sec
+[12:59:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 201.0 sec
+[13:01:01 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 101.3 sec
+[13:02:52 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[13:02:52 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[13:02:52 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540288972440	Duration: 2036943 ms	Simulated time 1500004 ms	Ratio 0.7363995948831165
+[13:02:52 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 13:02:53] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499938234 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500002239
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[13:27:03 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 619.5 sec
+[13:28:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 512.2 sec
+[13:30:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 408.3 sec
+[13:31:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 305.1 sec
+[13:33:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 202.9 sec
+[13:34:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 101.0 sec
+[13:36:32 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[13:36:32 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[13:36:32 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540290992389	Duration: 2014834 ms	Simulated time 1500002 ms	Ratio 0.7444791977899916
+[13:36:32 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 13:36:33] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499997779 ID:1 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[13:58:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 441.4 sec
+[14:00:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 353.6 sec
+[14:01:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 265.6 sec
+[14:03:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 177.3 sec
+[14:04:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 88.8 sec
+[14:06:10 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[14:06:10 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[14:06:10 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540292770900	Duration: 1774191 ms	Simulated time 1500000 ms	Ratio 0.845455759836455
+[14:06:11 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[14:06:11 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 14:06:11] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499942324 ID:10 RPL: Sending a multicast-DIO with rank 520
+last msg: RPL: Sending a multicast-DIO with rank 520
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[14:27:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 432.1 sec
+[14:29:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 345.2 sec
+[14:30:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 259.0 sec
+[14:32:09 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 172.8 sec
+[14:33:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 86.5 sec
+[14:35:01 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[14:35:01 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[14:35:01 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540294501123	Duration: 1726450 ms	Simulated time 1500000 ms	Ratio 0.8688348924092791
+[14:35:01 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[14:35:01 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-23 14:35:01] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499998871 ID:7 Going to:ff02::1a
+last msg: Going to:ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[14:58:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 473.0 sec
+[15:00:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 377.5 sec
+[15:01:44 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 282.2 sec
+[15:03:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 188.9 sec
+[15:05:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 94.9 sec
+[15:06:39 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[15:06:39 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[15:06:39 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540296399310	Duration: 1894436 ms	Simulated time 1500000 ms	Ratio 0.7917923857021298
+[15:06:39 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[15:06:39 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-23 15:06:40] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499994966 ID:7 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[15:28:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 440.2 sec
+[15:30:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 352.0 sec
+[15:31:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 264.2 sec
+[15:33:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 176.6 sec
+[15:34:48 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 88.7 sec
+[15:36:17 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[15:36:17 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[15:36:17 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540298177845	Duration: 1774572 ms	Simulated time 1500000 ms	Ratio 0.8452742407746769
+[15:36:18 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[15:36:18 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 15:36:18] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499925778 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[15:58:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 443.5 sec
+[16:00:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 355.1 sec
+[16:01:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 266.7 sec
+[16:03:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 179.0 sec
+[16:04:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 89.4 sec
+[16:06:09 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[16:06:09 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[16:06:09 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540299969659	Duration: 1787986 ms	Simulated time 1500000 ms	Ratio 0.8389327433212564
+[16:06:10 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[16:06:10 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 16:06:10] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499999094 ID:9 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[16:27:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 433.8 sec
+[16:29:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 347.9 sec
+[16:30:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 261.4 sec
+[16:32:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 174.3 sec
+[16:33:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 87.6 sec
+[16:35:24 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[16:35:24 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[16:35:24 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540301724799	Duration: 1751594 ms	Simulated time 1500000 ms	Ratio 0.8563628329395967
+[16:35:25 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[16:35:25 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-23 16:35:25] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499997786 ID:5 nodes i:3 adr:9 cntr:76 d:2185 interv:1
+last msg: nodes i:3 adr:9 cntr:76 d:2185 interv:1
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[16:58:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 595.5 sec
+[17:00:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 492.1 sec
+[17:01:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 392.8 sec
+[17:03:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 293.7 sec
+[17:04:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 196.7 sec
+[17:06:55 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 99.3 sec
+[17:09:02 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[17:09:02 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[17:09:02 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540303742943	Duration: 2014593 ms	Simulated time 1500000 ms	Ratio 0.744567264951283
+[17:09:03 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 17:09:03] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499998473 ID:8 RPL: DIO Timer interval doubled 13
+last msg: RPL: DIO Timer interval doubled 13
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500011352
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[17:34:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 643.7 sec
+[17:35:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 529.3 sec
+[17:37:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 418.4 sec
+[17:38:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 310.7 sec
+[17:39:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 205.1 sec
+[17:41:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 101.7 sec
+[17:42:47 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[17:42:47 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[17:42:47 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540305767134	Duration: 2018658 ms	Simulated time 1500011 ms	Ratio 0.7430733685448452
+[17:42:47 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 17:42:48] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499893619 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[18:02:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 514.3 sec
+[18:04:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 428.2 sec
+[18:05:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 342.7 sec
+[18:07:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 257.1 sec
+[18:08:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 171.5 sec
+[18:10:01 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 85.8 sec
+[18:11:26 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[18:11:26 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[18:11:26 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540307486050	Duration: 1715119 ms	Simulated time 1500000 ms	Ratio 0.8745748837252693
+[18:11:26 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 18:11:26] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499982554 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[18:32:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 536.6 sec
+[18:33:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 449.9 sec
+[18:35:31 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 360.3 sec
+[18:36:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 269.8 sec
+[18:38:24 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 179.5 sec
+[18:39:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 89.5 sec
+[18:41:15 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[18:41:15 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[18:41:15 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540309275731	Duration: 1785997 ms	Simulated time 1500000 ms	Ratio 0.839867032251454
+[18:41:16 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 18:41:16] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499985278 ID:8 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[19:08:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 535.1 sec
+[19:10:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 430.6 sec
+[19:12:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 324.8 sec
+[19:13:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 216.5 sec
+[19:15:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 108.4 sec
+[19:17:23 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[19:17:23 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[19:17:23 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540311443856	Duration: 2163438 ms	Simulated time 1500000 ms	Ratio 0.6933408768820738
+[19:17:24 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[19:17:24 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-23 19:17:24] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499998880 ID:8 RPL: nbr   7   294,   190 =>   484 --  1    (last tx 15 min ago)
+last msg: RPL: nbr   7   294,   190 =>   484 --  1    (last tx 15 min ago)
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[19:41:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 611.8 sec
+[19:42:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 503.9 sec
+[19:44:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 398.4 sec
+[19:45:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 296.1 sec
+[19:46:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 196.2 sec
+[19:48:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.4 sec
+[19:49:47 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[19:49:47 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[19:49:47 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540313387929	Duration: 1939150 ms	Simulated time 1500000 ms	Ratio 0.7735347961735812
+[19:49:48 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 19:49:48] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499997957 ID:8 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[20:14:12 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 486.7 sec
+[20:15:55 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 390.9 sec
+[20:17:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 293.1 sec
+[20:19:09 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 195.2 sec
+[20:20:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.6 sec
+[20:22:26 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[20:22:26 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[20:22:26 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540315346680	Duration: 1954606 ms	Simulated time 1500000 ms	Ratio 0.7674180883513096
+[20:22:27 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[20:22:27 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-23 20:22:27] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499996425 ID:5 nodes i:0 adr:6 cntr:283 d:1 interv:10
+last msg: nodes i:0 adr:6 cntr:283 d:1 interv:10
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[20:47:20 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 638.3 sec
+[20:48:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 524.7 sec
+[20:50:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 415.6 sec
+[20:51:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 308.7 sec
+[20:53:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 203.8 sec
+[20:54:31 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 101.1 sec
+[20:55:59 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[20:55:59 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[20:55:59 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540317359203	Duration: 2008112 ms	Simulated time 1500000 ms	Ratio 0.7469702885098042
+[20:55:59 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 20:56:00] testwith4fixed4mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed4mals.info) --
+-- TEST OUTPUT (tail testwith4fixed4mals.log) --
+1499932803 ID:4 RPL: end of list
+last msg: RPL: end of list
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed4mals.cooja_log) --
+[21:22:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 677.2 sec
+[21:23:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 556.2 sec
+[21:25:19 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 439.1 sec
+[21:26:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 324.4 sec
+[21:28:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 213.6 sec
+[21:29:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 105.7 sec
+[21:30:58 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[21:30:58 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[21:30:58 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540319458435	Duration: 2094892 ms	Simulated time 1500000 ms	Ratio 0.7160273656112105
+[21:30:58 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 21:30:59] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499923976 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[21:53:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 585.0 sec
+[21:55:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 488.2 sec
+[21:57:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 390.5 sec
+[21:58:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 292.5 sec
+[22:00:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 195.0 sec
+[22:01:55 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.5 sec
+[22:03:33 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[22:03:33 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:03:33 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540321413298	Duration: 1950446 ms	Simulated time 1500000 ms	Ratio 0.7690548725778616
+[22:03:33 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 22:03:34] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499999259 ID:5 nodes i:4 adr:8 cntr:82 d:1864 interv:0
+last msg: nodes i:4 adr:8 cntr:82 d:1864 interv:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[22:26:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 579.2 sec
+[22:27:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 483.3 sec
+[22:29:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.1 sec
+[22:31:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.7 sec
+[22:32:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.9 sec
+[22:34:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.1 sec
+[22:35:57 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[22:35:57 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:35:57 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540323357337	Duration: 1939858 ms	Simulated time 1500000 ms	Ratio 0.773252475181173
+[22:35:57 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-23 22:35:58] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499998416 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[23:00:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 499.4 sec
+[23:02:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 399.1 sec
+[23:04:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 299.6 sec
+[23:05:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 199.7 sec
+[23:07:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 99.8 sec
+[23:09:16 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[23:09:16 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:09:16 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540325356659	Duration: 1995433 ms	Simulated time 1500000 ms	Ratio 0.7517165447298907
+[23:09:17 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[23:09:17 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@75db5df9
+
+
+[2018-10-23 23:09:17] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499997971 ID:3 RPL: Received consistent DIO
+last msg: RPL: Received consistent DIO
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[23:33:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 489.6 sec
+[23:35:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 391.2 sec
+[23:37:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 293.5 sec
+[23:38:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 196.0 sec
+[23:40:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.9 sec
+[23:42:02 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[23:42:02 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:42:02 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540327322084	Duration: 1960904 ms	Simulated time 1500000 ms	Ratio 0.7649533072501254
+[23:42:02 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[23:42:02 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-23 23:42:02] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499998729 ID:5 nodes i:0 adr:2 cntr:254 d:1 interv:4
+last msg: nodes i:0 adr:2 cntr:254 d:1 interv:4
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[00:06:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 484.1 sec
+[00:07:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 386.8 sec
+[00:09:29 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.0 sec
+[00:11:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.6 sec
+[00:12:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 96.9 sec
+[00:14:23 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[00:14:23 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:14:23 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540329263108	Duration: 1936784 ms	Simulated time 1500000 ms	Ratio 0.7744797561318144
+[00:14:23 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[00:14:23 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-24 00:14:23] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499999697 ID:5 nodes i:4 adr:9 cntr:77 d:1768 interv:0
+last msg: nodes i:4 adr:9 cntr:77 d:1768 interv:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[00:38:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 484.3 sec
+[00:40:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.6 sec
+[00:41:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.7 sec
+[00:43:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.5 sec
+[00:45:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 96.8 sec
+[00:46:43 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[00:46:43 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:46:43 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540331203974	Duration: 1936886 ms	Simulated time 1500000 ms	Ratio 0.7744389705950686
+[00:46:44 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[00:46:44 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-24 00:46:44] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499997734 ID:7 RPL: Sending a DIS to ff02::1a
+last msg: RPL: Sending a DIS to ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[01:09:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 582.1 sec
+[01:11:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 485.0 sec
+[01:12:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.9 sec
+[01:14:17 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 291.1 sec
+[01:15:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 194.1 sec
+[01:17:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.1 sec
+[01:19:11 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[01:19:11 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:19:11 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540333151506	Duration: 1943761 ms	Simulated time 1500000 ms	Ratio 0.7716998128885187
+[01:19:12 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-24 01:19:12] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499998048 ID:4 Going to:ff02::1a
+last msg: Going to:ff02::1a
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[01:43:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 487.9 sec
+[01:45:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 390.1 sec
+[01:46:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 292.7 sec
+[01:48:30 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 195.0 sec
+[01:50:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.5 sec
+[01:51:45 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[01:51:45 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:51:45 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540335105356	Duration: 1949981 ms	Simulated time 1500000 ms	Ratio 0.7692382643728324
+[01:51:45 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[01:51:45 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-24 01:51:46] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499990104 ID:10 RPL: Copying prefix information
+last msg: RPL: Copying prefix information
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[02:15:30 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 473.7 sec
+[02:17:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 378.4 sec
+[02:18:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 283.9 sec
+[02:20:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 189.2 sec
+[02:21:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 94.6 sec
+[02:23:20 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[02:23:20 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[02:23:20 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540337000846	Duration: 1891719 ms	Simulated time 1500000 ms	Ratio 0.792929605295501
+[02:23:21 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[02:23:21 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8
+
+
+[2018-10-24 02:23:21] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499979234 ID:7 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[02:45:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 580.5 sec
+[02:47:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 484.0 sec
+[02:49:13 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.2 sec
+[02:50:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.4 sec
+[02:52:25 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.5 sec
+[02:54:01 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 96.7 sec
+[02:55:40 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[02:55:40 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[02:55:40 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540338940720	Duration: 1936164 ms	Simulated time 1500000 ms	Ratio 0.7747277606649023
+[02:55:41 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-24 02:55:41] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499971412 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[03:20:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 488.1 sec
+[03:21:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 390.6 sec
+[03:23:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 292.4 sec
+[03:24:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 194.9 sec
+[03:26:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.4 sec
+[03:28:11 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[03:28:11 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[03:28:11 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540340891637	Duration: 1947265 ms	Simulated time 1500000 ms	Ratio 0.7703111800396967
+[03:28:12 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[03:28:12 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@45b4c3a9
+
+
+[2018-10-24 03:28:12] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499968233 ID:7 RPL: Multicast DIS => reset DIO timer
+last msg: RPL: Multicast DIS => reset DIO timer
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[03:50:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 582.1 sec
+[03:52:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 485.7 sec
+[03:54:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.9 sec
+[03:55:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.8 sec
+[03:57:20 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.9 sec
+[03:58:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 97.0 sec
+[04:00:36 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[04:00:36 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[04:00:36 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540342836284	Duration: 1941000 ms	Simulated time 1500000 ms	Ratio 0.7727975270479135
+[04:00:36 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-24 04:00:37] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499915616 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[04:24:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 484.4 sec
+[04:26:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 387.2 sec
+[04:28:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 290.4 sec
+[04:29:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 193.3 sec
+[04:31:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 96.6 sec
+[04:32:48 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[04:32:48 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[04:32:48 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540344768713	Duration: 1928749 ms	Simulated time 1500000 ms	Ratio 0.7777061712021627
+[04:32:49 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[04:32:49 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@7ee8290b
+
+
+[2018-10-24 04:32:49] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+1499951571 ID:5 type:155,code:0
+last msg: type:155,code:0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1500000000
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[04:55:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 575.1 sec
+[04:56:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 479.5 sec
+[04:58:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 382.8 sec
+[04:59:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 287.1 sec
+[05:01:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 191.3 sec
+[05:03:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 95.7 sec
+[05:04:48 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[05:04:48 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[05:04:48 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540346688992	Duration: 1916568 ms	Simulated time 1500000 ms	Ratio 0.7826489850607962
+[05:04:49 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2018-10-24 05:04:49] testwith4fixed5mals: FAIL
+-- NO TEST INFO AVAILABLE (testwith4fixed5mals.info) --
+-- TEST OUTPUT (tail testwith4fixed5mals.log) --
+501060033 ID:5 nodes i:3 adr:9 cntr:23 d:685 interv:0
+501061304 ID:5 type:155,code:0
+501066944 ID:4 RPL: DIO Timer triggered
+501069499 ID:4 RPL: DIO Timer interval doubled 13
+501074166 ID:4 RPL: Scheduling DIO timer 638 ticks in future (Interval)
+-- COOJA OUTPUT (tail testwith4fixed5mals.cooja_log) --
+[05:04:52 - main] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[05:04:52 - main] [LogScriptEngine.java:265] [INFO] - Script timeout in 1500000 ms
+[05:04:52 - main] [ScriptRunner.java:387] [INFO] - Test script activated
+[05:04:52 - Thread-2] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1540346692743
+[05:06:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 1818.7 sec
+[05:08:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 1750.8 sec
+[05:09:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 1662.8 sec
+[09:19:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 61049.2 sec
+[09:20:55 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 46088.8 sec
+[09:22:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 36084.4 sec
+
+
+[2018-10-24 09:23:44] testwith4fixed5mals: 

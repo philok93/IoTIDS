@@ -90,7 +90,7 @@ ifeq ($(CONTIKI_WITH_IPV6),1)
   ifneq ($(CONTIKI_WITH_RPL),0)
   	CONTIKI_WITH_RPL = 1
   endif
-  MODULES += core/net/ipv6-mal core/net/ip
+  MODULES += core/net/ipv6 core/net/ip
 endif
 
 ifeq ($(CONTIKI_WITH_RPL),1)
@@ -102,8 +102,8 @@ endif
 
 CONTIKI_SOURCEFILES += $(CONTIKIFILES)
 
-CONTIKIDIRS += ${addprefix $(CONTIKI)/core/,dev lib net net/llsec net/mac-mal net/rime \
-                 net/rpl-mal sys cfs ctk lib/ctk loader . }
+CONTIKIDIRS += ${addprefix $(CONTIKI)/core/,dev lib net net/llsec net/mac net/rime \
+                 net/rpl sys cfs ctk lib/ctk loader . }
 
 oname = ${patsubst %.c,%.o,${patsubst %.S,%.o,$(1)}}
 

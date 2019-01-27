@@ -67,7 +67,7 @@
    used. */
 #define SICSLOWPAN_CONF_COMPRESSION_THRESHOLD 63
 
-#define CC2420_CONF_AUTOACK                   0
+#define CC2420_CONF_AUTOACK                   1
 #define NETSTACK_RDC_CHANNEL_CHECK_RATE       8
 #define RIME_CONF_NO_POLITE_ANNOUCEMENTS      0
 #define CXMAC_CONF_ANNOUNCEMENTS              0

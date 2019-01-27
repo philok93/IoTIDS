@@ -1,0 +1,45 @@
+[07:57:03 - main] [Cooja.java:1315] [INFO] - > Starting Cooja
+[07:57:03 - main] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
+[07:57:03 - main] [Cooja.java:2886] [INFO] - External tools user settings: /home/phil/.cooja.user.properties
+[07:57:03 - main] [Simulation.java:422] [INFO] - Simulation random seed: 1197168400587021584
+[07:57:03 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-server.z1
+[07:57:03 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/malic/udp-client-mal.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client-ids.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/malic/udp-client-mal.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/malic/udp-client-mal.z1
+[07:57:04 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-udp/normal/udp-client.z1
+[07:57:04 - main] [Cooja.java:1781] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+[07:57:04 - main] [Cooja.java:1781] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.Visualizer
+[07:57:04 - main] [Cooja.java:1781] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.LogListener
+[07:57:04 - main] [Cooja.java:1781] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.Notes
+[07:57:05 - main] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[07:57:05 - main] [LogScriptEngine.java:265] [INFO] - Script timeout in 1500000 ms
+[07:57:05 - main] [ScriptRunner.java:387] [INFO] - Test script activated
+[07:57:05 - Thread-2] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1540270625521
+[07:58:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 1347.6 sec
+[07:59:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 1278.8 sec
+[08:00:40 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 1219.8 sec
+[08:01:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 1154.1 sec
+[08:03:07 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 1086.0 sec
+[08:04:20 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 1015.2 sec
+[08:05:33 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 944.0 sec
+[08:06:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 872.2 sec
+[08:08:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 800.7 sec
+[08:09:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 725.6 sec
+[08:10:23 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 652.7 sec
+[08:11:35 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 579.7 sec
+[08:12:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 505.3 sec
+[08:13:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 434.3 sec
+[08:15:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 361.6 sec
+[08:16:22 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 289.2 sec
+[08:17:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 216.9 sec
+[08:18:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 144.4 sec
+[08:19:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 72.1 sec
+[08:21:10 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1500000000
+[08:21:10 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[08:21:10 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1540272070917	Duration: 1445396 ms	Simulated time 1500000 ms	Ratio 1.0377778823242905
+[08:21:11 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[08:21:11 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@4c39bec8

@@ -1,0 +1,14 @@
+[23:59:15 - main] [Cooja.java:1315] [INFO] - > Starting Cooja
+[23:59:15 - main] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
+[23:59:15 - main] [Cooja.java:2886] [INFO] - External tools user settings: /home/phil/.cooja.user.properties
+[23:59:15 - main] [Cooja.java:1337] [FATAL] - Exception when loading simulation: 
+org.contikios.cooja.Cooja$SimulationCreationException: Load simulation error
+	at org.contikios.cooja.Cooja.loadSimulationConfig(Cooja.java:3365)
+	at org.contikios.cooja.Cooja.quickStartSimulationConfig(Cooja.java:1330)
+	at org.contikios.cooja.Cooja.main(Cooja.java:3239)
+Caused by: java.io.FileNotFoundException: testNwithout_2norm_cmd.csc.csc (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at org.contikios.cooja.Cooja.loadSimulationConfig(Cooja.java:3353)
+	... 2 more

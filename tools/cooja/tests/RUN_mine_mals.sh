@@ -41,32 +41,32 @@ TEST6=testwith4fixed6mals
 
 
 # Run tests
-for COUNTER in `seq 1 $REPEATS`;
-do
-  echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST11-$COUNTER.log <<<<<<<<"
-  bash RUN_TEST.sh $TEST11 RUN_REPEATED_LAST.log
-  mv $TEST11.log $TEST11-1$COUNTER.log
-done
+#for COUNTER in `seq 24 $REPEATS`;
+#do
+ # echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST11-$COUNTER.log <<<<<<<<"
+  #bash RUN_TEST.sh $TEST11 RUN_REPEATED_LAST.log
+  #mv $TEST11.log $TEST11-$COUNTER.log
+#done
 
-for COUNTER in `seq 1 $REPEATS`;
+for COUNTER in `seq 24 $REPEATS`;
 do
   echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST2-$COUNTER.log <<<<<<<<"
   bash RUN_TEST.sh $TEST2 RUN_REPEATED_LAST.log
-  mv $TEST2.log $TEST2-1$COUNTER.log
+  mv $TEST2.log $TEST2-$COUNTER.log
 done
 
 for COUNTER in `seq 1 $REPEATS`;
 do
   echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST2-$COUNTER.log <<<<<<<<"
   bash RUN_TEST.sh $TEST3 RUN_REPEATED_LAST.log
-  mv $TEST3.log $TEST3-1$COUNTER.log
+  mv $TEST3.log $TEST3-$COUNTER.log
 done
 
 for COUNTER in `seq 1 $REPEATS`;
 do
   echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST2-$COUNTER.log <<<<<<<<"
   bash RUN_TEST.sh $TEST4 RUN_REPEATED_LAST.log
-  mv $TEST4.log $TEST4-1$COUNTER.log
+  mv $TEST4.log $TEST4-$COUNTER.log
 done
 
 
@@ -74,14 +74,14 @@ for COUNTER in `seq 1 $REPEATS`;
 do
   echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST2-$COUNTER.log <<<<<<<<"
   bash RUN_TEST.sh $TEST5 RUN_REPEATED_LAST.log
-  mv $TEST5.log $TEST5-1$COUNTER.log
+  mv $TEST5.log $TEST5-$COUNTER.log
 done
 
 for COUNTER in `seq 1 $REPEATS`;
 do
   echo ">>>>>>> Test $COUNTER/$REPEATS: $TEST2-$COUNTER.log <<<<<<<<"
   bash RUN_TEST.sh $TEST6 RUN_REPEATED_LAST.log
-  mv $TEST6.log $TEST6-1$COUNTER.log
+  mv $TEST6.log $TEST6-$COUNTER.log
 done
 
 
