@@ -1,12 +1,12 @@
 # IoTIDS
-A new IDS for IoT. See below for configurations.
+A new IDS for IoT that uses Contiki 3.0.
 
 My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**. 
-ICTF - Configured for for ICTF paper under **/ipv6/rpl-collect**, 
+ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**, 
 
 ***To use IDS, replace the normal /net/ with /net-for_IDS/ . The /net-for_IDS contains modifications in rpl, ipv6 and mac to enable IDS modules communication with ids_input messages, and sniff messages.***
 
-To disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply. 
+To disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply). 
 
 #Instructions:#
 1. Replace in core/net-for_IDS to core/net so that you can compile the files for IDS.
@@ -26,12 +26,12 @@ Read below for checks of normal sensor
 	1. MAKEFILE.include: the /rpl and /ipv6 must be without -mal.
 	2. FOR **SENSOR rpl-udp/project-conf.h to compile contikimac_driver(sleep. ,csma_driver**
 	FOR SERVER USE nullmac, nullrdc
-	3. platform/z1/Makefile.z1: Must be net/mac (to make sure that is the normal nullrdc file. 
-	4. platform/z1/contiki-conf.h:check CC2420_CONF_AUTOACK=1 (for server turn off autoack. 
+	3. platform/z1/Makefile.z1: Must be net/mac (to make sure that is the normal nullrdc file) 
+	4. platform/z1/contiki-conf.h:check CC2420_CONF_AUTOACK=1 (for server turn off autoack.)
 	5. rpl-mal/rpl-timers.c: find malicious code "DIS flood", and comment it
 	6. rpl-mal/rpl-icmp6.c: comment code for IDS or ip/uip6.c
 	7.  Normal nullrdc is used, not /net/mac-mal/nullrdc.c
-	8.  net/uip6.c: comment countOutNodes (its for counting nodes in range for IDS detector. 
+	8.  net/uip6.c: comment countOutNodes (it's for counting nodes in range for IDS detector)
 	9.  COMMENT in rpl-udp/udp-server.h:
 	 struct IDS_ctr{
 	  uint8_t address;
@@ -54,7 +54,7 @@ Read below for checks of normal sensor
 #Checklist when compiling malicious SENSOR:#
 	
 	1. MAKEFILE.include uncheck ipv6-mal but check rpl-mal ONLY.
-	2. rpl-udp/project-conf.h to compile nullrdc(no sleep. , csma_driver (verified works. 
+	2. rpl-udp/project-conf.h to compile nullrdc(no sleep) , csma_driver (verified works). 
 	3. platform/z1/Makefile.z1: NO net/mac-mal, use net/mac
 	4. platform/z1/contiki-conf.h: check CC2420_CONF_AUTOACK=1
 	5. rpl-mal/rpl-icmp6.c: check for malicious code "DIS flood", and uncomment it. Comment code for IDS.
@@ -75,7 +75,7 @@ Read below for checks of normal sensor
 	9.  Uncomment IDS server variables in rpl-icmp6.
 	10.  Uncomment rpl-private.h in udp-server.c
 
-General Problems: 
+##General Problems:## 
 1. Not all DIS messages are detected from IDS. 
 2. UDP packets not detected!
 3. DIS attack can be multicast (now works like this.  or unicast to all neighbours.
