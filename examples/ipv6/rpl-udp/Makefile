@@ -1,8 +1,9 @@
-all: udp-client-ids udp-server
+all: udp-client-ids2 udp-server
 CONTIKI=../../..
 
-CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
-
+CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\" -ffunction-sections
+LDFLAGS += -Wl,--gc-sections,--undefined=_reset_vector__,--undefined=InterruptVectors,--undefined=_copy_data_init__,--undefined=_clear_bss_init__,--undefined=_end_of_init__
+ 
 ifdef WITH_COMPOWER
 APPS+=powertrace
 CFLAGS+= -DCONTIKIMAC_CONF_COMPOWER=1 -DWITH_COMPOWER=1 -DQUEUEBUF_CONF_NUM=4

@@ -59,6 +59,8 @@
 #define SEND_INTERVAL		(PERIOD * CLOCK_SECOND)
 #define SEND_TIME		(random_rand() % (SEND_INTERVAL))
 #define MAX_PAYLOAD_LEN		30
+#define RPL_CONF_DIS_START_DELAY  240
+#define RPL_CONF_DIS_INTERVAL  120
 
 static struct uip_udp_conn *client_conn;
 static uip_ipaddr_t server_ipaddr;
@@ -178,13 +180,15 @@ PROCESS_THREAD(udp_client_process, ev, data)
   static int print = 0;
 #endif
 
+static struct etimer et;
+
   PROCESS_BEGIN();
 
   PROCESS_PAUSE();
 
   set_global_address();
 
-  PRINTF("UDP client process started nbr:%d routes:%d\n",
+  PRINTF("UDP client MAL process started nbr:%d routes:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES);
 
   print_local_addresses();
@@ -207,7 +211,13 @@ PROCESS_THREAD(udp_client_process, ev, data)
 #endif
 
   etimer_set(&periodic, SEND_INTERVAL);
+  //NETSTACK_MAC.off(0);
+ // etimer_set(&et, CLOCK_SECOND*15);
+  int tu=0;
+
   while(1) {
+    
+
     PROCESS_YIELD();
     if(ev == tcpip_event) {
       tcpip_handler();
