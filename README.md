@@ -1,15 +1,13 @@
 # IoTIDS #
 A new IDS for IoT that uses Contiki 3.0.
-
-My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**). 
-
-ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**, use the ready z1 files udp-client and udp-server.
-
 **To use IDS, replace the normal /net/ with /net-for_IDS/**
+
+My current IDS- Uses ids server and ids detector (under **/ipv6/rpl-udp**). 
+
+ICTF directory- Configured for ICTF paper under **/ipv6/rpl-collect**, use the ready z1 files udp-client and udp-server.
 
 The **/net-for_IDS** contains modifications in **rpl, ipv6 and mac** to enable IDS modules communication with ids_input messages, and sniff messages.
 
-Disable ACKs from server: go to /platform/z1 and set conf_autoack 1 or 0 (1 to reply). 
 
 # Instructions: #
 1. Replace in core/net-for_IDS to core/net so that you can compile the files for IDS.
@@ -21,7 +19,7 @@ Then run the simulation.
  
 
 ## Checklist for IDS detector: ##
-udp-client-ids2.z1: uncomment checkIDS function in rpl/rpl-icmp6
+Use udp-client-ids2.z1 or uncomment checkIDS function in rpl/rpl-icmp6 to compile ids detector.
 Read below for checks of normal sensor
 
 ## Checklist when compiling normal (no malicious) sensor: ##
@@ -54,7 +52,7 @@ Read below for checks of normal sensor
 
 	The above are ONLY for ids-server when compiling.
 
-## Checklist when compiling malicious sensor: ##
+## Checklist when compiling Malicious sensor: ##
 	
 	1. MAKEFILE.include uncheck ipv6-mal but check rpl-mal ONLY.
 	2. rpl-udp/project-conf.h to compile nullrdc(no sleep) , csma_driver (verified works). 
@@ -70,13 +68,14 @@ Read below for checks of normal sensor
 	
 	1. MAKEFILE.include remove ipv6-mal and other -mal folders from compiling.
 	2. rpl-udp/project-conf.h to compile nullmac,nullrdc
-	4. platform/z1/contiki-conf.h:check CC2420_CONF_AUTOACK=0
+	4. platform/z1/contiki-conf.h:check CC2420_CONF_AUTOACK=0 (set 1 to have ACK/replies if want). 
 	5. rpl/rpl-timers.c: check for malicious code "DIS flood",comment it
 	6. rpl-icmp6.c: comment code for IDS, uip6 code for IDS
 	7.  net/mac-mal/nullrdc.c uses
 	8.  check for normal RPL_DIS_INTERVAL and RPL_DIS_DELAY in rpl-conf.h
 	9.  Uncomment IDS server variables in rpl-icmp6.
 	10.  Uncomment rpl-private.h in udp-server.c
+
 
 ## General Problems: ## 
 1. Not all DIS messages are detected from IDS. 
