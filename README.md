@@ -1,4 +1,4 @@
-# IoTIDS
+# IoTIDS #
 A new IDS for IoT that uses Contiki 3.0.
 
 My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**. 
@@ -8,7 +8,7 @@ ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**,
 
 To disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply). 
 
-#Instructions:#
+# Instructions: #
 1. Replace in core/net-for_IDS to core/net so that you can compile the files for IDS.
 2. You see 3 rpl folders in core/net-for_IDS. The rpl is the original, rpl-mal is for IDS detector (or udp-client-ids2.z1) and rpl-mal-server for udp-server-ids.z1. So you need to rename and compile each time the proper rpl folder because they contain changes that needed.
 3. See below for extra changes oyu have to make in order to properly compile the IDS detector and server.
@@ -17,11 +17,11 @@ Also loads "udp-client-mal.z1" from /malic/ (it is the malicious node). Then loa
 Then run the simulation.
  
 
-#Checklist for IDS detector:#
+# Checklist for IDS detector: #
 udp-client-ids2.z1: uncomment checkIDS function in rpl/rpl-icmp6
 Read below for checks of normal sensor
 
-#Checklist when compiling normal (no malicious.  SENSOR:#
+# Checklist when compiling normal (no malicious) SENSOR:# 
 
 	1. MAKEFILE.include: the /rpl and /ipv6 must be without -mal.
 	2. FOR **SENSOR rpl-udp/project-conf.h to compile contikimac_driver(sleep. ,csma_driver**
@@ -51,7 +51,7 @@ Read below for checks of normal sensor
 
 	The above are ONLY for ids-server when compiling.
 
-#Checklist when compiling malicious SENSOR:#
+# Checklist when compiling malicious SENSOR: #
 	
 	1. MAKEFILE.include uncheck ipv6-mal but check rpl-mal ONLY.
 	2. rpl-udp/project-conf.h to compile nullrdc(no sleep) , csma_driver (verified works). 
@@ -63,7 +63,7 @@ Read below for checks of normal sensor
 	USE RPL normal for malicious node, just uncomment IDS code in rpl-timers.
 
 
-#CHECKLIST FOR IDS SERVER SENSOR:#
+# Checklist FOR IDS SERVER SENSOR: #
 	
 	1. MAKEFILE.include remove ipv6-mal and other -mal folders from compiling.
 	2. rpl-udp/project-conf.h to compile nullmac,nullrdc
@@ -75,7 +75,7 @@ Read below for checks of normal sensor
 	9.  Uncomment IDS server variables in rpl-icmp6.
 	10.  Uncomment rpl-private.h in udp-server.c
 
-##General Problems:## 
+## General Problems: ## 
 1. Not all DIS messages are detected from IDS. 
 2. UDP packets not detected!
 3. DIS attack can be multicast (now works like this.  or unicast to all neighbours.
