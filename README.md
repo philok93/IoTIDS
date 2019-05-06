@@ -1,12 +1,12 @@
 # IoTIDS #
 A new IDS for IoT that uses Contiki 3.0.
-**To use IDS, replace the normal /net/ with /net-for_IDS/**
+**To use IDS, replace the directory core/net/  with  files from core/net-for_IDS/**
 
 My current IDS- Uses ids server and ids detector (under **/ipv6/rpl-udp**). 
 
 ICTF directory- Configured for ICTF paper under **/ipv6/rpl-collect**, use the ready z1 files udp-client and udp-server.
 
-The **/net-for_IDS** contains modifications in **rpl, ipv6 and mac** to enable IDS modules communication with ids_input messages, and sniff messages.
+The **/net-for_IDS** contains modifications in folders **rpl, ipv6 and mac** to enable IDS modules communication with ids_input messages, and sniff messages.
 
 
 # Instructions: #
