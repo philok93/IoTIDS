@@ -2,9 +2,11 @@
 A new IDS for IoT that uses Contiki 3.0.
 
 My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**. 
+
 ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**, 
 
-***To use IDS, replace the normal /net/ with /net-for_IDS/ . 
+***To use IDS, replace the normal /net/ with /net-for_IDS/ 
+
 The /net-for_IDS contains modifications in rpl, ipv6 and mac to enable IDS modules communication with ids_input messages, and sniff messages.***
 
 To disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply). 
