@@ -4,7 +4,8 @@ A new IDS for IoT that uses Contiki 3.0.
 My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**. 
 ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**, 
 
-***To use IDS, replace the normal /net/ with /net-for_IDS/ . The /net-for_IDS contains modifications in rpl, ipv6 and mac to enable IDS modules communication with ids_input messages, and sniff messages.***
+***To use IDS, replace the normal /net/ with /net-for_IDS/ . 
+The /net-for_IDS contains modifications in rpl, ipv6 and mac to enable IDS modules communication with ids_input messages, and sniff messages.***
 
 To disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply). 
 
@@ -17,11 +18,11 @@ Also loads "udp-client-mal.z1" from /malic/ (it is the malicious node). Then loa
 Then run the simulation.
  
 
-# Checklist for IDS detector: #
+## Checklist for IDS detector: ##
 udp-client-ids2.z1: uncomment checkIDS function in rpl/rpl-icmp6
 Read below for checks of normal sensor
 
-# Checklist when compiling normal (no malicious) SENSOR:# 
+## Checklist when compiling normal (no malicious) sensor: ##
 
 	1. MAKEFILE.include: the /rpl and /ipv6 must be without -mal.
 	2. FOR **SENSOR rpl-udp/project-conf.h to compile contikimac_driver(sleep. ,csma_driver**
@@ -51,7 +52,7 @@ Read below for checks of normal sensor
 
 	The above are ONLY for ids-server when compiling.
 
-# Checklist when compiling malicious SENSOR: #
+## Checklist when compiling malicious sensor: ##
 	
 	1. MAKEFILE.include uncheck ipv6-mal but check rpl-mal ONLY.
 	2. rpl-udp/project-conf.h to compile nullrdc(no sleep) , csma_driver (verified works). 
@@ -63,7 +64,7 @@ Read below for checks of normal sensor
 	USE RPL normal for malicious node, just uncomment IDS code in rpl-timers.
 
 
-# Checklist FOR IDS SERVER SENSOR: #
+## Checklist for IDS SERVER sensor: ##
 	
 	1. MAKEFILE.include remove ipv6-mal and other -mal folders from compiling.
 	2. rpl-udp/project-conf.h to compile nullmac,nullrdc
