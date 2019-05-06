@@ -5,11 +5,11 @@ My current IDS: Uses ids server and ids detector (under **/ipv6/rpl-udp**).
 
 ICTF - Configured for ICTF paper under **/ipv6/rpl-collect**, use the ready z1 files udp-client and udp-server.
 
-***To use IDS, replace the normal /net/ with /net-for_IDS/ ***
+**To use IDS, replace the normal /net/ with /net-for_IDS/**
 
-**The /net-for_IDS contains modifications in rpl, ipv6 and mac to enable IDS modules communication with ids_input messages, and sniff messages.**
+The **/net-for_IDS** contains modifications in **rpl, ipv6 and mac** to enable IDS modules communication with ids_input messages, and sniff messages.
 
-Disable ACKs from server: go to /platform/z1: set conf_autoack 1 or 0 (1 to reply). 
+Disable ACKs from server: go to /platform/z1 and set conf_autoack 1 or 0 (1 to reply). 
 
 # Instructions: #
 1. Replace in core/net-for_IDS to core/net so that you can compile the files for IDS.
