@@ -57,7 +57,7 @@
 
 #define UDP_EXAMPLE_ID  190
 
-#define DEBUG DEBUG_NONE
+#define DEBUG DEBUG_PRINT
 #include "net/ip/uip-debug.h"
 
 #ifndef PERIOD
@@ -184,7 +184,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   	}
 
 
-  PRINTF("UDP ids client process started nbr:%d routes:%d\n",
+  PRINTF("UDP IDS client process started nbr:%d routes:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES);
 
   print_local_addresses();

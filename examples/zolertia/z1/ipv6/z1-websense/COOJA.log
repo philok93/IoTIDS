@@ -1,0 +1,186 @@
+[23:48:56 - main] [Cooja.java:1315] [INFO] - > Starting Cooja
+[23:48:56 - main] [Cooja.java:2856] [INFO] - External tools default settings: /external_tools_linux_64.config
+[23:48:56 - main] [Cooja.java:2886] [INFO] - External tools user settings: /home/phil/.cooja.user.properties
+[23:48:57 - main] [Simulation.java:422] [INFO] - Simulation random seed: 123456
+[23:48:57 - main] [CompileContiki.java:140] [INFO] - > make border-router.z1 TARGET=z1 
+[23:48:57 - main] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[23:48:57 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-border-router/border-router.z1
+[23:48:58 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:48:59 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:48:59 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:48:59 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:48:59 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:48:59 - main] [Visualizer.java:256] [INFO] - Registered external visualizer: org.contikios.cooja.plugins.skins.DGRMVisualizerSkin
+[23:49:10 - AWT-EventQueue-0] [SerialSocketServer.java:392] [ERROR] - Address already in use (Bind failed)
+[23:49:37 - AWT-EventQueue-0] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[23:49:49 - Thread-1] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[23:49:49 - Thread-2] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[23:49:53 - Thread-3] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559335793721
+[23:49:53 - Thread-3] [Simulation.java:293] [FATAL] - Simulation stopped due to error: null
+java.lang.NullPointerException
+	at org.contikios.cooja.mspmote.interfaces.MspSerial.tryWriteNextByte(MspSerial.java:137)
+	at org.contikios.cooja.mspmote.interfaces.MspSerial.access$000(MspSerial.java:51)
+	at org.contikios.cooja.mspmote.interfaces.MspSerial$2.execute(MspSerial.java:84)
+	at org.contikios.cooja.Simulation.run(Simulation.java:281)
+	at java.lang.Thread.run(Thread.java:748)
+[23:49:56 - Thread-3] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559335796806	Duration: 3085 ms	Simulated time 0 ms	Ratio 0.0
+[23:50:01 - Thread-2] [SerialSocketServer.java:497] [INFO] - Socket closed
+[23:50:01 - Thread-2] [SerialSocketServer.java:501] [INFO] - End of Stream
+[23:50:01 - Thread-1] [SerialSocketServer.java:429] [INFO] - Listening thread shut down: Socket closed
+[23:50:02 - AWT-EventQueue-0] [Simulation.java:422] [INFO] - Simulation random seed: 123456
+[23:50:21 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-border-router/border-router.z1
+[23:50:51 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[23:50:51 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[23:50:52 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[23:51:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:51:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:51:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:51:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:51:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[23:51:21 - AWT-EventQueue-0] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[23:51:25 - Thread-8] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[23:51:25 - Thread-9] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[23:51:27 - Thread-10] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559335887041
+[23:51:47 - Thread-10] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559335907078	Duration: 20037 ms	Simulated time 131760 ms	Ratio 6.57583470579428
+[23:52:26 - Thread-11] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559335946591
+[23:52:51 - Thread-11] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559335971442	Duration: 24851 ms	Simulated time 344116 ms	Ratio 13.847169128002898
+[23:53:23 - Thread-12] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559336003312
+[23:53:36 - Thread-12] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559336016363	Duration: 13051 ms	Simulated time 439494 ms	Ratio 33.67254060680356
+[16:04:15 - Thread-8] [SerialSocketServer.java:429] [INFO] - Listening thread shut down: Socket closed
+[16:04:15 - Thread-9] [SerialSocketServer.java:497] [INFO] - Socket closed
+[16:04:15 - Thread-9] [SerialSocketServer.java:501] [INFO] - End of Stream
+[16:04:16 - AWT-EventQueue-0] [Simulation.java:422] [INFO] - Simulation random seed: 123456
+[16:04:38 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:04:39 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make border-router.z1 TARGET=z1 
+[16:04:49 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-border-router/border-router.z1
+[16:05:31 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:05:31 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:05:31 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[16:05:44 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:05:45 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:05:45 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:05:45 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:06:07 - AWT-EventQueue-0] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[16:06:09 - Thread-17] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394369385
+[16:06:15 - Thread-17] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394375843	Duration: 6458 ms	Simulated time 98896 ms	Ratio 15.313719417776401
+[16:07:11 - Thread-16] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[16:07:11 - Thread-18] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[16:07:13 - Thread-19] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394433913
+[16:07:15 - Thread-19] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394435697	Duration: 1784 ms	Simulated time 110046 ms	Ratio 61.68497757847533
+[16:07:38 - Thread-20] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394458883
+[16:07:43 - Thread-20] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394463650	Duration: 4767 ms	Simulated time 133610 ms	Ratio 28.02810992238305
+[16:07:52 - Thread-21] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394472583
+[16:07:55 - Thread-21] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394475842	Duration: 3259 ms	Simulated time 156557 ms	Ratio 48.03835532371893
+[16:08:21 - Thread-22] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394501306
+[16:09:04 - Thread-22] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394544917	Duration: 43611 ms	Simulated time 209997 ms	Ratio 4.815230102497076
+[16:12:05 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:12:05 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:12:09 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 LOG_CONF_ENABLED=1 
+[16:12:40 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:12:51 - Thread-24] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559394771505
+[16:12:54 - Thread-24] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559394774483	Duration: 2978 ms	Simulated time 223250 ms	Ratio 74.96642041638684
+[16:17:17 - Thread-25] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559395037731
+[16:17:55 - Thread-25] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559395075295	Duration: 37564 ms	Simulated time 271513 ms	Ratio 7.228010861463103
+[16:20:39 - Thread-18] [SerialSocketServer.java:497] [INFO] - Socket closed
+[16:20:39 - Thread-18] [SerialSocketServer.java:501] [INFO] - End of Stream
+[16:20:39 - AWT-EventQueue-0] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@46c5c75b
+[16:20:39 - Thread-16] [SerialSocketServer.java:429] [INFO] - Listening thread shut down: Socket closed
+[16:20:40 - AWT-EventQueue-0] [Simulation.java:422] [INFO] - Simulation random seed: 123456
+[16:20:54 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:20:54 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make border-router.z1 TARGET=z1 
+[16:21:06 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-border-router/border-router.z1
+[16:21:25 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:21:26 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[16:22:44 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:22:44 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:22:44 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[16:22:59 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:23:00 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:23:00 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:23:00 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:23:16 - AWT-EventQueue-0] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[16:23:28 - Thread-29] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[16:23:28 - Thread-30] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[16:23:30 - Thread-31] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559395410289
+[16:23:35 - Thread-31] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559395415237	Duration: 4948 ms	Simulated time 14425 ms	Ratio 2.9153193209377526
+[16:23:53 - Thread-32] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559395433209
+[16:24:13 - Thread-32] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559395453970	Duration: 20761 ms	Simulated time 194777 ms	Ratio 9.381869852126583
+[16:26:19 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:26:20 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:26:20 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[16:26:39 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:26:39 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:26:39 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:26:39 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:26:54 - Thread-34] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559395614182
+[16:26:57 - Thread-34] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559395617715	Duration: 3533 ms	Simulated time 218877 ms	Ratio 61.952165298613075
+[16:35:04 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make clean TARGET=z1 
+[16:35:05 - AWT-EventQueue-0] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[16:37:24 - AWT-EventQueue-0] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[16:37:30 - Thread-36] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559396250254
+[16:37:33 - Thread-36] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559396253927	Duration: 3673 ms	Simulated time 231233 ms	Ratio 62.954805336237406
+[16:38:18 - Thread-37] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559396298655
+[16:38:30 - Thread-37] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559396310955	Duration: 12300 ms	Simulated time 277028 ms	Ratio 22.52260162601626
+[16:39:33 - Thread-38] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559396373692
+[16:39:36 - Thread-38] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559396376124	Duration: 2432 ms	Simulated time 309291 ms	Ratio 127.17557565789474
+[16:39:45 - Thread-39] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559396385130
+[16:39:54 - Thread-39] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559396394567	Duration: 9437 ms	Simulated time 421409 ms	Ratio 44.65497509801844
+[16:40:17 - Thread-40] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559396417861
+[16:40:30 - Thread-40] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559396430724	Duration: 12863 ms	Simulated time 582408 ms	Ratio 45.27777345875768
+[17:06:35 - Thread-30] [SerialSocketServer.java:501] [INFO] - End of Stream
+[17:06:39 - Thread-29] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[17:06:39 - Thread-41] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[17:06:47 - Thread-42] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559398007051
+[17:06:57 - Thread-42] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559398017610	Duration: 10559 ms	Simulated time 729359 ms	Ratio 69.0746282791931
+[17:08:14 - Thread-41] [SerialSocketServer.java:501] [INFO] - End of Stream
+[17:08:15 - Thread-29] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[17:08:15 - Thread-43] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[17:08:19 - Thread-44] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559398099263
+[17:08:41 - Thread-44] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559398121347	Duration: 22084 ms	Simulated time 1056419 ms	Ratio 47.83639739177685
+[17:10:02 - Thread-45] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559398202227
+[17:10:33 - Thread-45] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559398233261	Duration: 31034 ms	Simulated time 1552291 ms	Ratio 50.01904362956757
+[17:21:07 - Thread-46] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559398867114
+[17:21:07 - AWT-EventQueue-0] [PcapExporter.java:36] [INFO] - Opened pcap file radiolog-1559398867780.pcap
+[17:21:18 - Thread-46] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559398878718	Duration: 11604 ms	Simulated time 1739060 ms	Ratio 149.8672871423647
+[17:23:38 - Thread-47] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399018081
+[17:23:41 - Thread-47] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399021573	Duration: 3492 ms	Simulated time 1747818 ms	Ratio 500.52061855670104
+[17:23:47 - Thread-48] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399027199
+[17:23:50 - Thread-48] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399030421	Duration: 3222 ms	Simulated time 1772296 ms	Ratio 550.0608317815022
+[17:24:30 - Thread-49] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399070451
+[17:24:44 - Thread-49] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399084123	Duration: 13672 ms	Simulated time 1863015 ms	Ratio 136.26499414862494
+[17:26:13 - Thread-50] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399173503
+[17:26:15 - Thread-50] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399175973	Duration: 2470 ms	Simulated time 1874822 ms	Ratio 759.0372469635628
+[17:26:33 - Thread-51] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399193228
+[17:26:52 - Thread-51] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399212393	Duration: 19165 ms	Simulated time 1990234 ms	Ratio 103.84732585442212
+[17:27:58 - AWT-EventQueue-0] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@16a56724
+[17:28:05 - Thread-52] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399285202
+[17:30:48 - Thread-52] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399448346	Duration: 163144 ms	Simulated time 11408656 ms	Ratio 69.9299759721473
+[17:30:50 - Thread-29] [SerialSocketServer.java:429] [INFO] - Listening thread shut down: Socket closed
+[17:30:50 - Thread-43] [SerialSocketServer.java:497] [INFO] - Socket closed
+[17:30:50 - Thread-43] [SerialSocketServer.java:501] [INFO] - End of Stream
+[17:30:50 - Thread-53] [Simulation.java:422] [INFO] - Simulation random seed: 123456
+[17:30:50 - Thread-53] [CompileContiki.java:140] [INFO] - > make border-router.z1 TARGET=z1 
+[17:30:50 - Thread-53] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[17:30:51 - Thread-53] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[17:30:51 - Thread-53] [CompileContiki.java:140] [INFO] - > make z1-websense.z1 TARGET=z1 
+[17:30:51 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/ipv6/rpl-border-router/border-router.z1
+[17:30:52 - Thread-53] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IoTIDS/examples/zolertia/z1/ipv6/z1-websense/z1-websense.z1
+[17:30:53 - Thread-53] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[17:30:57 - Thread-54] [SerialSocketServer.java:429] [INFO] - Listening thread shut down: Socket closed
+[17:31:06 - AWT-EventQueue-0] [SerialSocketServer.java:389] [INFO] - Listening on port: 60001
+[17:31:14 - Thread-56] [SerialSocketServer.java:425] [INFO] - Client connected: /127.0.0.1
+[17:31:14 - Thread-57] [SerialSocketServer.java:478] [INFO] - Forwarder: socket -> serial port
+[17:31:15 - Thread-58] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399475856
+[17:31:16 - AWT-EventQueue-0] [PcapExporter.java:36] [INFO] - Opened pcap file radiolog-1559399476431.pcap
+[17:31:41 - Thread-58] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399501130	Duration: 25274 ms	Simulated time 1652098 ms	Ratio 65.36749228456121
+[17:32:24 - Thread-59] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559399544221
+[17:32:54 - Thread-59] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559399574323	Duration: 30102 ms	Simulated time 3814414 ms	Ratio 126.71629792040396
+[17:43:10 - Thread-60] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559400190689
+[17:43:10 - AWT-EventQueue-0] [PcapExporter.java:36] [INFO] - Opened pcap file radiolog-1559400190884.pcap
+[17:43:34 - Thread-60] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559400214965	Duration: 24276 ms	Simulated time 5368582 ms	Ratio 221.1477179106937
+[17:44:27 - Thread-61] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559400267794
+[17:44:28 - AWT-EventQueue-0] [PcapExporter.java:36] [INFO] - Opened pcap file radiolog-1559400268068.pcap
+[17:44:32 - Thread-61] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559400272686	Duration: 4892 ms	Simulated time 5750017 ms	Ratio 1175.3918642681929
+[17:47:28 - Thread-62] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1559400448558
+[17:47:41 - Thread-62] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1559400461688	Duration: 13130 ms	Simulated time 6516525 ms	Ratio 496.3080731150038
+[17:58:41 - Thread-57] [SerialSocketServer.java:501] [INFO] - End of Stream

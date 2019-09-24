@@ -48,7 +48,7 @@
 
 #define UDP_EXAMPLE_ID  190
 
-#define DEBUG DEBUG_FULL
+#define DEBUG DEBUG_PRINT
 #include "net/ip/uip-debug.h"
 
 #ifndef PERIOD
@@ -59,8 +59,8 @@
 #define SEND_INTERVAL		(PERIOD * CLOCK_SECOND)
 #define SEND_TIME		(random_rand() % (SEND_INTERVAL))
 #define MAX_PAYLOAD_LEN		30
-#define RPL_CONF_DIS_START_DELAY  240
-#define RPL_CONF_DIS_INTERVAL  120
+//#define RPL_CONF_DIS_START_DELAY  240
+//#define RPL_CONF_DIS_INTERVAL  120
 
 static struct uip_udp_conn *client_conn;
 static uip_ipaddr_t server_ipaddr;
@@ -180,7 +180,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   static int print = 0;
 #endif
 
-static struct etimer et;
+//static struct etimer et;
 
   PROCESS_BEGIN();
 
@@ -213,7 +213,7 @@ static struct etimer et;
   etimer_set(&periodic, SEND_INTERVAL);
   //NETSTACK_MAC.off(0);
  // etimer_set(&et, CLOCK_SECOND*15);
-  int tu=0;
+  //int tu=0;
 
   while(1) {
     
