@@ -80,9 +80,12 @@
 #include "net/ipv6/uip-ds6.h"
 #include "net/ipv6/multicast/uip-mcast6.h"
 
+//For IDS
+#include <udp-server.h>
+
 #if UIP_CONF_IPV6_RPL
-#include "rpl/rpl.h"
-#include "rpl/rpl-private.h"
+#include "rpl-mal/rpl.h"
+#include "rpl-mal/rpl-private.h"
 #endif
 
 #if UIP_ND6_SEND_NS
@@ -151,6 +154,8 @@ uint8_t uip_ext_len = 0;
 uint8_t uip_ext_opt_offset = 0;
 /** @} */
 
+//Add IDS
+//uint16_t countOutNodes=0;
 /*---------------------------------------------------------------------------*/
 /* Buffers                                                                   */
 /*---------------------------------------------------------------------------*/
@@ -210,23 +215,16 @@ uint16_t uip_len, uip_slen;
 and the application program. */
 uint8_t uip_flags;
 
-//static uint8_t nbr_num=0;
-static uint32_t AVG_DIS=0,AVG_MSG=0;
-
-//IDS control struct
-struct IDS_ctr{
-  uint8_t address;
-  uint32_t counterMsg;
-  uint32_t counterDIS;
-  uint8_t msgtype;
-  unsigned long intervals;
-  unsigned long timestamp;
-};
+//uip_ipaddr_t IdsServerAddr;
+//uint16_t countOutNodes=0;
+//uint32_t countInNodes=0;
 
 //Average time,number of DIS for IDS
-static unsigned long AVG_TIME=0;
-typedef struct IDS_ctr ids_ctr_t;
-static ids_ctr_t nodes[10];
+//Uncomment for server
+//ids_ctr_t nodes[10];
+
+extern ids_ctr_t nodes[30];
+//int16_t data_input=0;
 
 /* uip_conn always points to the current connection (set to NULL for UDP). */
 struct uip_conn *uip_conn;
@@ -958,44 +956,15 @@ ext_hdr_options_process(void)
 }
 
 
-unsigned long bubblesort(unsigned long node[],int count){
-int i,j;
-
-for( i = 0; i < count-1; i++)
-{
-  for(j = i+1; j < count; j++)
-  {
-      if (node[j]<node[i]){
-        int tmp=node[i];
-        node[i]=node[j];
-        node[j]=tmp;
-      }
-      
-  }
-  
-}
-
-for(i = 0; i < count; i++)
- {
-	PRINTF("sort here intr:%lu\n",node[i]);
-
- }
-
-if (count%2==0){
-return ((node[count/2]+node[count/2-1])/2);
-}else
-  return node[count/2];
-
-}
 /**********************************/
 
 //This function is called from udp-client-ids every 5 seconds.
 void calcAvg(void *ptr){
 
 	//PRINTF("entering IDS\n");
-	unsigned long clock_now = (unsigned long)clock_seconds();
+	//unsigned long clock_now = (unsigned long)clock_seconds();
 	int i=0,tmpdis=0,tmpdio=0,c_allmsg=0,c_dis=0,c_int=0;
-	unsigned long tmp=0;
+	uint32_t tmp=0;
 
 
 	int j=0,nodes_num=10;
@@ -1003,7 +972,7 @@ void calcAvg(void *ptr){
 	for (j=0; j<nodes_num;j++){
         if (nodes[j].address!=0 && nodes[j].address!=1){
           if (nodes[j].intervals!=999){
-          	tmp=(unsigned long)(nodes[j].intervals)+tmp;
+          	tmp=nodes[j].intervals+tmp;
           	c_int++;
           	}
           
@@ -1031,7 +1000,7 @@ void calcAvg(void *ptr){
         
     }
     
-	if (c_allmsg==0 && c_dis==0){
+	/* if (c_allmsg==0 && c_dis==0){
 	  //PRINTF("c is zero\n");
 	  AVG_DIS=1;
 	  AVG_TIME=1;
@@ -1041,39 +1010,26 @@ void calcAvg(void *ptr){
 	  if (c_int!=0)
 	  	AVG_TIME=tmp/c_int;
 	  if (c_dis!=0)
-      AVG_DIS=tmpdis/c_dis;
+      AVG_DIS=tmpdis/c_dis; 
     if (c_allmsg!=0)
       AVG_MSG=tmpdio/c_allmsg;
 	}
-	
-  PRINTF("normal:%lu %d %d %d %d %d\n",tmp,tmpdis,tmpdio,c_int,c_dis,c_allmsg);
-	PRINTF("AVGTIME:%lu AVGDIS:%lu AVGM:%lu c:%d,cdis:%d,call:%d\n",AVG_TIME,AVG_DIS,AVG_MSG,c_int,c_dis,c_allmsg);
-  //PRINTF("IP STAT REC:%d %d sent:%d fw:%d drop:%d\n",uip_stat.ip.recv,uip_stat.icmp.recv,uip_stat.ip.sent,uip_stat.ip.forwarded,uip_stat.icmp.drop);
-
-	/*unsigned long min=999;
-
-	for( i = 0; i < nodes_num; i++)
-	{
-	  
-		if (nodes[i].intervals<min)
-		  min=nodes[i].intervals;
-	}
-
-
+ */
 	for (i=0; i<nodes_num;i++){
+    PRINTF("entering:%d",i);
 		if (nodes[i].address==0)
 			continue;
-		PRINTF("i:%d adr:%d disnum:%lu %lu time_in:%lu\n",i,nodes[i].address,nodes[i].counterDIS,nodes[i].counterMsg,nodes[i].intervals);
-		if (nodes[i].counterMsg-AVG_MSG>1 && nodes[i].intervals==min){
-
-			PRINTF("warning uip!!! ID malicious %d!\n",nodes[i].address);
+		//PRINTF("i:%d min:%lu adr:%d disnum:%lu %lu time_in:%lu\n",i,min,nodes[i].address,nodes[i].counterDIS,nodes[i].counterMsg,nodes[i].intervals);
+		if (nodes[i].intervals<30 && nodes[i].counterDIS>=3){
+ 
+			PRINTF("warning uip!!! ID malicious %ld!\n",nodes[i].address);
 			
 		 }
-	 }*/
+	 }
  
 	
- struct ctimer* ct_ptr = ptr;
- ctimer_reset(ct_ptr);
+ //struct ctimer* ct_ptr = ptr;
+ //ctimer_reset(ct_ptr);
  
 
 }
@@ -1085,7 +1041,7 @@ uint8_t checkIDS(){
 
 unsigned long clock_now = (unsigned long)clock_seconds();
 //int j=0;
-uint8_t nodes_num=10;
+uint32_t nodes_num=30;
 //int tmpnum=uip_ds6_nbr_num();
 
 if(!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
@@ -1106,14 +1062,15 @@ int i=0;//,tmp2=0,c_msg=0,c_int=0;
 //unsigned long intervals[nodes];
 
 for (i=0;i<nodes_num;i++){
+  
 			//Find the average time and average number of DIS		
-	  PRINTF("nodes i:%d adr:%d cntr:%lu d:%lu interv:%lu\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].counterDIS,nodes[i].intervals);
+	  PRINTF("node i:%d adr:%ld cntr:%ld d:%ld inter:%ld %ld\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].counterDIS,nodes[i].intervals,nodes[i].timestamp);
     
-    //skip node 1
+    //skip node 1 from uip_process
     
     if (nodes[i].address==UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8)-1]){
       //timestamp[i]=(unsigned long)clock_now;//(unsigned long)clock_now-(unsigned long)timestamp[i];
-       PRINTF("type:%d,code:%d\n",UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
+       //PRINTF("type:%d,code:%d\n",UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
       if (UIP_ICMP_BUF->type==ICMP6_RPL && UIP_ICMP_BUF->icode==RPL_CODE_DIS)
         nodes[i].counterDIS=nodes[i].counterDIS+1;
       else
@@ -1121,13 +1078,17 @@ for (i=0;i<nodes_num;i++){
       //PRINTF("mpeni cmsg:%d stamp:%lu c_msg:%d cint:%d\n",nodes[i].counterMsg,nodes[i].timestamp,c_msg,c_int);
       
       //PRINTF("before intr:%lu stamp:%lu",,nodes[i].timestamp);
-      nodes[i].intervals=(unsigned long)clock_now-(unsigned long)(nodes[i].timestamp);
-      nodes[i].timestamp=(unsigned long)clock_now;
+      nodes[i].intervals=clock_now-nodes[i].timestamp;
+      nodes[i].timestamp=clock_now;
+      
       break;
     }
+
     if (nodes[i].address==0){
+            //countOutNodes++;
           nodes[i].timestamp=(unsigned long)clock_now;
           nodes[i].address=UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1];
+
            if (UIP_ICMP_BUF->type==ICMP6_RPL && UIP_ICMP_BUF->icode==RPL_CODE_DIS){
             nodes[i].counterDIS=1;
             nodes[i].counterMsg=0;
@@ -1142,81 +1103,8 @@ for (i=0;i<nodes_num;i++){
 
   }
 
-//PRINTF("Abefore aVGTIME:%lu AVGDIS:%lu\n",AVG_TIME,AVG_DIS);
-//PRINTF("befC:%d\n",c);
-//find average every 5 seconds
-/*if (clock_now%5>=4){
-	if (c_msg==0){
-	  //PRINTF("c is zero\n");
-	  AVG_DIS=1;
-	  AVG_TIME=1;
-	}else{
-	  PRINTF("c is %d,tmp:%lu\n",c_int,tmp);
-	  if (c_int!=0)
-	  	AVG_TIME=tmp/c_int;
-	  AVG_DIS=tmp2/c_msg;
-	}
-}*/
-
-/*
-unsigned long min=999;
-
-for( i = 0; i < nodes_num; i++)
-{
-  if (nodes[i].address!=0){
-    inter[k]=(unsigned long)(nodes[i].intervals);
-    k++;
-  }
-    if (nodes[i].intervals<min)
-      min=nodes[i].intervals;
+  
 }
-*/
-
-//unsigned long median=bubblesort(inter,count);
-
-/*
-for (i=0; clock_now%5>=4 && i<nodes_num;i++){
-	if (nodes[i].address==0)
-		continue;
-	PRINTF("median:%lu i:%d adr:%d disnum:%d time_in:%lu\n",median,i,nodes[i].address,nodes[i].counterMsg,nodes[i].intervals);
-	if (nodes[i].counterMsg-AVG_DIS>1 && nodes[i].intervals==min ){
-		PRINTF("timeavgs:%lu tmst:%lu avgdis:%lu\n",AVG_TIME,nodes[i].timestamp,AVG_DIS);
-		PRINTF("warning uip!!! ID malicious %d!",nodes[i].address);
-		flag=1;
-	 }
-
- }
- */
-
- 
- 
- 
- 
-}
-
- /***************************************************/
-
-/*
-
-unsigned long tmp=0;
-unsigned long intervals[nodes];
-    //Detection now
-    int i=0;
-    for (i=0;i<10;i++){
-      if (nodes[i].address==0)
-        continue;
-      //PRINTF("nbr:%d disnum:%d avg:%lu time:%lu\n",nbr_num,counterDIS[i],AVG_TIME,intervals[i]);
-      if (nodes[i].counterMsg>5){
-        //PRINTF("timeavgs:%lu %d %lu\n",AVG_TIME,counterDIS[i],AVG_DIS);
-        PRINTF("warning from uip!!!! ID malicious %d!",nodes[i].address);
-        nodes[i].counterMsg=0;
-        //timestamp[i]=0;
-        //intervals[i]=0;
-        return 0;
-        
-      }
-
-    }*/
 
 return 0;
 }
@@ -1228,6 +1116,7 @@ return 0;
 void
 uip_process(uint8_t flag)
 {
+  uint8_t fl=0;
 #if UIP_TCP
   int c;
   uint16_t tmp16;
@@ -1433,6 +1322,9 @@ uip_process(uint8_t flag)
   PRINT6ADDR(&UIP_IP_BUF->destipaddr);
   PRINTF("\n");
 
+  //PRINTF("HERE I AM OK %d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+
+//IDS code to check source ip
   if(uip_is_addr_mcast(&UIP_IP_BUF->srcipaddr)){
     UIP_STAT(++uip_stat.ip.drop);
     PRINTF("Dropping packet, src is mcast\n");
@@ -1455,42 +1347,35 @@ uip_process(uint8_t flag)
   uip_next_hdr = &UIP_IP_BUF->proto;
   uip_ext_len = 0;
   uip_ext_bitmap = 0;
+
+    PRINTF("here router, got IP:%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+
+//Drop packets that I send to myself (IDS)
+if ( uip_ds6_is_my_addr(&UIP_IP_BUF->srcipaddr)){
+  
+  goto drop;
+  }
+
   if(*uip_next_hdr == UIP_PROTO_HBHO) {
 #if UIP_CONF_IPV6_CHECKS
     uip_ext_bitmap |= UIP_EXT_HDR_BITMAP_HBHO;
 #endif /* UIP_CONF_IPV6_CHECKS */
 
 //My addition:just update statistics, never forward or process header
-  PRINTF("here I got IP:%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
   if(UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 &&
        !uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
        !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr)) {
+         //Uncomment IDs
+         PRINTF("entered checkk\n");
         checkIDS();
+        //Flag for entering here
+        fl=1;
         
-        /*int i=0;
-        PRINTF("entering ids2");
-        for (i=0;i<10;i++){
-          PRINTF("nodes i:%d adr:%d cntr:%d\n",i,nodes[i].address,nodes[i].counterMsg);
-
-          if (nodes[i].address==0){
-            nodes[i].address=UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1];
-            nodes[i].counterMsg+=1;
-            break;
-          }
-          if (nodes[i].address==UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]){
-            nodes[i].counterMsg+=1;
-            PRINTF("increase cn:%d\n",nodes[i].counterMsg);
-            break;
-          }
-        }*/
+       
   }
-  UIP_STAT(++uip_stat.ip.drop);
-  goto drop;
-  
-
- 
-  
-  PRINT6ADDR(&UIP_IP_BUF->srcipaddr);
+    //Drop packets from IDS
+  //UIP_STAT(++uip_stat.ip.drop);
+  //goto drop;
 
     switch(ext_hdr_options_process()) {
     case 0:
@@ -1509,6 +1394,13 @@ uip_process(uint8_t flag)
       goto send;
     }
   }
+  
+  //IDS: drop packet
+  /*if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 || uip_ds6_is_my_addr(&UIP_IP_BUF->srcipaddr)){
+  
+      UIP_STAT(++uip_stat.ip.drop);
+      goto drop;
+  }*/
 
   /*
    * Process Packets with a routable multicast destination:
@@ -1536,6 +1428,16 @@ uip_process(uint8_t flag)
   /* TBD Some Parameter problem messages */
   if(!uip_ds6_is_my_addr(&UIP_IP_BUF->destipaddr) &&
      !uip_ds6_is_my_maddr(&UIP_IP_BUF->destipaddr)) {
+
+       //check 2 for IDS
+      if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1){
+        PRINTF("entered checkk\n");
+        if (fl==0)
+          checkIDS();
+        UIP_STAT(++uip_stat.ip.drop);
+        goto drop;
+        }
+
     if(!uip_is_addr_mcast(&UIP_IP_BUF->destipaddr) &&
        !uip_is_addr_linklocal(&UIP_IP_BUF->destipaddr) &&
        !uip_is_addr_linklocal(&UIP_IP_BUF->srcipaddr) &&
@@ -1607,14 +1509,26 @@ uip_process(uint8_t flag)
         checkIDS();
        }
   
+  //My addition IDS
+  //UIP_STAT(++uip_stat.ip.drop);
+  //goto drop;
+  //PRINTF("IDS drop packet\n");
+  //Drop packets from IDS
+  if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1){
+  
   UIP_STAT(++uip_stat.ip.drop);
   goto drop;
-  
+  }
         
 
 #if UIP_IPV6_MULTICAST
   process:
 #endif
+
+  //My addition IDS
+  //Before processing
+  //UIP_STAT(++uip_stat.ip.drop);
+  //goto drop;
 
   while(1) {
     switch(*uip_next_hdr){
@@ -1629,7 +1543,11 @@ uip_process(uint8_t flag)
       goto udp_input;
 #endif /* UIP_UDP */
     case UIP_PROTO_ICMP6:
-    
+      PRINTF("ENTERING icmp6 in uip6\n");
+      if(UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1){
+          UIP_STAT(++uip_stat.ip.drop);
+          goto drop;
+      }
       /* ICMPv6 */
       goto icmp6_input;
     case UIP_PROTO_HBHO:
@@ -1778,9 +1696,7 @@ uip_process(uint8_t flag)
 #endif /*UIP_CONF_IPV6_CHECKS*/
 
   UIP_STAT(++uip_stat.icmp.recv);
-  UIP_STAT(++uip_stat.icmp.drop);
-  //My addition: just drop packet after process
-  goto drop;
+  
 
   /*
    * Here we process incoming ICMPv6 packets
@@ -1795,6 +1711,7 @@ uip_process(uint8_t flag)
   UIP_ICMP6_APPCALL(UIP_ICMP_BUF->type);
 #endif /*UIP_CONF_ICMP6*/
 
+//TODO: Check here to receive rpl
   /*
    * Search generic input handlers.
    * The handler is in charge of setting uip_len to 0
@@ -1807,6 +1724,8 @@ uip_process(uint8_t flag)
     UIP_LOG("icmp6: unknown ICMPv6 message.");
     uip_clear_buf();
   }
+  
+  //PRINTF("going well %d %d",UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
 
   if(uip_len > 0) {
     goto send;
@@ -1814,6 +1733,7 @@ uip_process(uint8_t flag)
     goto drop;
   }
   /* End of IPv6 ICMP processing. */
+
 
 
 #if UIP_UDP
@@ -1886,7 +1806,12 @@ uip_process(uint8_t flag)
   uip_flags = UIP_NEWDATA;
   uip_sappdata = uip_appdata = &uip_buf[UIP_IPUDPH_LEN + UIP_LLH_LEN];
   uip_slen = 0;
+
+ 
   UIP_UDP_APPCALL();
+   UIP_STAT(++uip_stat.icmp.drop);
+  //My addition: just drop packet after process
+  goto drop;
 
   udp_send:
   PRINTF("In udp_send\n");

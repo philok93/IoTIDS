@@ -78,6 +78,16 @@
 #define RPL_CODE_SEC_DAO               0x82   /* Secure DAO */
 #define RPL_CODE_SEC_DAO_ACK           0x83   /* Secure DAO ACK */
 
+//Define IDS code for RPL message
+#if IDS_CLIENT || IDS_SERVER
+#define RPL_CODE_IDS                    0x31
+#endif
+
+#if IDS_CLIENT || IDS_SERVER || MAL_EXT
+#define RPL_CODE_MAL                    0x32
+#endif
+
+
 /* RPL control message options. */
 #define RPL_OPTION_PAD1                  0
 #define RPL_OPTION_PADN                  1
@@ -404,5 +414,23 @@ void rpl_poison_routes(rpl_dag_t *, rpl_parent_t *);
 
 
 rpl_instance_t *rpl_get_default_instance(void);
+
+
+#if IDS_SERVER || IDS_CLIENT
+//Added IDS
+void ids_output(uip_ipaddr_t *addr);
+
+void ids_input(void);
+
+#endif
+
+#if MAL_EXT
+void mal_input(void);
+#endif
+
+#if MAL_RANK || MAL_EXT 
+//Enable external attack DIS
+extern char flag_ext;
+#endif
 
 #endif /* RPL_PRIVATE_H */

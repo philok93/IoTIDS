@@ -6,8 +6,12 @@ CONTIKI=../../..
 #linker optimizations
 SMALL=1
 
-CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
+CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\" -DIDS_SERVER=0 -DWITH_COAP=0 -ffunction-sections -fdata-sections
 PROJECT_SOURCEFILES += slip-bridge.c
+#APPS += ids-app
+
+#LDFLAGS += -Wl,--gc-sections,--undefined=_reset_vector__,--undefined=InterruptVectors,--undefined=_copy_data_init__,--undefined=_clear_bss_init__,--undefined=_end_of_init__
+
 
 #Simple built-in webserver is the default.
 #Override with make WITH_WEBSERVER=0 for no webserver.

@@ -31,19 +31,14 @@
 #include "contiki-lib.h"
 #include "contiki-net.h"
 #include "net/ip/uip.h"
-#include "net/rpl-mal/rpl.h"
+#include "net/rpl/rpl.h"
 
-#include "net/rpl-mal/rpl-private.h"
-
-
-#include "udp-server.h"
 #include "net/netstack.h"
 #include "dev/button-sensor.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "sys/ctimer.h"
 
 #define DEBUG DEBUG_PRINT
 #include "net/ip/uip-debug.h"
@@ -56,33 +51,10 @@
 #define UDP_EXAMPLE_ID  190
 
 static struct uip_udp_conn *server_conn;
-//Added IDS
-void ids_output(uip_ipaddr_t *addr);
-//uint8_t nodes_num=10;
-
-
-//Mine for  IDS
-//extern uip_ipaddr_t IdsServerAddr;
-//extern uint32_t ip_end;
-
-//extern uint16_t countInNodes;
-//extern uint32_t DISvalues;
-//extern uint32_t intervals;
-
-//Average time,number of DIS for IDS
-typedef struct IDS_ctr ids_ctr_t;
-ids_ctr_t nodes[6];
-//int8_t data_input=0;
-
-
-
 
 PROCESS(udp_server_process, "UDP server process");
 AUTOSTART_PROCESSES(&udp_server_process);
 /*---------------------------------------------------------------------------*/
-static struct ctimer mytimer;
-
-
 static void
 tcpip_handler(void)
 {
@@ -124,73 +96,9 @@ print_local_addresses(void)
   }
 }
 /*---------------------------------------------------------------------------*/
-
-//This function is called from udp-server every 5 seconds.
-void checkNodes(void *ptr){
-
-	PRINTF("entering IDS\n");
-	//unsigned long clock_now = (unsigned long)clock_seconds();
-	//int tmpdis=0,tmpdio=0,c_allmsg=0,c_dis=0,c_int=0;
-	
-	int j=0;
-  uint16_t nodes_num=6;
-
-	for (j=0; j<nodes_num;j++){
-        if (nodes[j].address==0){
-            PRINTF("skip %d fun IDS\n",j);
-			          continue;
-        }
-        if (nodes[j].address!=0 && nodes[j].address!=1){
-           
-            PRINTF("adr:%d %u disnum:%u %u time_in:%u\n",j,(unsigned)nodes[j].address,
-            (unsigned)nodes[j].counterDIS,(unsigned)nodes[j].counterMsg,(unsigned)nodes[j].intervals);
-            if (nodes[j].intervals<30 && nodes[j].counterDIS>=3){
-              int k=0;
-              /*for (k=0;k<5;k++){
-                  tmp=nodes[j].counterDetect[k]+tmp;
-              }*/
-              //if (tmp>3){
-                PRINTF("warning uip! ID malicious %u!\n",(unsigned)nodes[j].address);
-                
-                nodes[j].counterDIS=0;
-                nodes[j].counterMsg=0;
-                nodes[j].intervals=999;
-                for (k=0;k<3;k++){
-                  
-                  if (nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]!=0){
-                      PRINTF("sent reset to");
-                      PRINT6ADDR(&nodes[j].fromNode[k]);
-                      PRINTF("\n");
-                      ids_output(&(nodes[j].fromNode[k]));
-                  }
-                  nodes[j].counterDetect[k]=0;
-                  nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]=0;
-                }
-                  
-               
-
-		          }
-
-
-         
-
-
-        }
-        
-    }
- ctimer_reset(&mytimer);
- 
-
-}
-/*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_server_process, ev, data)
 {
   uip_ipaddr_t ipaddr;
-  //Time for IDS
- 
-  //void *ct_ptr=&mytimer;
-  //static struct etimer periodic2;
-
   struct uip_ds6_addr *root_if;
 
   PROCESS_BEGIN();
@@ -199,7 +107,7 @@ PROCESS_THREAD(udp_server_process, ev, data)
 
   SENSORS_ACTIVATE(button_sensor);
 
-  PRINTF("UDP IDS server started. nbr:%d routes:%d\n",
+  PRINTF("UDP server started. nbr:%d routes:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES);
 
 #if UIP_CONF_ROUTER
@@ -243,7 +151,6 @@ PROCESS_THREAD(udp_server_process, ev, data)
   
   print_local_addresses();
 
-
   /* The data sink runs with a 100% duty cycle in order to ensure high 
      packet reception rates. */
   NETSTACK_MAC.off(1);
@@ -260,44 +167,14 @@ PROCESS_THREAD(udp_server_process, ev, data)
   PRINTF(" local/remote port %u/%u\n", UIP_HTONS(server_conn->lport),
          UIP_HTONS(server_conn->rport));
 
-//etimer_set(&periodic2, (8*CLOCK_SECOND));
-//etimer_set(&periodic2, (3*CLOCK_SECOND));
   while(1) {
-    ctimer_set(&mytimer, 3*CLOCK_SECOND, checkNodes, NULL);
     PROCESS_YIELD();
-     /*if(etimer_expired(&periodic2)) {
-      etimer_reset(&periodic2);
-       if (data_input>0)
-        {
-      // int i=0;
-        
-          PRINTF("entered data:%ld \n",data_input);
-          //checkNodes();
-          data_input = -1;
-        }
-
-      
-      }*/
-    
-     /*if(etimer_expired(&periodic2)) {
-      etimer_reset(&periodic2);
-	  // sett inn output_tru kall!
-	      checkNodes();
-        PRINTF("SENT AN IDS+OUT TO SERVER\n"); 
-      //ctimer_set(&backoff_timer, SEND_TIME, send_packet, NULL);
-    }*/
-
     if(ev == tcpip_event) {
       tcpip_handler();
     } else if (ev == sensors_event && data == &button_sensor) {
       PRINTF("Initiaing global repair\n");
       rpl_repair_root(RPL_DEFAULT_INSTANCE);
     }
-          //PRINTF("data  input:%lu\n",data_input);
-
-   
-
-   
   }
 
   PROCESS_END();

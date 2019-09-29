@@ -80,6 +80,11 @@
 #include "net/ipv6/uip-ds6.h"
 #include "net/ipv6/multicast/uip-mcast6.h"
 
+#if IDS_SERVER || IDS_CLIENT
+#include "ids.h"
+#include "net/packetbuf.h"
+#endif /* IDS_SERVER || IDS_CLIENT */
+
 #if UIP_CONF_IPV6_RPL
 #include "rpl/rpl.h"
 #include "rpl/rpl-private.h"
@@ -94,9 +99,12 @@
 /*---------------------------------------------------------------------------*/
 /* For Debug, logging, statistics                                            */
 /*---------------------------------------------------------------------------*/
-
-#define DEBUG DEBUG_NONE
+//define debug to print only here, define printf to print
+//#undef DEBUG
+//#define DEBUG DEBUG_PRINT
 #include "net/ip/uip-debug.h"
+//#undef PRINTF
+//#define PRINTF(...) printf(__VA_ARGS__)
 
 #if UIP_LOGGING == 1
 #include <stdio.h>
@@ -150,6 +158,10 @@ uint8_t uip_ext_len = 0;
 /** \brief length of the header options read */
 uint8_t uip_ext_opt_offset = 0;
 /** @} */
+
+#if RPL_SERVER || IDS_SERVER
+unsigned long last_echo = 0;
+#endif
 
 /*---------------------------------------------------------------------------*/
 /* Buffers                                                                   */
@@ -209,6 +221,13 @@ uint16_t uip_len, uip_slen;
 /* The uip_flags variable is used for communication between the TCP/IP stack
 and the application program. */
 uint8_t uip_flags;
+
+//Average time,number of DIS for IDS
+#if IDS_SERVER
+ids_ctr_t nodes[NODES_NUM];
+#elif IDS_CLIENT
+ids_ctr_t nodes[30];
+#endif /* IDS_SERVER else IDS_CLIENT */
 
 /* uip_conn always points to the current connection (set to NULL for UDP). */
 struct uip_conn *uip_conn;
@@ -427,6 +446,81 @@ uip_udpchksum(void)
 }
 #endif /* UIP_UDP && UIP_UDP_CHECKSUMS */
 #endif /* UIP_ARCH_CHKSUM */
+
+#if IDS_CLIENT
+//The function that runs the IDS logic
+uint8_t checkIDS(){
+//My code for IDS
+
+unsigned long clock_now = (unsigned long)clock_seconds();
+
+uint16_t nodes_num=30;
+
+if(!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
+       !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr)) {
+//If a neighbour is removed,reset statistics.
+ /*if (nbr_num!=uip_ds6_nbr_num()){
+	for (j=0;j<nodes_num;j++){
+		nodes[j].counterMsg=0;
+		nodes[j].timestamp=0;
+		nodes[j].address=0;
+	}
+	nbr_num=tmpnum;
+	PRINTF("num:%d\n",nbr_num);
+}*/
+
+int i=0;
+
+for (i=0;i<nodes_num;i++){
+  
+			//Find the average time and average number of DIS		
+	  PRINTF("node i:%d adr:%ld cntr:%ld d:%ld inter:%ld %ld\n",i,nodes[i].address,nodes[i].counterMsg,nodes[i].counterDIS,nodes[i].intervals,nodes[i].timestamp);
+    
+    //skip node 1 from uip_process
+    
+    if (nodes[i].address==UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8)-1]){
+      //timestamp[i]=(unsigned long)clock_now;//(unsigned long)clock_now-(unsigned long)timestamp[i];
+       //PRINTF("type:%d,code:%d\n",UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
+      if (UIP_ICMP_BUF->type==ICMP6_RPL && UIP_ICMP_BUF->icode==RPL_CODE_DIS)
+        nodes[i].counterDIS=nodes[i].counterDIS+1;
+      else
+        nodes[i].counterMsg=nodes[i].counterMsg+1;
+      //PRINTF("mpeni cmsg:%d stamp:%lu c_msg:%d cint:%d\n",nodes[i].counterMsg,nodes[i].timestamp,c_msg,c_int);
+      
+      //PRINTF("before intr:%lu stamp:%lu",,nodes[i].timestamp);
+      nodes[i].intervals=clock_now-nodes[i].timestamp;
+      nodes[i].timestamp=clock_now;
+      
+      break;
+    }
+
+    if (nodes[i].address==0){
+            //countOutNodes++;
+          nodes[i].timestamp=(unsigned long)clock_now;
+          nodes[i].address=UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1];
+
+           if (UIP_ICMP_BUF->type==ICMP6_RPL && UIP_ICMP_BUF->icode==RPL_CODE_DIS){
+            nodes[i].counterDIS=1;
+            nodes[i].counterMsg=0;
+           }else{
+            nodes[i].counterMsg=1;
+            nodes[i].counterDIS=0;
+           }
+          nodes[i].intervals=999;
+
+          break;
+    }
+
+  }
+
+  
+}
+
+return 0;
+}
+#endif
+
+
 /*---------------------------------------------------------------------------*/
 void
 uip_init(void)
@@ -1216,9 +1310,27 @@ uip_process(uint8_t flag)
   }
 #endif /* UIP_IPV6_MULTICAST */
 
+	#if IDS_SERVER || IDS_CLIENT
+			  unsigned long clock_now = (unsigned long)clock_seconds();
+	#endif
+
   /* TBD Some Parameter problem messages */
   if(!uip_ds6_is_my_addr(&UIP_IP_BUF->destipaddr) &&
      !uip_ds6_is_my_maddr(&UIP_IP_BUF->destipaddr)) {
+
+	#if IDS_CLIENT
+      //check 2 for IDS
+      if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+      {
+        //PRINTF("entered checkk\n");
+        if (fl == 0)
+          checkIDS();
+        UIP_STAT(++uip_stat.ip.drop);
+        goto drop;
+      }
+  #endif /* IDS_CLIENT */
+
+
     if(!uip_is_addr_mcast(&UIP_IP_BUF->destipaddr) &&
        !uip_is_addr_linklocal(&UIP_IP_BUF->destipaddr) &&
        !uip_is_addr_linklocal(&UIP_IP_BUF->srcipaddr) &&
@@ -1240,6 +1352,31 @@ uip_process(uint8_t flag)
         goto send;
       }
 
+      #if IDS_SERVER || IDS_CLIENT || RPL_SERVER
+			      //unsigned long clock_now = (unsigned long)clock_seconds();
+			      if (UIP_ICMP_BUF->type == ICMP6_ECHO_REQUEST &&
+			          UIP_ICMP_BUF->icode == 0)
+			      {
+			
+			        if ((unsigned long)clock_now - last_echo <= 1)
+			        {
+			          last_echo = (unsigned long)clock_now;
+			          //Process icmp6.Check for echo request and drop messages. Blacklist ip.
+			          PRINTF("Attack, Drop..\n");
+			          //PRINTF("dest echo:");
+			          //PRINT6ADDR(&UIP_IP_BUF->destipaddr);
+			          goto drop;
+			        }
+			        else
+			        {
+			          last_echo = (unsigned long)clock_now;
+			          //PRINTF("Normal echo\n");
+			        }
+			      }
+			#endif
+
+
+
       UIP_IP_BUF->ttl = UIP_IP_BUF->ttl - 1;
       PRINTF("Forwarding packet to ");
       PRINT6ADDR(&UIP_IP_BUF->destipaddr);
@@ -1256,20 +1393,24 @@ uip_process(uint8_t flag)
         uip_icmp6_error_output(ICMP6_DST_UNREACH,
                                ICMP6_DST_UNREACH_NOTNEIGHBOR, 0);
         goto send;
-      }
-      PRINTF("Dropping packet, not for me and link local or multicast\n");
-      UIP_STAT(++uip_stat.ip.drop);
-      goto drop;
+        }
+      #if !IDS_CLIENT
+        PRINTF("Dropping packet, not for me and link local or multicast\n");
+        UIP_STAT(++uip_stat.ip.drop);
+        goto drop;
+      #endif
     }
   }
 #else /* UIP_CONF_ROUTER */
-  if(!uip_ds6_is_my_addr(&UIP_IP_BUF->destipaddr) &&
-     !uip_ds6_is_my_maddr(&UIP_IP_BUF->destipaddr) &&
-     !uip_is_addr_mcast(&UIP_IP_BUF->destipaddr)) {
-    PRINTF("Dropping packet, not for me\n");
-    UIP_STAT(++uip_stat.ip.drop);
-    goto drop;
-  }
+	#if !IDS_CLIENT
+    if(!uip_ds6_is_my_addr(&UIP_IP_BUF->destipaddr) &&
+      !uip_ds6_is_my_maddr(&UIP_IP_BUF->destipaddr) &&
+      !uip_is_addr_mcast(&UIP_IP_BUF->destipaddr)) {
+      PRINTF("Dropping packet, not for me\n");
+      UIP_STAT(++uip_stat.ip.drop);
+      goto drop;
+    }
+  #endif
 
   /*
    * Next header field processing. In IPv6, we can have extension headers,
@@ -1279,6 +1420,24 @@ uip_process(uint8_t flag)
   uip_ext_len = 0;
   uip_ext_bitmap = 0;
 #endif /* UIP_CONF_ROUTER */
+
+#if IDS_CLIENT
+  PRINTF("I got IP:%u ids:%d\n", UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1], IDS_CLIENT);
+  if (!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
+      !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr) && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+  {
+    checkIDS();
+  }
+
+  //Drop packets from IDS
+  if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+  {
+
+    UIP_STAT(++uip_stat.ip.drop);
+    goto drop;
+  }
+#endif /* IDS_CLIENT */
+
 
 #if UIP_IPV6_MULTICAST
   process:
@@ -1297,6 +1456,15 @@ uip_process(uint8_t flag)
       goto udp_input;
 #endif /* UIP_UDP */
     case UIP_PROTO_ICMP6:
+
+	  #if IDS_CLIENT
+      if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+      {
+        UIP_STAT(++uip_stat.ip.drop);
+        goto drop;
+      }
+		#endif
+
       /* ICMPv6 */
       goto icmp6_input;
     case UIP_PROTO_HBHO:
@@ -1430,6 +1598,34 @@ uip_process(uint8_t flag)
   /* End of headers processing */
 
   icmp6_input:
+
+  #if IDS_SERVER || IDS_CLIENT || RPL_SERVER	
+   
+  //signed short rss = packetbuf_attr(PACKETBUF_ATTR_RSSI);
+
+  PRINTF("reach %d",packetbuf_attr(PACKETBUF_ATTR_RSSI));	
+    clock_now = (unsigned long)clock_seconds();
+    if (UIP_ICMP_BUF->type == ICMP6_ECHO_REQUEST &&
+        UIP_ICMP_BUF->icode == 0)
+    {
+      if ((unsigned long)clock_now - last_echo <= 1)
+      {
+        last_echo = (unsigned long)clock_now;
+        //Process icmp6.Check for echo request and drop messages. Blacklist ip.
+        PRINTF("Att\n");
+        goto drop;
+      }
+      else
+      {
+        last_echo = (unsigned long)clock_now;
+      }
+    } /*else if(UIP_ICMP_BUF->type==ICMP6_RPL && UIP_ICMP_BUF->icode==RPL_CODE_MAL) {
+            PRINTF("IC");
+        }*/
+	#endif
+
+
+
   /* This is IPv6 ICMPv6 processing code. */
   PRINTF("icmp6_input: length %d type: %d \n", uip_len, UIP_ICMP_BUF->type);
 
@@ -1550,6 +1746,13 @@ uip_process(uint8_t flag)
   uip_sappdata = uip_appdata = &uip_buf[UIP_IPUDPH_LEN + UIP_LLH_LEN];
   uip_slen = 0;
   UIP_UDP_APPCALL();
+
+	#if IDS_CLIENT
+			  UIP_STAT(++uip_stat.icmp.drop);
+			  //My addition: just drop packet after process
+			  goto drop;
+	#endif /* IDS_CLIENT */
+
 
   udp_send:
   PRINTF("In udp_send\n");

@@ -48,7 +48,7 @@
 #endif /* TEST_MORE_ROUTES */
 
 #undef NETSTACK_CONF_RDC
-#define NETSTACK_CONF_RDC     contikimac_driver
+#define NETSTACK_CONF_RDC     nullrdc_driver
 #undef NULLRDC_CONF_802154_AUTOACK
 #define NULLRDC_CONF_802154_AUTOACK       1
 
@@ -57,13 +57,6 @@
 
 /* 10 minutes lifetime of routes */
 #define RPL_CONF_DEFAULT_LIFETIME        10
-
-//My definition
-//#define NETSTACK_CONF_RDC   contikimac_driver
-#define NETSTACK_CONF_MAC	csma_driver
-//#define NETSTACK_CONF_WITH_RIME 1
-//#undef CC2420_CONF_AUTOACK
-//#define CC2420_CONF_AUTOACK 0
 
 #define RPL_CONF_DEFAULT_ROUTE_INFINITE_LIFETIME 1
 

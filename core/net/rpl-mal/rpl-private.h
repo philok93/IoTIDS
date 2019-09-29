@@ -78,6 +78,10 @@
 #define RPL_CODE_SEC_DAO               0x82   /* Secure DAO */
 #define RPL_CODE_SEC_DAO_ACK           0x83   /* Secure DAO ACK */
 
+/*MINE CODES FOR IDS*/
+#define RPL_CODE_IDS                    0x31
+//#define RPL_CODE_DET                    0x32
+
 /* RPL control message options. */
 #define RPL_OPTION_PAD1                  0
 #define RPL_OPTION_PADN                  1
@@ -344,12 +348,18 @@ extern rpl_stats_t rpl_stats;
 extern rpl_instance_t instance_table[];
 extern rpl_instance_t *default_instance;
 
+//Add IDS
+//uint8_t data_input=0;
+
 /* ICMPv6 functions for RPL. */
 void dis_output(uip_ipaddr_t *addr);
 void dio_output(rpl_instance_t *, uip_ipaddr_t *uc_addr);
 void dao_output(rpl_parent_t *, uint8_t lifetime);
 void dao_output_target(rpl_parent_t *, uip_ipaddr_t *, uint8_t lifetime);
 void dao_ack_output(rpl_instance_t *, uip_ipaddr_t *, uint8_t, uint8_t);
+
+void detector_output(uip_ipaddr_t *addr);
+
 void rpl_icmp6_register_handlers(void);
 uip_ds6_nbr_t *rpl_icmp6_update_nbr_table(uip_ipaddr_t *from,
                                           nbr_table_reason_t r, void *data);

@@ -46,6 +46,7 @@
 #include "cc2420.h"
 #include "dev/leds.h"
 #include <stdio.h>
+
 /*---------------------------------------------------------------------------*/
 float
 floor(float x)
@@ -63,6 +64,8 @@ AUTOSTART_PROCESSES(&web_sense_process);
 static int temperature[HISTORY];
 static int battery1[HISTORY];
 static int sensors_pos;
+ 
+
 /*---------------------------------------------------------------------------*/
 static int
 get_battery(void)
@@ -179,7 +182,7 @@ PROCESS_THREAD(web_sense_process, ev, data)
   while(1) {
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer));
     etimer_reset(&timer);
-
+  
     battery1[sensors_pos] = get_mybatt() * 1000;
     temperature[sensors_pos] = get_mytemp();
     sensors_pos = (sensors_pos + 1) % HISTORY;

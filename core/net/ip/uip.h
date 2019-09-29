@@ -2219,6 +2219,9 @@ uint16_t uip_icmp6chksum(void);
  */
 uint8_t checkIDS(void);
 void calcAvg(void*);
+//uint16_t countOutNodes=0;
+
+
 
 
 #endif /* UIP_H_ */

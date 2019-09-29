@@ -64,4 +64,49 @@
 #define WEBSERVER_CONF_CFS_CONNS 2
 #endif
 
+//------My IDS conf--------
+
+#undef NETSTACK_CONF_RDC
+// #ifndef NETSTACK_CONF_RDC
+ #define NETSTACK_CONF_RDC	contikimac_driver     //contikimac_driver //eixe nullrdc_driver
+// #endif
+
+#undef NETSTACK_CONF_MAC
+// #ifndef NETSTACK_CONF_MAC
+ #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
+// #endif
+
+#ifndef IDS_CLIENT
+#define IDS_CLIENT       0
+#endif
+
+#ifndef IDS_SERVER
+#define IDS_SERVER       0
+#endif
+
+#ifndef RPL_SERVER
+#define RPL_SERVER       0
+#endif
+
+#ifndef MALICIOUS
+#define MALICIOUS       0
+#endif
+
+#ifndef MAL_RANK
+#define MAL_RANK       0
+#endif
+
+#ifndef MAL_DIS
+#define MAL_DIS       0
+#endif
+
+#ifndef MAL_EXT
+#define MAL_EXT       0
+#endif
+
+#ifdef DEBUG
+#undef DEBUG
+#define DEBUG   0
+#endif
+
 #endif /* PROJECT_ROUTER_CONF_H_ */

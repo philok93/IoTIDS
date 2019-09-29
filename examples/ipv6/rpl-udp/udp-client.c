@@ -178,16 +178,11 @@ PROCESS_THREAD(udp_client_process, ev, data)
   static int print = 0;
 #endif
 
-static struct etimer et;
-
   PROCESS_BEGIN();
-
-
 
   PROCESS_PAUSE();
 
   set_global_address();
-
 
   PRINTF("UDP client process started nbr:%d routes:%d\n",
          NBR_TABLE_CONF_MAX_NEIGHBORS, UIP_CONF_MAX_ROUTES);
@@ -211,23 +206,8 @@ static struct etimer et;
   powertrace_sniff(POWERTRACE_ON);
 #endif
 
-//Added delay to normal sensors
-
-//PRINTF("CONTINUE NOW\n");
   etimer_set(&periodic, SEND_INTERVAL);
-  NETSTACK_MAC.off(0);
-  etimer_set(&et, CLOCK_SECOND*10);
-  int tu=0;
-
   while(1) {
-    if (tu==0){
-          PROCESS_WAIT_EVENT();
-        if (etimer_expired(&et)){
-          NETSTACK_MAC.on();
-          tu=1;
-        }
-    }
-
     PROCESS_YIELD();
     if(ev == tcpip_event) {
       tcpip_handler();

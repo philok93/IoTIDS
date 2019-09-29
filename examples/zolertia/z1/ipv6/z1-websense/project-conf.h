@@ -43,4 +43,40 @@
 #undef WEBSERVER_CONF_CFS_CONNS
 #define WEBSERVER_CONF_CFS_CONNS 2
 
+
+
+#ifndef IDS_CLIENT
+#define IDS_CLIENT       0
+#endif
+
+#ifndef IDS_SERVER
+#define IDS_SERVER       0
+#endif
+
+#ifndef RPL_SERVER
+#define RPL_SERVER       0
+#endif
+
+#ifndef MALICIOUS
+#define MALICIOUS       0
+#endif
+
+#ifndef MAL_RANK
+#define MAL_RANK       0
+#endif
+
+#ifndef MAL_DIS
+#define MAL_DIS       0
+#endif
+
+#ifndef MAL_EXT
+#define MAL_EXT       1
+#endif
+
+#ifdef DEBUG
+#undef DEBUG
+#define DEBUG   1
+#endif
+#define DEBUG 1
+
 #endif /* PROJECT_RPL_WEB_CONF_H_ */

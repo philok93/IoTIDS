@@ -42,7 +42,7 @@
 
 /* Set to 1 to enable RPL statistics */
 #ifndef RPL_CONF_STATS
-#define RPL_CONF_STATS 1
+#define RPL_CONF_STATS 0
 #endif /* RPL_CONF_STATS */
 
 /*
@@ -321,7 +321,7 @@
 #endif
 
 /*
- * Interval of DIS transmission
+ * Interval of DIS transmission 60,5
  */
 #ifdef  RPL_CONF_DIS_INTERVAL
 #define RPL_DIS_INTERVAL                RPL_CONF_DIS_INTERVAL

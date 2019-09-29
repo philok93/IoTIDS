@@ -6,7 +6,7 @@ SMALL = 1
 
 APPS += webserver webbrowser
 
-CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
+CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\" -DMAL_EXT=1 -DMALICIOUS=1
 CONTIKI_SOURCEFILES += wget.c
 PROJECTDIRS += ../../../../ipv6/rpl-border-router
 PROJECT_SOURCEFILES += httpd-simple.c
