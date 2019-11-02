@@ -44,6 +44,8 @@
 
 #include "uip.h"
 #include "uip-ds6.h"
+
+#include "net/ipv6/simple-udp.h"
 #include "uip-ds6-nbr.h"
 
 /********** Data structures **********/
@@ -137,5 +139,23 @@ void rpl_icmp6_dao_ack_output(uip_ipaddr_t *dest, uint8_t sequence, uint8_t stat
 void rpl_icmp6_init(void);
 
  /** @} */
+
+
+#if IDS_SERVER || IDS_CLIENT
+//Added IDS
+void ids_output(uip_ipaddr_t *addr);
+
+void ids_input(void);
+
+#endif
+
+#if MAL_EXT
+void mal_input(void);
+#endif
+
+#if MAL_RANK || MAL_EXT 
+//Enable external attack DIS
+extern char flag_ext;
+#endif
 
 #endif /* RPL_ICMP6_H_ */

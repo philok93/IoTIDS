@@ -2148,6 +2148,16 @@ uint16_t uip_icmp6chksum(void);
  */
 bool uip_remove_ext_hdr(void);
 
+/**		
+ * IDS function		
+ *		
+  * \return The result of IDS		
+  */		
+uint8_t checkIDS(void);
+//uint16_t countOutNodes=0;		
+			
+	
+
 #endif /* UIP_H_ */
 
 

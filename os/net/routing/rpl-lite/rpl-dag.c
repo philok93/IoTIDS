@@ -287,9 +287,24 @@ rpl_dag_update_state(void)
     rpl_nbr_t *nbr;
 
     /* Select and set preferred parent */
+    #if IDS_CLIENT
+      rpl_neighbor_set_preferred_parent(nbr_table_head(rpl_neighbors));
+    #else
     rpl_neighbor_set_preferred_parent(rpl_neighbor_select_best());
+    #endif
+
     /* Update rank  */
-    curr_instance.dag.rank = rpl_neighbor_rank_via_nbr(curr_instance.dag.preferred_parent);
+    #if !MAL_RANK
+      curr_instance.dag.rank = rpl_neighbor_rank_via_nbr(curr_instance.dag.preferred_parent);
+    #else
+      curr_instance.dag.rank=127;
+    #endif
+
+    //Keep constant rank for detectors
+    #if IDS_CLIENT
+      curr_instance.dag.rank=256;
+    #endif
+
 
     /* Update better_parent_since flag for each neighbor */
     nbr = nbr_table_head(rpl_neighbors);
@@ -606,7 +621,9 @@ rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
       && curr_instance.instance_id == dio->instance_id
       && uip_ipaddr_cmp(&curr_instance.dag.dag_id, &dio->dag_id)) {
     process_dio_from_current_dag(from, dio);
+    // #if !IDS_CLIENT
     rpl_dag_update_state();
+    // #endif
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -653,7 +670,9 @@ rpl_process_dao_ack(uint8_t sequence, uint8_t status)
   }
   /* Is this an ACK for our last DAO? */
   if(sequence == curr_instance.dag.dao_last_seqno) {
+    
     int status_ok = status < RPL_DAO_ACK_UNABLE_TO_ACCEPT;
+    
     if(curr_instance.dag.state == DAG_JOINED && status_ok) {
       curr_instance.dag.state = DAG_REACHABLE;
       rpl_timers_dio_reset("Reachable");
@@ -697,7 +716,9 @@ rpl_process_hbh(rpl_nbr_t *sender, uint16_t sender_rank, int loop_detected, int 
       sender->rank = sender_rank;
       /* Select DAG and preferred parent. In case of a parent switch,
       the new parent will be used to forward the current packet. */
+      // #if !IDS_CLIENT
       rpl_dag_update_state();
+      // #endif
     }
   }
 

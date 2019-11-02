@@ -1,5 +1,47 @@
 CONTIKI_PROJECT = udp-client udp-server
-all: $(CONTIKI_PROJECT)
+TARGET=z1
+# MAKE_ROUTING=MAKE_ROUTING_RPL_CLASSIC
+
+udp-server:
+ifeq ($(IDS_SERVER),1)
+$(info 'SERVER')
+	DEFINES+=IDS_SERVER=1 
+	DEFINES+=IDS_CLIENT=0
+	MODULES=os/net/routing/ids-app
+	BUILD_DIR_CONFIG=server
+endif
+
+udp-client-ids: 
+ifeq ($(IDS_CLIENT),1)
+$(info 'IDSCLIENT')
+	DEFINES+=IDS_SERVER=0
+	DEFINES+=IDS_CLIENT=1
+	DEFINES+=RPL_CONF_DEFAULT_LEAF_ONLY=1
+	MODULES=os/net/routing/ids-app
+	BUILD_DIR_CONFIG=ids-client
+$(info DEFINE $(DEFINES))
+endif
+
+udp-client-mal:
+ifeq ($(IDS_CLIENT),2)
+$(info 'MALICIOUS')
+	DEFINES+=IDS_SERVER=0
+	DEFINES+=IDS_CLIENT=0
+	DEFINES+=MALICIOUS=1
+	DEFINES+=RPL_CONF_DIS_INTERVAL=0
+	DEFINES+=MAL_DIS=1
+	BUILD_DIR_CONFIG=malicious
+endif
+
+udp-client:
+ifeq ($(IDS_CLIENT),0)
+$(info 'NORMAL')
+	DEFINES+=IDS_SERVER=0
+	DEFINES+=IDS_CLIENT=0
+	BUILD_DIR_CONFIG=normal
+endif
 
 CONTIKI=../..
 include $(CONTIKI)/Makefile.include
+
+# all: $(CONTIKI_PROJECT)

@@ -66,7 +66,13 @@ clock_time_t RPL_PROBING_DELAY_FUNC(void);
 #endif /* RPL_PROBING_DELAY_FUNC */
 
 #define PERIODIC_DELAY_SECONDS     60
+
+//Malicious node sends every 30 sec to IDS
+#if MALICIOUS && (MAL_DIS || MAL_EXT)
+#define PERIODIC_DELAY             (30 * CLOCK_SECOND)
+#else
 #define PERIODIC_DELAY             ((PERIODIC_DELAY_SECONDS) * CLOCK_SECOND)
+#endif
 
 static void handle_dis_timer(void *ptr);
 static void handle_dio_timer(void *ptr);
@@ -82,6 +88,9 @@ static void handle_probing_timer(void *ptr);
 static void handle_periodic_timer(void *ptr);
 static void handle_state_update(void *ptr);
 
+//EXternal attacker to IDS
+char flag_ext=0;
+
 /*---------------------------------------------------------------------------*/
 static struct ctimer dis_timer; /* Not part of a DAG because when not joined */
 static struct ctimer periodic_timer; /* Not part of a DAG because used for general state maintenance */
@@ -93,7 +102,13 @@ void
 rpl_timers_schedule_periodic_dis(void)
 {
   if(ctimer_expired(&dis_timer)) {
-    clock_time_t expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
+//Set interval to 30 sec when malicious node sends DIS
+#if MALICIOUS && (MAL_DIS || MAL_EXT)
+  clock_time_t expiration_time = PERIODIC_DELAY;
+#else		
+  clock_time_t expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
+#endif /*MALICIOUS*/
+
     ctimer_set(&dis_timer, expiration_time, handle_dis_timer, NULL);
   }
 }
@@ -101,14 +116,38 @@ rpl_timers_schedule_periodic_dis(void)
 static void
 handle_dis_timer(void *ptr)
 {
-  if(!rpl_dag_root_is_root() &&
-     (!curr_instance.used ||
-       curr_instance.dag.preferred_parent == NULL ||
-       curr_instance.dag.rank == RPL_INFINITE_RANK)) {
-    /* Send DIS and schedule next */
-    rpl_icmp6_dis_output(NULL);
-    rpl_timers_schedule_periodic_dis();
-  }
+
+  #if MAL_RANK || MAL_EXT || !MALICIOUS
+    if (flag_ext==1){
+        int i=0;
+        LOG_INFO("\nSTART\n");
+        //My code
+        while (i<50){
+          i++;
+          rpl_icmp6_dis_output(NULL);
+        }
+    }else{
+        if(!rpl_dag_root_is_root() &&
+        (!curr_instance.used ||
+          curr_instance.dag.preferred_parent == NULL ||
+          curr_instance.dag.rank == RPL_INFINITE_RANK)) {
+
+          /* Send DIS and schedule next */
+          rpl_icmp6_dis_output(NULL);
+          rpl_timers_schedule_periodic_dis();
+          
+        }
+      }
+  // #elif MAL_DIS /* NOT MALICIOUS */
+  //      int i=0;
+  //     //My code
+  //     while (i<10){
+  //       i++;
+  //       rpl_icmp6_dis_output(NULL);
+  //     }
+  #endif  /* MALICIOUS */
+
+  
 }
 /*---------------------------------------------------------------------------*/
 /*------------------------------- DIO -------------------------------------- */
@@ -262,6 +301,8 @@ schedule_dao_refresh(void)
 void
 rpl_timers_schedule_dao(void)
 {
+  //If not send dao, will not get dao-ack and be not reachable 
+  // #if !IDS_CLIENT
   if(curr_instance.used && curr_instance.mop != RPL_MOP_NO_DOWNWARD_ROUTES) {
     /* No need for DAO aggregation delay as per RFC 6550 section 9.5, as this
     * only serves storing mode. Use simple delay instead, with the only purpose
@@ -269,6 +310,7 @@ rpl_timers_schedule_dao(void)
     clock_time_t expiration_time = RPL_DAO_DELAY / 2 + (random_rand() % (RPL_DAO_DELAY));
     ctimer_set(&curr_instance.dag.dao_timer, expiration_time, send_new_dao, NULL);
   }
+  // #endif
 }
 /*---------------------------------------------------------------------------*/
 static void

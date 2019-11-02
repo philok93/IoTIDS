@@ -32,6 +32,11 @@
 #include "net/netstack.h"
 #include "net/ipv6/simple-udp.h"
 
+#if IDS_SERVER
+#include "ids.h"
+#pragma message "added ids"
+#endif
+
 #include "sys/log.h"
 #define LOG_MODULE "App"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -40,6 +45,7 @@
 #define UDP_CLIENT_PORT	8765
 #define UDP_SERVER_PORT	5678
 
+extern void checkNodes();
 static struct simple_udp_connection udp_conn;
 
 PROCESS(udp_server_process, "UDP server");
@@ -66,6 +72,10 @@ udp_rx_callback(struct simple_udp_connection *c,
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_server_process, ev, data)
 {
+  static struct etimer mytimer;
+  static struct etimer time_to_reset;
+
+
   PROCESS_BEGIN();
 
   /* Initialize DAG root */
@@ -74,6 +84,30 @@ PROCESS_THREAD(udp_server_process, ev, data)
   /* Initialize UDP connection */
   simple_udp_register(&udp_conn, UDP_SERVER_PORT, NULL,
                       UDP_CLIENT_PORT, udp_rx_callback);
+
+  etimer_set(&mytimer, 5*CLOCK_SECOND);
+  //Reset after 30 min
+  etimer_set(&time_to_reset, 1800*CLOCK_SECOND);
+
+  while(1){
+      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));
+      checkNodes();
+
+      if (etimer_expired(&time_to_reset)){
+        uint8_t i=0;
+        for (i=0;i<NODES_NUM;i++){
+          nodes[i].address=0;
+          nodes[i].counterMsg=0;
+          nodes[i].counterDIS=0;
+          nodes[i].intervals=999;
+          nodes[i].timestamp=0;
+        }
+      // LOG_INFO("RESETNODES\n");
+      etimer_reset(&time_to_reset);
+    }
+
+    etimer_reset(&mytimer);
+  }
 
   PROCESS_END();
 }

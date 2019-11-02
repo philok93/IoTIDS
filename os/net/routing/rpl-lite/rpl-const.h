@@ -152,6 +152,16 @@
 #define RPL_MOP_STORING_NO_MULTICAST    2
 #define RPL_MOP_STORING_MULTICAST       3
 
+
+//Define IDS code for RPL message
+#if IDS_CLIENT || IDS_SERVER
+#define RPL_CODE_IDS                    0x31
+#endif
+
+#if IDS_CLIENT || IDS_SERVER || MAL_EXT
+#define RPL_CODE_MAL                    0x32
+#endif
+
  /** @} */
 
 #endif /* RPL_CONST_H */

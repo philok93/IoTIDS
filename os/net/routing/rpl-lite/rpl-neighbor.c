@@ -385,6 +385,10 @@ best_parent(int fresh_only)
     best = curr_instance.of->best_parent(best, nbr);
   }
 
+  //IDS detector select always BR for parent
+  #if IDS_CLIENT
+  return nbr_table_head(rpl_neighbors);
+  #endif
   return best;
 }
 /*---------------------------------------------------------------------------*/
