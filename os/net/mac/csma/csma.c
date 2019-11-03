@@ -84,14 +84,14 @@ input_packet(void)
   } else if(csma_security_parse_frame() < 0) {
     LOG_ERR("failed to parse %u\n", packetbuf_datalen());
   } 
-  #if !IDS_CLIENT //Do only if not ids
+   #if !IDS_CLIENT //Do only if not ids
   else if(!linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
                                          &linkaddr_node_addr) &&
             !packetbuf_holds_broadcast()) {
     LOG_WARN("not for us\n");
-  }
+    }
   #endif
-  else if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_SENDER), &linkaddr_node_addr)) {
+   else if(linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_SENDER), &linkaddr_node_addr)) {
     LOG_WARN("frame from ourselves\n");
   } else {
     int duplicate = 0;
@@ -181,7 +181,9 @@ max_payload(void)
     framer_hdrlen = CSMA_MAC_MAX_HEADER;
   }
 
-  return MIN(max_radio_payload_len, PACKETBUF_SIZE) - framer_hdrlen;
+  return MIN(max_radio_payload_len, PACKETBUF_SIZE)
+    - framer_hdrlen
+    - LLSEC802154_PACKETBUF_MIC_LEN();
 }
 /*---------------------------------------------------------------------------*/
 const struct mac_driver csma_driver = {
