@@ -47,6 +47,9 @@
 
 extern void checkNodes();
 static struct simple_udp_connection udp_conn;
+ static struct ctimer time_to_reset;
+ static void reset_stats();
+
 
 PROCESS(udp_server_process, "UDP server");
 AUTOSTART_PROCESSES(&udp_server_process);
@@ -69,12 +72,34 @@ udp_rx_callback(struct simple_udp_connection *c,
   simple_udp_sendto(&udp_conn, data, datalen, sender_addr);
 #endif /* WITH_SERVER_REPLY */
 }
+
+static void reset_stats(void *ptr){
+  uint8_t i=0;
+  for (i=0;i<NODES_NUM;i++){
+    nodes[i].address=0;
+    nodes[i].counterMsg=0;
+    nodes[i].counterDIS=0;
+    nodes[i].intervals=999;
+    nodes[i].timestamp=0;
+    nodes[i].detected=0;
+
+    uint8_t c=0;
+    for (c=0;c<DETECTORS_NUM;c++){		
+        nodes[i].counterDetect[c]=0;
+        nodes[i].fromNode[c].u8[sizeof(nodes[i].fromNode[c].u8)-1]=0;
+
+      }
+  }
+
+  
+  ctimer_reset(&time_to_reset);
+}
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_server_process, ev, data)
 {
   static struct etimer mytimer;
-  static struct etimer time_to_reset;
-
 
   PROCESS_BEGIN();
 
@@ -85,28 +110,21 @@ PROCESS_THREAD(udp_server_process, ev, data)
   simple_udp_register(&udp_conn, UDP_SERVER_PORT, NULL,
                       UDP_CLIENT_PORT, udp_rx_callback);
 
-  etimer_set(&mytimer, 5*CLOCK_SECOND);
-  //Reset after 30 min
-  etimer_set(&time_to_reset, 1800*CLOCK_SECOND);
+  etimer_set(&mytimer, 20*CLOCK_SECOND);
+  //Reset after 10 min
+  ctimer_set(&time_to_reset,600*CLOCK_SECOND,reset_stats,NULL);
 
   while(1){
+
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));
+
+    // PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));
+    // if (etimer_expired(&mytimer)) {
+      
       checkNodes();
 
-      if (etimer_expired(&time_to_reset)){
-        uint8_t i=0;
-        for (i=0;i<NODES_NUM;i++){
-          nodes[i].address=0;
-          nodes[i].counterMsg=0;
-          nodes[i].counterDIS=0;
-          nodes[i].intervals=999;
-          nodes[i].timestamp=0;
-        }
-      // LOG_INFO("RESETNODES\n");
-      etimer_reset(&time_to_reset);
-    }
-
-    etimer_reset(&mytimer);
+      etimer_reset(&mytimer);
+    // }
   }
 
   PROCESS_END();

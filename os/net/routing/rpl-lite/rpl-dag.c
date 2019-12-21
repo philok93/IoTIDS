@@ -227,6 +227,7 @@ global_repair_non_root(rpl_dio_t *dio)
     if(LOG_INFO_ENABLED) {
       rpl_neighbor_print_list("Global repair (before)");
     }
+    LOG_INFO("NOT ROOT");
     /* Re-initialize configuration from DIO */
     rpl_timers_stop_dag_timers();
     rpl_neighbor_set_preferred_parent(NULL); 
@@ -585,7 +586,7 @@ process_dio_init_dag(rpl_dio_t *dio)
     LOG_WARN("failed to initialize DAG\n");
     return 0;
   }
-
+  
   /* Init OF and timers */
   curr_instance.of->reset();
   rpl_timers_dio_reset("Join");
@@ -612,6 +613,7 @@ process_dio_init_dag(rpl_dio_t *dio)
 void
 rpl_process_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
 {
+
   if(!curr_instance.used && !rpl_dag_root_is_root()) {
     /* Attempt to init our DAG from this DIO */
     if(!process_dio_init_dag(dio)) {

@@ -105,7 +105,9 @@ rpl_timers_schedule_periodic_dis(void)
 //Set interval to 30 sec when malicious node sends DIS
 #if MALICIOUS && (MAL_DIS || MAL_EXT)
   clock_time_t expiration_time = PERIODIC_DELAY;
-#else		
+#elif IDS_CLIENT
+  clock_time_t expiration_time = 50;
+#else
   clock_time_t expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
 #endif /*MALICIOUS*/
 

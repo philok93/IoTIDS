@@ -182,6 +182,8 @@ uint16_t uip_len, uip_slen;
   ids_ctr_t nodes[NODES_NUM];		
 #elif IDS_CLIENT		
   ids_ctr_t nodes[NODES_NUM_CL];		
+
+struct etimer time_sniff;
 #endif /* IDS_SERVER else IDS_CLIENT */
 
 /* The uip_flags variable is used for communication between the TCP/IP stack
@@ -978,12 +980,15 @@ uip_update_ttl(void)
 uint8_t checkIDS()
 {
 
+  if (!etimer_expired(&time_sniff)){
+    return 0;
+  }
   
   unsigned long clock_now = (unsigned long)clock_seconds();
   //IDs detectors=3
   //Malicious neighbours=5
   // uint8_t NODES_NUM=30;
-
+  // LOG_INFO("INFOIDS");
   if (!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
       !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr))
   {
@@ -1006,7 +1011,7 @@ uint8_t checkIDS()
     {
 
       //Find the average time and average number of DIS
-      LOG_INFO("node i:%d adr:%ld cntr:%ld d:%ld inter:%ld %ld\n", i, nodes[i].address, nodes[i].counterMsg, nodes[i].counterDIS, nodes[i].intervals, nodes[i].timestamp);
+      // LOG_INFO("node i:%d adr:%u cntr:%u d:%u inter:%ld %ld\n", i, nodes[i].address, nodes[i].counterMsg, nodes[i].counterDIS, nodes[i].intervals, nodes[i].timestamp);
 
       //skip node 1 from uip_process
 
@@ -1707,9 +1712,24 @@ uint16_t i=0;
       for (i = 0; i < NODES_NUM; i++)
     {
       //drop dis from malicious node
-      if (nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]){
+      if (UIP_ICMP_BUF->icode!=RPL_CODE_IDS && nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]){
         LOG_INFO("drop\n");
          goto drop;
+      }else if (nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] && UIP_ICMP_BUF->icode==RPL_CODE_IDS ){
+        //If store ids node, reset it stats to remove from db
+        nodes[i].address=0;
+        nodes[i].counterMsg=0;
+        nodes[i].counterDIS=0;
+        nodes[i].intervals=999;
+        nodes[i].timestamp=0;
+        nodes[i].detected=0;
+
+        uint8_t c=0;
+        for (c=0;c<DETECTORS_NUM;c++){		
+            nodes[i].counterDetect[c]=0;
+            nodes[i].fromNode[c].u8[sizeof(nodes[i].fromNode[c].u8)-1]=0;
+
+          }
       }
     }  
       

@@ -42,11 +42,20 @@ udp_rx_callback(struct simple_udp_connection *c,
 PROCESS_THREAD(udp_client_process, ev, data)
 {
   static struct etimer periodic_timer;
+  // static struct stimer stimer_mine;
   static unsigned count;
   static char str[32];
   uip_ipaddr_t dest_ipaddr;
 
   PROCESS_BEGIN();
+
+  // stimer_set(&stimer_mine, 10);
+  // while(stimer_expired(&stimer_mine)!=1)
+  // {
+  // // LOG_INFO("Waiting for timer to expire \n");
+  // }
+
+  // PROCESS_PAUSE();
 
   /* Initialize UDP connection */
   simple_udp_register(&udp_conn, UDP_CLIENT_PORT, NULL,

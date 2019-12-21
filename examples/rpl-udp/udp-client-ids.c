@@ -18,6 +18,10 @@
 
 static struct simple_udp_connection udp_conn;
 
+ static struct ctimer time_to_reset;
+ static void reset_stats();
+// static struct etimer time_sniff;
+
 /*---------------------------------------------------------------------------*/
 PROCESS(udp_client_process, "IDS client");
 AUTOSTART_PROCESSES(&udp_client_process);
@@ -40,11 +44,23 @@ udp_rx_callback(struct simple_udp_connection *c,
   LOG_INFO_("\n");
 
 }
+
+static void reset_stats(void *ptr){
+  uint8_t i=0;
+  for (i=0;i<NODES_NUM_CL;i++){
+    nodes[i].address=0;
+    nodes[i].counterMsg=0;
+    nodes[i].counterDIS=0;
+    nodes[i].intervals=999;
+    nodes[i].timestamp=0;
+  }
+  ctimer_reset(&time_to_reset);
+}
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
 {
   static struct etimer periodic_timer;
-   static struct etimer time_to_reset;
   static unsigned count;
   // static char str[32];
   uip_ipaddr_t dest_ipaddr;
@@ -69,17 +85,25 @@ PROCESS_THREAD(udp_client_process, ev, data)
   simple_udp_register(&udp_conn, UDP_CLIENT_PORT, NULL,
                       UDP_SERVER_PORT, udp_rx_callback);
 
-  // etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+  //Used in uip6.c, starts detecting after 1 minute
+  etimer_set(&time_sniff, (60*CLOCK_SECOND));
 
-    etimer_set(&periodic_timer, (30*CLOCK_SECOND));  
-    etimer_set(&time_to_reset, (600*CLOCK_SECOND));  
+    etimer_set(&periodic_timer, (10*CLOCK_SECOND));  
+  ctimer_set(&time_to_reset,180*CLOCK_SECOND,reset_stats,NULL);
 
   while(1) {
-    
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+    // PROCESS_YIELD();
+        // PROCESS_WAIT_EVENT();
 
-    if(NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.node_has_joined()) {
-      NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
+
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+    
+
+    // if(etimer_expired(&periodic_timer)){
+          etimer_reset(&periodic_timer);
+
+      if (NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.node_has_joined() && NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr)) {
+      // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
       /* Send to DAG root */
       LOG_INFO("Check IDS.Attempt: %u \n", count);
       // LOG_INFO_6ADDR(&dest_ipaddr);
@@ -93,20 +117,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
     } else {
       LOG_INFO("Not reachable yet\n");
     }
-    
-    if (etimer_expired(&time_to_reset)){
-        uint8_t i=0;
-        for (i=0;i<NODES_NUM_CL;i++){
-          nodes[i].address=0;
-          nodes[i].counterMsg=0;
-          nodes[i].counterDIS=0;
-          nodes[i].intervals=999;
-          nodes[i].timestamp=0;
-        }
-      // LOG_INFO("RESETNODES\n");
-      etimer_reset(&time_to_reset);
-    }
-    etimer_reset(&periodic_timer);
+  
 
     /* Add some jitter */
     // etimer_set(&periodic_timer, SEND_INTERVAL

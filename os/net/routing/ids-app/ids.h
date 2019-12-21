@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 
+
+#include "sys/ctimer.h"
 #include "os/net/ipv6/uip.h"
 #include "net/ipv6/uip-ds6.h"
 #include "os/net/routing/rpl-lite/rpl.h"
@@ -16,7 +18,7 @@
 #if IDS_SERVER
 #pragma message ("IDS_SERVER")
 #define NODES_NUM 5
-#define DETECTORS_NUM 2
+#define DETECTORS_NUM 10
 #elif IDS_CLIENT
 #pragma message ("IDS_CLIENT")
 #define NODES_NUM_CL 5
@@ -31,16 +33,17 @@
 
 struct IDS_ctr{
   
-  uint32_t address;
+  uint16_t address;
   //IDS detectors are 6
   #if IDS_SERVER /*IDS_SERVER 3 detectors*/
   uip_ip6addr_t fromNode[DETECTORS_NUM];
- // uint32_t counterDetect[3];
+  uint8_t counterDetect[DETECTORS_NUM];
   #endif  /*IDS_SERVER 3 detectors*/
-  uint32_t counterMsg;
-  uint32_t counterDIS;
+  uint16_t counterMsg;
+  uint16_t counterDIS;
   uint32_t intervals;
   uint32_t timestamp;
+  char detected;
   
 };
 typedef struct IDS_ctr ids_ctr_t;
@@ -48,7 +51,7 @@ typedef struct IDS_ctr ids_ctr_t;
 
 //Mine for  IDS
 extern uip_ipaddr_t IdsServerAddr;
-extern uint32_t ip_end;
+extern uint16_t ip_end;
 extern uint16_t countInNodes;
 
 //3 instead of 6 detectors, 6 mal nodes
@@ -65,9 +68,10 @@ void checkNodes();
 ids_ctr_t nodes[NODES_NUM];
 #elif IDS_CLIENT
 ids_ctr_t nodes[NODES_NUM_CL];
+struct etimer time_sniff;
 #endif
 
 //void ids_start(clock_time_t perioc);
 
-PROCESS_NAME(ids_process);
+// PROCESS_NAME(ids_process);
 #endif

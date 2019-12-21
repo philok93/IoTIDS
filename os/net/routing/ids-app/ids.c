@@ -12,12 +12,10 @@
 // #define NODES_NUM 5
 // #elif IDS_CLIENT
 // #define NODES_NUM_CL 30
-// #endif
+// #endifs
 
 #if IDS_SERVER
 ids_ctr_t nodes[NODES_NUM];
-
-#define DEBUG 1
 
 #define LOG_MODULE "IDS"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -32,35 +30,49 @@ void checkNodes(){
          
         if (nodes[j].address>0 && nodes[j].address!=0 && nodes[j].address!=1){
            
-           LOG_INFO("adr:%d %u disnum:%u %u time_in:%u\n",j,(unsigned)nodes[j].address,
+           LOG_INFO("adr:%d %u disnum:%u %u t_in:%u\n",j,(unsigned)nodes[j].address,
            (unsigned)nodes[j].counterDIS,(unsigned)nodes[j].counterMsg,(unsigned)nodes[j].intervals);
-            if (nodes[j].intervals<30 && nodes[j].counterDIS>=3){
-              uint8_t k=0;
+            if (nodes[j].intervals<=30 && nodes[j].counterDIS>=3){
+              uint8_t count=0,c=0;
+              for (c=0;c<DETECTORS_NUM;c++){		
+                      // LOG_INFO("TI:%d\n",nodes[j].counterDetect[c]);		
+                      // LOG_INFO_6ADDR(&nodes[j].fromNode[c]);
+                      // LOG_INFO("\n");
+
+                      count+=nodes[j].counterDetect[c];
+              }
+              LOG_INFO("c;%d %d\n",count,nodes[j].detected);
+
+              if (count>=2 && nodes[j].detected==1){
+                LOG_INFO("sure mal ID %u!\n",(unsigned)nodes[j].address);
+                
+
+                uint8_t k=0;
+
+                  for (k=0;k<DETECTORS_NUM;k++){  
+                //  nodes[j].counterDetect[k]=0;
+                  nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]=0;
+                }
+
+              }
               /*for (k=0;k<5;k++){
                   tmp=nodes[j].counterDetect[k]+tmp;
               }*/
               //if (tmp>3){
+                nodes[j].detected=1;
                 LOG_INFO("warning!ID mal %u!\n",(unsigned)nodes[j].address);
-                nodes[j].address=0;
+                // nodes[j].address=0;
                 nodes[j].counterDIS=0;
                 nodes[j].counterMsg=0;
                 nodes[j].intervals=999;
 
-                for (k=0;k<DETECTORS_NUM;k++){  
-                  // if (nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]!=0){
-                  //     LOG_INFO("sent reset");
-                  //    // PRINT6ADDR(&nodes[j].fromNode[k]);
-                  //     //PRINTF("\n");
-                  //     ids_output(&(nodes[j].fromNode[k]));
-                  // }
-              //    nodes[j].counterDetect[k]=0;
-                  nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]=0;
-                }
+                
                
 		          }
               
 
-        }
+        }else
+          nodes[j].detected=0;
         
     }
     

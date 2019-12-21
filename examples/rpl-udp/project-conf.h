@@ -39,6 +39,7 @@
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_IDS                         LOG_LEVEL_INFO
 // #define RPL_CONF_DEFAULT_LEAF_ONLY 1
 
 //------My IDS conf--------
@@ -48,9 +49,9 @@
  #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
 // #endif
 
-#ifdef IDS_SERVER
-    #undef NBR_TABLE_CONF_MAX_NEIGHBORS
-    #define NBR_TABLE_CONF_MAX_NEIGHBORS 14
-    #undef UIP_CONF_MAX_ROUTES
-    #define UIP_CONF_MAX_ROUTES 14
-#endif
+// #ifdef IDS_SERVER
+//     #undef NBR_TABLE_CONF_MAX_NEIGHBORS
+//     #define NBR_TABLE_CONF_MAX_NEIGHBORS 7
+//     #undef UIP_CONF_MAX_ROUTES
+//     #define UIP_CONF_MAX_ROUTES 7
+// #endif

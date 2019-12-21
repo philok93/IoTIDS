@@ -77,7 +77,7 @@ static void dao_input(void);
 //void ids_output(uip_ipaddr_t *addr);
 //void ids_input(void);
 uip_ipaddr_t IdsServerAddr;
-uint32_t ip_end=0;
+uint16_t ip_end=0;
 uint8_t endofIP=0;
 uint16_t countInNodes=0;
 #endif /*IDS_CLIENT || IDS_SERVER*/
@@ -757,7 +757,7 @@ void ids_output(uip_ipaddr_t *addr)
 
     // simple_udp_sendto(&udp_conn, str, strlen(str), &dest_ipaddr);	
 	  #if IDS_CLIENT		
-      int j=0,k=0;		
+      int k=0;		
       int16_t indexes[NODES_NUM_CL];//={0,0,0,0,0,0};		
       int countOutNodes=0;		
 	  #endif		
@@ -826,7 +826,7 @@ void ids_output(uip_ipaddr_t *addr)
 	                        countOutNodes=countOutNodes + 1;		
 	                        indexes[k]=1;		
 	                        //countOutNodes++;		
-	                        LOG_WARN("Maybe warn!!ID:%u total:%d\n",(unsigned)nodes[k].address,(k+1));	
+	                        LOG_INFO("Maybe warn!!ID:%u total:%d\n",(unsigned)nodes[k].address,(k+1));	
 	                        //countOutNodes++;		
 	                        //PRINTF("%d\n",countOutNodes);		
 			
@@ -843,7 +843,7 @@ void ids_output(uip_ipaddr_t *addr)
                       buffer[pos++] = curr_instance.instance_id;
 	                    // Get the number of nodes evaluated		
 	                    set16(buffer, pos, countOutNodes);		
-	                    pos = pos + 2;		
+	                    pos = pos + sizeof(uint16_t);		
 	                    uint16_t c=0;		
 	                    //Send list with possible malicious nodes		
 	                    for (k = 0; k< NODES_NUM_CL; k++) {		
@@ -857,14 +857,14 @@ void ids_output(uip_ipaddr_t *addr)
 	                            break;		
 	                          c+=1;		
 	                          //PRINTF("READY:%d %d %d\n",k,indexes[k],nodes[k].address);		
-	                          set32(buffer, pos, nodes[k].address);		
-	                          pos = pos + sizeof(uint32_t);		
+	                          set16(buffer, pos, nodes[k].address);		
+	                          pos = pos + sizeof(uint16_t);		
 	                          		
-	                          set32(buffer, pos, nodes[k].counterDIS);		
-	                          pos = pos + sizeof(uint32_t);		
+	                          set16(buffer, pos, nodes[k].counterDIS);		
+	                          pos = pos + sizeof(uint16_t);		
 			
-	                          set32(buffer, pos, nodes[k].counterMsg);		
-	                          pos = pos + sizeof(uint32_t);		
+	                          set16(buffer, pos, nodes[k].counterMsg);		
+	                          pos = pos + sizeof(uint16_t);		
 			
 	                          set32(buffer, pos, nodes[k].intervals);		
 	                          //memcpy(buffer+pos,&nodes[k].intervals,4);		
@@ -875,19 +875,19 @@ void ids_output(uip_ipaddr_t *addr)
 	                        //  PRINTF("output to ids:%ld %ld %ld %ld\n",nodes[k].address,nodes[k].counterDIS,nodes[k].intervals,nodes[k].counterMsg);		
 	                      		
 	                      }
-	                      uip_icmp6_send(addr, ICMP6_RPL,RPL_CODE_IDS, 3 + (countOutNodes*(4*sizeof(uint32_t))));	
+	                      uip_icmp6_send(addr, ICMP6_RPL,RPL_CODE_IDS, 1+sizeof(uint16_t) + (countOutNodes*(3*sizeof(uint16_t)+sizeof(uint32_t))));	
                         //Send packet and reset
-
-                        for (j=0; j<NODES_NUM_CL;j++){		
-                          if (nodes[j].address!=0){		
-                            nodes[j].address=0;		
-                            nodes[j].counterDIS=0;		
-                            nodes[j].counterMsg=0;		
-                            nodes[j].intervals=999;		
-                            //nodes[j].flag=0;		
-                            nodes[j].timestamp=0;		
-                          }		    
-                      }		
+                      //Why reset??
+                      //   for (j=0; j<NODES_NUM_CL;j++){		
+                      //     if (nodes[j].address!=0){		
+                      //       nodes[j].address=0;		
+                      //       nodes[j].counterDIS=0;		
+                      //       nodes[j].counterMsg=0;		
+                      //       nodes[j].intervals=999;		
+                      //       //nodes[j].flag=0;		
+                      //       nodes[j].timestamp=0;		
+                      //     }		    
+                      // }		
 
 
 	                    }else{		
@@ -913,182 +913,195 @@ void ids_output(uip_ipaddr_t *addr)
 	    #if IDS_SERVER		
         unsigned char *buffer;		
         buffer=UIP_ICMP_PAYLOAD;		
-        //uint16_t NODES_NUM_CL=5;		
-        // #else		
-        // uint8_t idsAddress;		
         uint8_t k=0;
       #endif		
+
+	    // uint16_t pos = 0;	
 			
-	    		
-	    uint16_t pos = 0;		
-			
-	    LOG_PRINT("RECEIVED INPU\n");		
-	    uint8_t detectIP= UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8)-1];		
-			
-	    //uint16_t count = get16(buffer, pos);		
-	    if (detectIP==1){		
-	      #if IDS_CLIENT		
-	        pos = pos + 2;		
-	      #endif		
-	      uint8_t i=0;		
-	      // LOG_PRINT("RESET\n");		
-        #if IDS_SERVER		
-	        for(i = 0; i < NODES_NUM; i++)
-        #elif IDS_CLIENT
-          for(i = 0; i < NODES_NUM_CL; i++)
-        #endif	
-	      {		
-	          nodes[i].counterDIS=0;		
-	          nodes[i].counterMsg=0;		
-	          nodes[i].intervals=999;		
-	          //nodes[i].flag=0;		
-	          nodes[i].timestamp=0;		
+	    // if (detectorIP==1){		
+	    //   #if IDS_CLIENT		
+	    //     pos = pos + 2;		
+	    //   #endif		
+	    //   uint8_t i=0;		
+	    //   // LOG_PRINT("RESET\n");		
+      //   #if IDS_SERVER		
+	    //     for(i = 0; i < NODES_NUM; i++)
+      //   #elif IDS_CLIENT
+      //     for(i = 0; i < NODES_NUM_CL; i++)
+      //   #endif	
+	    //   {		
+	    //       nodes[i].counterDIS=0;		
+	    //       nodes[i].counterMsg=0;		
+	    //       nodes[i].intervals=999;		
+	    //       //nodes[i].flag=0;		
+	    //       nodes[i].timestamp=0;		
 	        		
-	      }		
-	      return;		
-	    }		
+	    //   }		
+	    //   return;		
+	    // }		
 	    		
 	    #if IDS_SERVER /*code for IDS_SERVER*/		
         //The number of observed nodes	
+        LOG_INFO("GOT INPUT\n");
+        uint16_t pos=0;	   
+        uint8_t detectorIP= UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8)-1];		
+
         uint8_t instance_id;
         instance_id = buffer[pos++];
 
         if(!curr_instance.used || curr_instance.instance_id != instance_id) {
           LOG_INFO("IDS IN: unknown instance, discard\n");
+          // uipbuf_clear();
+          // return;
           goto discard;
         }
         
         countInNodes = get16(buffer, pos);		
-        pos = pos + 2;		
+        pos = pos + sizeof(uint16_t);		
         // LOG_PRINT("eids_input %d %d\n",countInNodes, instance_id);		
         //PRINT6ADDR(&UIP_IP_BUF->srcipaddr);		
         //PRINTF("\n");		
-        //Save IDS detector's IP to not save it in monitored nodes.		
+        //Save IDS detector's IP to not save it in monitored nodes.	
+        //TODO: REMOVE	
         for(k=0;k<DETECTORS_NUM;k++){		
           //PRINTF("detector:%d\n",detectorsIP[k]);		
-          if (detectorsIP[k]==detectIP){		
+          if (detectorsIP[k]==detectorIP){		
             break;		
           }else if (detectorsIP[k]==0){		
-            detectorsIP[k]=detectIP;		
+            detectorsIP[k]=detectorIP;		
             break;		
           }		
               
         }		
         
         for(k = 0; k< countInNodes; k++) {		
-              
+              // LOG_INFO("inside FOR\n");
             //Put each received observation into a temp. list.		
-            ip_end=get32(buffer,pos);		
-            pos = pos + sizeof(uint32_t);		
-            uint32_t tmpdis = get32(buffer, pos);		
-            pos = pos + sizeof(uint32_t);		
+            ip_end=get16(buffer,pos);		
+            pos = pos + sizeof(uint16_t);		
+            uint16_t tmpdis = get16(buffer, pos);		
+            pos = pos + sizeof(uint16_t);		
         
-            uint32_t tmpdio = get32(buffer, pos);		
-            pos = pos + sizeof(uint32_t);		
+            uint16_t tmpdio = get16(buffer, pos);		
+            pos = pos + sizeof(uint16_t);		
         
             uint32_t tmpinter=get32(buffer, pos);		
             //memcpy(&tmpinter,buffer+ pos,4);		
             pos = pos + sizeof(uint32_t);		
         
             uint8_t j=0,countflag=0;
-            char flag1=0;		
+            char flag_detector=0;		
             uint8_t countme=0;		
-            //Check if measurements is for detector		
+            //Check if measurements is for IDS detector,then just return	
             for (countme=0; countme<DETECTORS_NUM;countme++){		
-                if (ip_end==detectorsIP[countme])		
+                if (ip_end==detectorsIP[countme]){		
                   countflag=1;		
-                  break;		
+                  goto discard;
+                }
+                  // return;		
             }		
-            LOG_PRINT("chkns:%lu %lu %lu %lu\n",ip_end,tmpdis,tmpdio,tmpinter);		
+            //check nodes, for python script
+            LOG_INFO("chkns:%u %u %u %lu\n",(unsigned)ip_end,tmpdis,tmpdio,tmpinter);		
           
 
-            int8_t flagip=-1;		
+            // int8_t flagip=-1;		
             //Find the node's address		
-            while (nodes[j].address!=0){		
-                if ((nodes[j].address==ip_end || nodes[j].address==detectIP) && countflag==1){		
-                  //PRINTF("found:%d %u\n",j,(unsigned)nodes[j].address);		
-                  flagip=j;		
+            while (nodes[j].address!=0 && j<NODES_NUM){
+                //We avoid ids detector by dropping rpl_ids msg		
+                // if ((nodes[j].address==ip_end || nodes[j].address==detectorIP) && countflag==1){		
+                //   //PRINTF("found:%d %u\n",j,(unsigned)nodes[j].address);		
+                //   flagip=j;		
                       
-                  j++;		
+                //   j++;		
                       
-                }else if (nodes[j].address==ip_end && countflag==0){		
+                // }else 
+                
+                if (nodes[j].address==ip_end && countflag==0){		
                   nodes[j].counterDIS=tmpdis;		
                   nodes[j].counterMsg=tmpdio;		
                   nodes[j].intervals=tmpinter;		
                   uint8_t c=0;		
-                  for (c=0;c<3;c++){		
+                  for (c=0;c<DETECTORS_NUM;c++){		
+                    //  LOG_INFO("IP:%d",nodes[j].fromNode[c].u8[sizeof(nodes[j].fromNode[c].u8)-1]);
+
                     if (nodes[j].fromNode[c].u8[sizeof(nodes[j].fromNode[c].u8)-1]==UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8)-1]){		
-                    //uncomment nodes[j].counterDetect[c]=nodes[j].counterDetect[c]+1;		
-                      flag1=1;		
+                        nodes[j].counterDetect[c]=nodes[j].counterDetect[c]+1;		
+                      flag_detector=1;		
                       break;		
                     }		
                     else if (nodes[j].fromNode[c].u8[sizeof(nodes[j].fromNode[c].u8)-1]==0){		
                       nodes[j].fromNode[c]=UIP_IP_BUF->srcipaddr;		
-                //uncomment      nodes[j].counterDetect[c]=1;		
-                      flag1=1;		
+                      nodes[j].counterDetect[c]=1;		
+                      flag_detector=1;		
                       break;		
-                    }		
+                    }
                   }		
                   break;		
                 }		
                     
                     
                 j++;		
-                if (j==NODES_NUM){		
-                  // LOG_PRINT("size prb\n");		
-                  break;		
-                }		
+                // if (j==NODES_NUM){		
+                //   LOG_PRINT("size prb\n");		
+                //   break;		
+                // }		
             }		
         
-            if (j==NODES_NUM && flag1==0 && flagip==-1)		
+            // LOG_INFO("BEDNODES\n");
+            if (j==NODES_NUM || flag_detector==1)		
               continue;		
         
             //Remove detector from list and insert last element in that position.		
-            if (flagip!=-1){		
-              j=j-1;		
-              if (j!=flagip){		
-                nodes[flagip].address=nodes[j].address;		
-                nodes[flagip].counterDIS=nodes[j].counterDIS;		
-                nodes[flagip].counterMsg=nodes[j].counterMsg;		
-                nodes[flagip].intervals=nodes[j].intervals;		
-              }		
-                nodes[j].address=0;		
-                nodes[j].counterDIS=0;		
-                nodes[j].counterMsg=0;		
-                nodes[j].intervals=999;		
+            // if (flagip!=-1){		
+            //   j=j-1;		
+            //   if (j!=flagip){		
+            //     nodes[flagip].address=nodes[j].address;		
+            //     nodes[flagip].counterDIS=nodes[j].counterDIS;		
+            //     nodes[flagip].counterMsg=nodes[j].counterMsg;		
+            //     nodes[flagip].intervals=nodes[j].intervals;		
+            //   }		
+            //     nodes[j].address=0;		
+            //     nodes[j].counterDIS=0;		
+            //     nodes[j].counterMsg=0;		
+            //     nodes[j].intervals=999;		
               
-            // LOG_PRINT("del:%u %u\n",(unsigned)nodes[flagip].address,(unsigned)flagip);		
-              //continue;		
-            }else if (flag1==0 && nodes[j].address==0 && countflag==0){		
+            // // LOG_PRINT("del:%u %u\n",(unsigned)nodes[flagip].address,(unsigned)flagip);		
+            //   //continue;		
+            // }else
+            
+             if (flag_detector==0 && nodes[j].address==0 && countflag==0){		
                 nodes[j].address=ip_end;		
                 nodes[j].counterDIS=tmpdis;		
                 nodes[j].counterMsg=tmpdio;		
                 nodes[j].intervals=tmpinter;		
-                // u8_t c=0;		
+                u8_t c=0;		
         
-                // for (c=0;c<3;c++){		
-                //   if (nodes[j].fromNode[c].u8[0]==0){		
-                //      nodes[j].fromNode[c]=UIP_IP_BUF->srcipaddr;		
-                //   //   nodes[j].counterDetect[c]=1;		
-                //      break;		
-                //   }		
+                for (c=0;c<DETECTORS_NUM;c++){		
+                  if (nodes[j].fromNode[c].u8[sizeof(nodes[j].fromNode[c].u8)-1]==0){		
+                     nodes[j].fromNode[c]=UIP_IP_BUF->srcipaddr;		
+                    nodes[j].counterDetect[c]=1;		
+                     break;		
+                  }		
                     
-                // }		
+                }
+                // LOG_INFO("IPde:%d %d",nodes[j].fromNode[c].u8[sizeof(nodes[j].fromNode[c].u8)-1],nodes[j].counterDetect[c]);
+		
             }		
-            PRINTF("inside added:%u dis:%lu dio:%lu in:%lu\n",j,nodes[j].address,nodes[j].counterDIS,nodes[j].intervals);		
+            // PRINTF("inside added:%u dis:%lu dio:%lu in:%lu\n",j,nodes[j].address,nodes[j].counterDIS,nodes[j].intervals);		
         
         }		//ends for
         
-
+        // LOG_INFO("BDIS\n");
+        goto discard;
 
         //for (k=0;k<6;k++){		
         // PRINTF("%d add:%d dis:%d in:%d\n",k,nodes[k].address,nodes[k].counterDIS,nodes[k].intervals);		
         
       //  }		
         //Finish and clear
+        discard:
+        // LOG_INFO("CARDIN\n");
         uipbuf_clear();
-         discard:
-          uipbuf_clear();
 
 	    #endif /*IDS_SERVER code*/		
 	  }		
