@@ -46,19 +46,15 @@ void checkNodes(){
               if (count>=2 && nodes[j].detected==1){
                 LOG_INFO("sure mal ID %u!\n",(unsigned)nodes[j].address);
                 
+              uint8_t k=0;
 
-                uint8_t k=0;
-
-                  for (k=0;k<DETECTORS_NUM;k++){  
+              for (k=0;k<DETECTORS_NUM;k++){  
                 //  nodes[j].counterDetect[k]=0;
                   nodes[j].fromNode[k].u8[sizeof(nodes[j].fromNode[k].u8)-1]=0;
                 }
 
               }
-              /*for (k=0;k<5;k++){
-                  tmp=nodes[j].counterDetect[k]+tmp;
-              }*/
-              //if (tmp>3){
+
                 nodes[j].detected=1;
                 LOG_INFO("warning!ID mal %u!\n",(unsigned)nodes[j].address);
                 // nodes[j].address=0;

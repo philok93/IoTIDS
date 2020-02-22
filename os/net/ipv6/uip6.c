@@ -80,6 +80,7 @@
 #include "net/ipv6/uip-ds6.h"
 #include "net/ipv6/multicast/uip-mcast6.h"
 #include "net/routing/routing.h"
+#include "packetbuf.h"
 
 
 #if IDS_SERVER || IDS_CLIENT
@@ -182,7 +183,7 @@ uint16_t uip_len, uip_slen;
   ids_ctr_t nodes[NODES_NUM];		
 #elif IDS_CLIENT		
   ids_ctr_t nodes[NODES_NUM_CL];		
-
+extern char tmp_ip_senders[NODES_NUM_CL];
 struct etimer time_sniff;
 #endif /* IDS_SERVER else IDS_CLIENT */
 
@@ -839,8 +840,9 @@ uip_add_rcv_nxt(uint16_t n)
 /**
  * \brief Process the options in Destination and Hop By Hop extension headers
  */
+#if IDS_CLIENT
 static uint8_t
-ext_hdr_options_process(uint8_t *ext_buf)
+ext_hdr_options_process(uint8_t *ext_buf,char flag)
 {
   /*
    * Length field in the extension header: length of the header in units of
@@ -879,7 +881,7 @@ ext_hdr_options_process(uint8_t *ext_buf)
     case UIP_EXT_HDR_OPT_RPL:
 
     #if IDS_CLIENT
-        if (UIP_ICMP_BUF->icode!=RPL_CODE_IDS && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+        if (flag==0 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
         checkIDS();
         UIP_STAT(++uip_stat.ip.drop);		
         return 0;
@@ -946,6 +948,118 @@ ext_hdr_options_process(uint8_t *ext_buf)
   }
   return 0;
 }
+#else
+
+static uint8_t
+ext_hdr_options_process(uint8_t *ext_buf)
+{
+  /*
+   * Length field in the extension header: length of the header in units of
+   * 8 bytes, excluding the first 8 bytes
+   * length field in an option : the length of data in the option
+   */
+  uint16_t opt_offset = 2; /* 2 first bytes in ext header */
+  struct uip_hbho_hdr *ext_hdr = (struct uip_hbho_hdr *)ext_buf;
+  uint16_t ext_hdr_len = (ext_hdr->len << 3) + 8;
+
+  while(opt_offset + 2 <= ext_hdr_len) { /* + 2 for opt header */
+    struct uip_ext_hdr_opt *opt_hdr = (struct uip_ext_hdr_opt *)(ext_buf + opt_offset);
+    uint16_t opt_len = opt_hdr->len + 2;
+
+    if(opt_offset + opt_len > ext_hdr_len) {
+      LOG_ERR("Extension header option too long: dropping packet\n");
+      uip_icmp6_error_output(ICMP6_PARAM_PROB, ICMP6_PARAMPROB_OPTION,
+          (ext_buf + opt_offset) - uip_buf);
+      return 2;
+    }
+
+    switch(opt_hdr->type) {
+    /*
+     * for now we do not support any options except padding ones
+     * PAD1 does not make sense as the header must be 8bytes aligned,
+     * hence we can only have
+     */
+    case UIP_EXT_HDR_OPT_PAD1:
+      LOG_DBG("Processing PAD1 option\n");
+      opt_offset += 1;
+      break;
+    case UIP_EXT_HDR_OPT_PADN:
+      LOG_DBG("Processing PADN option\n");
+      opt_offset += opt_len;
+      break;
+    case UIP_EXT_HDR_OPT_RPL:
+
+    #if IDS_CLIENT
+        if (flag==0 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1)
+        checkIDS();
+        UIP_STAT(++uip_stat.ip.drop);		
+        return 0;
+	  #endif /* IDS_CLIENT */
+
+      /* Fixes situation when a node that is not using RPL
+       * joins a network which does. The received packages will include the
+       * RPL header and processed by the "default" case of the switch
+       * (0x63 & 0xC0 = 0x40). Hence, the packet is discarded as the header
+       * is considered invalid.
+       * Using this fix, the header is ignored, and the next header (if
+       * present) is processed.
+       */
+      LOG_DBG("Processing RPL option\n");
+      if(!NETSTACK_ROUTING.ext_header_hbh_update(ext_buf, opt_offset)) {
+        LOG_ERR("RPL Option Error: Dropping Packet\n");
+        return 1;
+      }
+      opt_offset += opt_len;
+      break;
+#if UIP_MCAST6_ENGINE == UIP_MCAST6_ENGINE_MPL
+    case UIP_EXT_HDR_OPT_MPL:
+      /* MPL (RFC7731) Introduces the 0x6D hop by hop option. Hosts that do not
+      *  recognise the option should drop the packet. Since we want to keep the packet,
+      *  we want to process the option and not revert to the default case.
+      */
+      LOG_DBG("Processing MPL option\n");
+      opt_offset += opt_len + opt_len;
+      break;
+#endif
+    default:
+      /*
+       * check the two highest order bits of the option
+       * - 00 skip over this option and continue processing the header.
+       * - 01 discard the packet.
+       * - 10 discard the packet and, regardless of whether or not the
+       *   packet's Destination Address was a multicast address, send an
+       *   ICMP Parameter Problem, Code 2, message to the packet's
+       *   Source Address, pointing to the unrecognized Option Type.
+       * - 11 discard the packet and, only if the packet's Destination
+       *   Address was not a multicast address, send an ICMP Parameter
+       *   Problem, Code 2, message to the packet's Source Address,
+       *   pointing to the unrecognized Option Type.
+       */
+      LOG_DBG("Unrecognized option, MSB 0x%x\n", opt_hdr->type);
+      switch(opt_hdr->type & 0xC0) {
+      case 0:
+        break;
+      case 0x40:
+        return 1;
+      case 0xC0:
+        if(uip_is_addr_mcast(&UIP_IP_BUF->destipaddr)) {
+          return 1;
+        }
+      case 0x80:
+        uip_icmp6_error_output(ICMP6_PARAM_PROB, ICMP6_PARAMPROB_OPTION,
+            (ext_buf + opt_offset) - uip_buf);
+        return 2;
+      }
+      /* in the cases were we did not discard, update ext_opt* */
+      opt_offset += opt_len;
+      break;
+    }
+  }
+  return 0;
+}
+#endif
+
+
 /*---------------------------------------------------------------------------*/
 static bool
 uip_check_mtu(void)
@@ -980,55 +1094,75 @@ uip_update_ttl(void)
 uint8_t checkIDS()
 {
 
+  // uip_ipaddr_t *ipaddr=NULL;
+  // uint16_t opt_offset = 2;
+  // uint8_t *ext_buf=0;
+   // 
+  
+
+  
+  //Start detection after 1 minute
   if (!etimer_expired(&time_sniff)){
     return 0;
   }
   
+  //Change IDS src IP to addr_first so we get correct IP addr.
+   const linkaddr_t *sender = packetbuf_addr(PACKETBUF_ADDR_FIRST);
   unsigned long clock_now = (unsigned long)clock_seconds();
-  //IDs detectors=3
-  //Malicious neighbours=5
-  // uint8_t NODES_NUM=30;
-  // LOG_INFO("INFOIDS");
+  
   if (!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&
       !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr))
   {
-    //If a neighbour is removed,reset statistics.
-    /*if (nbr_num!=uip_ds6_nbr_num()){
-	for (j=0;j<NODES_NUM;j++){
-		nodes[j].counterMsg=0;
-		nodes[j].timestamp=0;
-		nodes[j].address=0;
-	}
-	nbr_num=tmpnum;
-	PRINTF("num:%d\n",nbr_num);
-}*/
 
-    uint16_t i = 0; //,tmp2=0,c_msg=0,c_int=0;
-    //unsigned long tmp=0;
-    //unsigned long intervals[nodes];
-    // LOG_INFO("node %d\n",NODES_NUM_CL);
+    uint16_t i = 0; 
+    int8_t packet_rssi=-(packetbuf_attr(PACKETBUF_ATTR_RSSI));
+    // LOG_INFO("RSSI:%d %d\n",packet_rssi,UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
+   
+    
+    // for (i = 0; i < NODES_NUM_CL; i++)
+    // {
+    //   int8_t tmp_rss=(packet_rssi+nodes[i].last_avg_rss)/2;
+    
+    //   if (nodes[i].address !=0 && 
+    //     nodes[i].address != UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] &&
+    //     nodes[i].last_avg_rss ==tmp_rss){
+    //        nodes[i].spoof_suspicious=1;
+    //       LOG_INFO("RSHEs:%d %d %d\n",nodes[i].address,tmp_rss,nodes[i].last_avg_rss);
+
+    //     }
+    // }
+
     for (i = 0; i < NODES_NUM_CL; i++)
     {
 
       //Find the average time and average number of DIS
-      // LOG_INFO("node i:%d adr:%u cntr:%u d:%u inter:%ld %ld\n", i, nodes[i].address, nodes[i].counterMsg, nodes[i].counterDIS, nodes[i].intervals, nodes[i].timestamp);
 
       //skip node 1 from uip_process
 
-      if (nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1])
+      if (nodes[i].address == sender->u8[sizeof(sender->u8) - 1])
       {
-        //timestamp[i]=(unsigned long)clock_now;//(unsigned long)clock_now-(unsigned long)timestamp[i];
-        //PRINTF("type:%d,code:%d\n",UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
+         LOG_INFO("RSSI:%d %d %d\n",packet_rssi,nodes[i].last_avg_rss,sender->u8[sizeof(sender->u8) - 1]);
+    
         if (UIP_ICMP_BUF->type == ICMP6_RPL && UIP_ICMP_BUF->icode == RPL_CODE_DIS)
           nodes[i].counterDIS = nodes[i].counterDIS + 1;
         else
           nodes[i].counterMsg = nodes[i].counterMsg + 1;
-        //PRINTF("mpeni cmsg:%d stamp:%lu c_msg:%d cint:%d\n",nodes[i].counterMsg,nodes[i].timestamp,c_msg,c_int);
 
         //PRINTF("before intr:%lu stamp:%lu",,nodes[i].timestamp);
         nodes[i].intervals = clock_now - nodes[i].timestamp;
         nodes[i].timestamp = clock_now;
+        //Update RSS
+        int8_t tmp_rss=(packet_rssi+nodes[i].last_avg_rss)/2;
+       
+        // LOG_INFO("SUS:%d tm:%d",);
+        if (nodes[i].last_avg_rss !=0  &&
+           (tmp_rss != nodes[i].last_avg_rss)){
+          nodes[i].spoof_suspicious=1;
+          LOG_INFO("PCL:%d %d %d\n",nodes[i].address,nodes[i].last_avg_rss, tmp_rss);
+        }else
+          nodes[i].spoof_suspicious=0;
 
+        nodes[i].last_avg_rss=tmp_rss;
         break;
       }
 
@@ -1038,7 +1172,7 @@ uint8_t checkIDS()
         // LOG_INFO("IP store:%u",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);
         //countOutNodes++;
         nodes[i].timestamp = (unsigned long)clock_now;
-        nodes[i].address = UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1];
+        nodes[i].address = sender->u8[sizeof(sender->u8) - 1];
 
         if (UIP_ICMP_BUF->type == ICMP6_RPL && UIP_ICMP_BUF->icode == RPL_CODE_DIS)
         {
@@ -1050,6 +1184,7 @@ uint8_t checkIDS()
           nodes[i].counterMsg = 1;
           nodes[i].counterDIS = 0;
         }
+        nodes[i].last_avg_rss=packet_rssi;
         nodes[i].intervals = 999;
 
         break;
@@ -1066,9 +1201,55 @@ uint8_t checkIDS()
 void
 uip_process(uint8_t flag)
 {
-  //Flag for IDS
+
+//My print
+// LOG_INFO("UIPr:%u f:%u icm:%u",uip_stat.icmp.sent,uip_stat.ip.forwarded,uip_stat.icmp.recv);
+
+
+  //Flag for IDS. Checking with RSSI if node is spoofing ip.
+  //If node is not root and its IP not equal to source ip but has same RSS then malicious.
   #if IDS_CLIENT
-  char fl =0;
+  const linkaddr_t *sender = packetbuf_addr(PACKETBUF_ADDR_FIRST);
+  const linkaddr_t *dest = packetbuf_addr(PACKETBUF_ADDR_RECEIVER);
+  // int id=NETSTACK_ROUTING.ext_header_hbh_update(ext_buf, opt_offset);
+  LOG_INFO("gh:f:%d-->%d-->%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],sender->u8[sizeof(sender->u8) - 1],dest->u8[sizeof(dest->u8) - 1]);
+ 
+  uint8_t i=0;
+  while (i<NODES_NUM_CL){
+      //Skip if root is sending, store the sender to check later if it forwards packet
+      if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 &&
+        tmp_ip_senders[i]==0 && 
+          dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
+          tmp_ip_senders[i]=dest->u8[sizeof(dest->u8) - 1];
+          break;
+      } else if (tmp_ip_senders[i]==sender->u8[sizeof(sender->u8) - 1]){
+        LOG_INFO("FWOK %d\n",tmp_ip_senders[i]);
+          if (UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]==dest->u8[sizeof(dest->u8) - 1])
+            tmp_ip_senders[i]=0;
+          else
+            tmp_ip_senders[i]=dest->u8[sizeof(dest->u8) - 1];
+          
+          break;
+      }
+      i++;
+  }
+
+  //Used as flag to enter checkIDS
+  char flag_entered =0;
+  //  for (i = 0; i < NODES_NUM_CL; i++)
+  //   {
+  //     int8_t packet_rss=-(packetbuf_attr(PACKETBUF_ATTR_RSSI));
+  //     int8_t tmp_rss=(-(packetbuf_attr(PACKETBUF_ATTR_RSSI))+nodes[i].last_avg_rss)/2;
+  //     //change srcipaddr to packetbuf_addr(PACKETBUF_ADDR_FIRST) to get current node
+  //     // linkaddr_t *sender=packetbuf_addr(PACKETBUF_ADDR_FIRST);
+  //     if (nodes[i].address !=0 && 
+  //       (nodes[i].address == sender->u8[sizeof(sender->u8) - 1] &&
+  //       nodes[i].last_avg_rss !=packet_rss)){
+  //          nodes[i].spoof_suspicious=1;
+  //         LOG_INFO("src %d, idsRS:%d %d %d tmp:%d\n", sender->u8[sizeof(sender->u8) - 1],nodes[i].address,tmp_rss,nodes[i].last_avg_rss,packetbuf_attr(PACKETBUF_ATTR_RSSI));
+
+  //       }
+  //   }
   #endif
 
   uint8_t *last_header;
@@ -1353,17 +1534,18 @@ uip_process(uint8_t flag)
 	        !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr)
           && UIP_ICMP_BUF->icode!=RPL_CODE_IDS)		
 	    {		
-	      if (fl==0){
+	      if (flag_entered==0){
           checkIDS();		
           //Flag for entering here		
-          fl = 1;		
+          flag_entered = 1;		
         }
         UIP_STAT(++uip_stat.ip.drop);		
-        goto drop;
+        goto drop; //Drop to avoid forwarding
 	    }		
 	#endif /* IDS_CLIENT */
 
-    switch(ext_hdr_options_process(next_header)) {
+  #if IDS_CLIENT	
+    switch(ext_hdr_options_process(next_header,flag_entered)) {
     case 0:
       break; /* done */
     case 1:
@@ -1372,6 +1554,17 @@ uip_process(uint8_t flag)
       goto send; /* send icmp error message (created in
                     ext_hdr_options_process) and discard */
     }
+  #else
+  switch(ext_hdr_options_process(next_header)) {
+    case 0:
+      break; /* done */
+    case 1:
+      goto drop; /* silently discard */
+    case 2:
+      goto send; /* send icmp error message (created in
+                    ext_hdr_options_process) and discard */
+    }
+  #endif
   }
 
   /*
@@ -1389,11 +1582,11 @@ uip_process(uint8_t flag)
   if(uip_is_addr_mcast_routable(&UIP_IP_BUF->destipaddr)) {
     if(UIP_MCAST6.in() == UIP_MCAST6_ACCEPT) {
       #if IDS_CLIENT
-        if (fl==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
+        if (flag_entered==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
           LOG_INFO("mcast process");
-          checkIDS();
-          fl=1;
-          
+            checkIDS();		
+            //Flag for entering here		
+            flag_entered = 1;		          
         }
         UIP_STAT(++uip_stat.ip.drop);		
         goto drop;
@@ -1423,8 +1616,8 @@ uip_process(uint8_t flag)
           && UIP_ICMP_BUF->icode!=RPL_CODE_IDS)		
           {		
             //Check flag to run the checkIDS	
-            if (fl == 0){
-              fl=1;		
+            if (flag_entered == 0){
+              flag_entered=1;		
               checkIDS();		
             }
             UIP_STAT(++uip_stat.ip.drop);		
@@ -1467,8 +1660,8 @@ uip_process(uint8_t flag)
       #endif
 
       #if IDS_CLIENT
-        if (fl==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
-          fl=1;
+        if (flag_entered==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
+          flag_entered=1;
           checkIDS();		
           
         }
@@ -1525,9 +1718,9 @@ uip_process(uint8_t flag)
       UIP_ICMP_BUF->icode!=RPL_CODE_IDS )		
   {		
     
-    if (fl==0){
+    if (flag_entered==0){
       checkIDS();
-      fl=1;
+      flag_entered=1;
     }
     UIP_STAT(++uip_stat.ip.drop);		
     goto drop;
@@ -1571,7 +1764,8 @@ uint16_t i=0;
         uip_ext_bitmap |= UIP_EXT_HDR_BITMAP_HBHO;
       }
 #endif /*UIP_CONF_IPV6_CHECKS*/
-      switch(ext_hdr_options_process(next_header)) {
+    #if IDS_CLIENT
+      switch(ext_hdr_options_process(next_header,flag_entered)) {
       case 0:
         break; /* done */
       case 1:
@@ -1580,6 +1774,18 @@ uint16_t i=0;
         goto send; /* send icmp error message (created in
                       ext_hdr_options_process) and discard */
       }
+      #else
+    switch(ext_hdr_options_process(next_header)) {
+      case 0:
+        break; /* done */
+      case 1:
+        goto drop; /* silently discard */
+      case 2:
+        goto send; /* send icmp error message (created in
+                      ext_hdr_options_process) and discard */
+      }
+
+      #endif
       break;
     case UIP_PROTO_DESTO:
 #if UIP_CONF_IPV6_CHECKS
@@ -1595,6 +1801,18 @@ uint16_t i=0;
         uip_ext_bitmap |= UIP_EXT_HDR_BITMAP_DESTO1;
       }
 #endif /*UIP_CONF_IPV6_CHECKS*/
+      #if IDS_CLIENT
+      
+      switch(ext_hdr_options_process(next_header,flag_entered)) {
+      case 0:
+        break; /* done */
+      case 1:
+        goto drop; /* silently discard */
+      case 2:
+        goto send; /* send icmp error message (created in
+                      ext_hdr_options_process) and discard */
+      }
+      #else
       switch(ext_hdr_options_process(next_header)) {
       case 0:
         break; /* done */
@@ -1604,6 +1822,8 @@ uint16_t i=0;
         goto send; /* send icmp error message (created in
                       ext_hdr_options_process) and discard */
       }
+
+      #endif
       break;
     case UIP_PROTO_ROUTING:
 #if UIP_CONF_IPV6_CHECKS
@@ -1697,9 +1917,9 @@ uint16_t i=0;
     if( NETSTACK_ROUTING.node_has_joined() && NETSTACK_ROUTING.node_is_reachable() && 
     UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS)		
 	      {		
-          if (fl==0){
+          if (flag_entered==0){
             checkIDS();
-            	fl=1;
+            	flag_entered=1;
           }
           UIP_STAT(++uip_stat.ip.drop);		
             goto drop;
@@ -1712,7 +1932,9 @@ uint16_t i=0;
       for (i = 0; i < NODES_NUM; i++)
     {
       //drop dis from malicious node
-      if (UIP_ICMP_BUF->icode!=RPL_CODE_IDS && nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]){
+      if (UIP_ICMP_BUF->icode!=RPL_CODE_IDS && 
+          nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] &&
+          nodes[i].detected==1){
         LOG_INFO("drop\n");
          goto drop;
       }else if (nodes[i].address == UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] && UIP_ICMP_BUF->icode==RPL_CODE_IDS ){
@@ -1723,6 +1945,7 @@ uint16_t i=0;
         nodes[i].intervals=999;
         nodes[i].timestamp=0;
         nodes[i].detected=0;
+        // nodes[i].suspicious=0;
 
         uint8_t c=0;
         for (c=0;c<DETECTORS_NUM;c++){		
@@ -1783,8 +2006,8 @@ uint16_t i=0;
 
   //IDS drops all packets except for BR
   #if IDS_CLIENT
-    if (fl==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
-      fl=1;
+    if (flag_entered==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
+      flag_entered=1;
       checkIDS();
     }
     if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1)

@@ -4,6 +4,8 @@
 #include "net/netstack.h"
 #include "net/ipv6/simple-udp.h"
 
+// #include "packetbuf.h"
+
 #include "sys/log.h"
 
 #include "ids.h"
@@ -53,7 +55,19 @@ static void reset_stats(void *ptr){
     nodes[i].counterDIS=0;
     nodes[i].intervals=999;
     nodes[i].timestamp=0;
+    nodes[i].spoof_suspicious=0;
+    nodes[i].last_avg_rss=0;
   }
+  
+  i = 0; 
+    LOG_INFO("RST tmp\n");
+    while (i<NODES_NUM_CL){
+      
+      // if (tmp_ip_senders[i]!=0){
+      //   LOG_INFO("Clone %d\n",tmp_ip_senders[i]);
+      // }
+      tmp_ip_senders[i++]=0; 
+    }
   ctimer_reset(&time_to_reset);
 }
 
@@ -64,6 +78,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   static unsigned count;
   // static char str[32];
   uip_ipaddr_t dest_ipaddr;
+  extern char tmp_ip_senders[NODES_NUM_CL];
 
   PROCESS_BEGIN();
 
@@ -117,6 +132,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
     } else {
       LOG_INFO("Not reachable yet\n");
     }
+
+    
   
 
     /* Add some jitter */

@@ -82,6 +82,8 @@ static void reset_stats(void *ptr){
     nodes[i].intervals=999;
     nodes[i].timestamp=0;
     nodes[i].detected=0;
+    nodes[i].last_avg_rss=0;
+    nodes[i].spoof_suspicious=0;
 
     uint8_t c=0;
     for (c=0;c<DETECTORS_NUM;c++){		

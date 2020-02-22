@@ -1,0 +1,80 @@
+[04:31:41 - main] [Cooja.java:1316] [INFO] - > Starting Cooja
+[04:31:41 - main] [Cooja.java:2857] [INFO] - External tools default settings: /external_tools_linux_64.config
+[04:31:41 - main] [Cooja.java:2887] [INFO] - External tools user settings: /home/phil/.cooja.user.properties
+[04:31:41 - main] [Simulation.java:422] [INFO] - Simulation random seed: -8904369453312555137
+[04:31:41 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/server/udp-server.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/malicious/udp-client-mal.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:42 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:43 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/normal/udp-client.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/ids-client/udp-client-ids.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/ids-client/udp-client-ids.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/ids-client/udp-client-ids.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/ids-client/udp-client-ids.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/ids-client/udp-client-ids.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/clone_malicious/udp-client-mal-clone.z1
+[04:31:44 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/phil/Documents/IDS_As_App/examples/rpl-udp/build/z1/clone_only/udp-client-mal-clone.z1
+[04:31:45 - main] [Cooja.java:1782] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+[04:31:45 - main] [Cooja.java:1782] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.Visualizer
+[04:31:45 - main] [Cooja.java:1782] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.LogListener
+[04:31:45 - main] [Cooja.java:1782] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.Notes
+[04:31:45 - main] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[04:31:45 - main] [LogScriptEngine.java:265] [INFO] - Script timeout in 1800000 ms
+[04:31:45 - main] [ScriptRunner.java:387] [INFO] - Test script activated
+[04:31:45 - Thread-2] [Simulation.java:253] [INFO] - Simulation main loop started, system time: 1582338705893
+[04:31:45 - main] [Cooja.java:1782] [INFO] - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+[04:33:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 5.00%, done in 1425.0 sec
+[04:34:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 10.00%, done in 1404.6 sec
+[04:35:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 15.00%, done in 1339.5 sec
+[04:36:53 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 20.00%, done in 1230.0 sec
+[04:37:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 25.00%, done in 1120.5 sec
+[04:39:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 30.00%, done in 1026.7 sec
+[04:40:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 35.00%, done in 937.3 sec
+[04:41:15 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 40.00%, done in 855.0 sec
+[04:42:21 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 45.00%, done in 777.3 sec
+[04:43:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 50.00%, done in 701.0 sec
+[04:44:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 55.00%, done in 630.5 sec
+[04:45:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 60.00%, done in 556.0 sec
+[04:46:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 65.00%, done in 482.7 sec
+[04:47:43 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 410.5 sec
+[04:48:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 342.3 sec
+[04:50:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 273.7 sec
+[04:51:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 206.2 sec
+[04:52:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 138.0 sec
+[04:53:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 68.8 sec
+[04:54:33 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[04:54:33 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[04:54:33 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582340073740	Duration: 1367847 ms	Simulated time 1800000 ms	Ratio 1.31593665080963
+[04:54:34 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated

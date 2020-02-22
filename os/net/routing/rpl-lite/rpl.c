@@ -171,12 +171,23 @@ rpl_set_prefix_from_addr(uip_ipaddr_t *addr, unsigned len, uint8_t flags)
 
   /* Add global address if not already there */
   set_ip_from_prefix(&ipaddr, &curr_instance.dag.prefix_info);
+
+#if CLONE_ATTACK
+ipaddr.u8[15]=6;
+// ipaddr.u16[7]=10;
+// LOG_INFO("malIP:%d %d %d\n",(unsigned)ipaddr.u8[15],(unsigned)ipaddr.u8[14],(unsigned)ipaddr.u16[7]);
+LOG_INFO_6ADDR(&ipaddr);
+LOG_INFO("\n");
+uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
+#else
+
   if(uip_ds6_addr_lookup(&ipaddr) == NULL) {
     LOG_INFO("adding global IP address ");
     LOG_INFO_6ADDR(&ipaddr);
     LOG_INFO_("\n");
     uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
   }
+#endif
   return 1;
 }
 /*---------------------------------------------------------------------------*/

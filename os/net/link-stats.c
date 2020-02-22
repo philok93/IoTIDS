@@ -35,6 +35,8 @@
 #include "net/packetbuf.h"
 #include "net/nbr-table.h"
 #include "net/link-stats.h"
+#include "net/ipv6/uip.h"
+
 #include <stdio.h>
 
 /* Log configuration */
@@ -68,6 +70,10 @@
 
 /* Per-neighbor link statistics table */
 NBR_TABLE(struct link_stats, link_stats);
+//mY ADDITION
+#if LINK_STATS_PACKET_COUNTERS
+NBR_TABLE(struct uip_stats, uip_stats);
+#endif
 
 /* Called at a period of FRESHNESS_HALF_LIFE */
 struct ctimer periodic_timer;
@@ -247,12 +253,21 @@ static void
 print_and_update_counters(void)
 {
   struct link_stats *stats;
+  struct uip_stats *uip_stat;
+
+
+  for(uip_stat = nbr_table_head(uip_stats); uip_stat != NULL;
+      uip_stat = nbr_table_next(uip_stats, uip_stat)) {
+    LOG_INFO("uipp num packets: tx=%u %u ack=%u %u rx=%u to=",
+               uip_stat->ip.sent,uip_stat->icmp.sent, uip_stat->ip.forwarded,uip_stat->icmp.drop, uip_stat->ip.recv);
+        LOG_INFO_LLADDR(nbr_table_get_lladdr(uip_stats,uip_stat));
+        LOG_INFO_("\n");
+      }
 
   for(stats = nbr_table_head(link_stats); stats != NULL;
       stats = nbr_table_next(link_stats, stats)) {
 
     struct link_packet_counter *c = &stats->cnt_current;
-
     LOG_INFO("num packets: tx=%u ack=%u rx=%u to=",
              c->num_packets_tx, c->num_packets_acked, c->num_packets_rx);
     LOG_INFO_LLADDR(link_stats_get_lladdr(stats));

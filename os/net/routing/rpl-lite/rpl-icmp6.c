@@ -762,17 +762,11 @@ void ids_output(uip_ipaddr_t *addr)
       int countOutNodes=0;		
 	  #endif		
 			
-      // uip_ipaddr_t ipaddr;
   
     const uip_ipaddr_t *currentNodesAddr= rpl_get_global_address(); //uip_ds6_get_link_local(-1);	
 	  		
 	   uint16_t pos = 0;		
-	  // LOG_PRINT("ids_output to:");		
-	  // LOG_PRINT_6ADDR(addr);
-    // LOG_PRINT(" my:");
-    // LOG_PRINT_6ADDR(currentNodesAddr);	
-    // LOG_PRINT("\n");
-
+     
 	   //If border router: Do not send. Update trust at once.		
 	   if(uip_ipaddr_cmp(addr, currentNodesAddr)) {		
 	     //PRINTF("BORDER=ROUTER\nip:");		
@@ -821,16 +815,18 @@ void ids_output(uip_ipaddr_t *addr)
 	                  for(k = 0; k< NODES_NUM_CL; k++) {		
 	                      if (nodes[k].address==0)		
 	                        continue;		
-	                      if (nodes[k].intervals<30 && nodes[k].counterDIS>=3){		
-	                        		
+                          
+                        //Interval is 15 because formula in rpl-timers.c says:expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));  
+	                      //So DIS_INTERVAL is defined as 30 so the min allowed time is 15.
+                        if (nodes[k].spoof_suspicious==1 || (nodes[k].intervals<=20 && nodes[k].counterDIS>=3)){		
+	                        if (nodes[k].spoof_suspicious==1)
+                            LOG_INFO("Clone attacker:%d s:%d\n",(unsigned)nodes[k].address,nodes[k].spoof_suspicious);
+                          else
+	                          LOG_INFO("Maybe warn!!ID:%u total:%d\n",(unsigned)nodes[k].address,(k+1));	
+
 	                        countOutNodes=countOutNodes + 1;		
 	                        indexes[k]=1;		
-	                        //countOutNodes++;		
-	                        LOG_INFO("Maybe warn!!ID:%u total:%d\n",(unsigned)nodes[k].address,(k+1));	
-	                        //countOutNodes++;		
-	                        //PRINTF("%d\n",countOutNodes);		
-			
-			
+                          nodes[k].spoof_suspicious=0;
 	                      }		
 	                  }		
 			

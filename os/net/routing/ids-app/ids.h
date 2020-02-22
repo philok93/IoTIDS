@@ -44,6 +44,8 @@ struct IDS_ctr{
   uint32_t intervals;
   uint32_t timestamp;
   char detected;
+  int8_t last_avg_rss;
+  char spoof_suspicious;
   
 };
 typedef struct IDS_ctr ids_ctr_t;
@@ -69,6 +71,8 @@ ids_ctr_t nodes[NODES_NUM];
 #elif IDS_CLIENT
 ids_ctr_t nodes[NODES_NUM_CL];
 struct etimer time_sniff;
+
+char tmp_ip_senders[NODES_NUM_CL];
 #endif
 
 //void ids_start(clock_time_t perioc);
