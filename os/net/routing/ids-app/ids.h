@@ -11,6 +11,9 @@
 #include "os/net/ipv6/uip.h"
 #include "net/ipv6/uip-ds6.h"
 #include "os/net/routing/rpl-lite/rpl.h"
+#include "net/nbr-table.h"
+
+#include "lib/list.h"
 
 #include <stdlib.h>
 #include <ctype.h>
@@ -31,7 +34,7 @@
 //Nodes_num= number of neighbour malicious nodes
 //BR can save 5 mal nodes, ids det. save 10 mal
 
-struct IDS_ctr{
+typedef struct IDS_ctr{
   
   uint16_t address;
   //IDS detectors are 6
@@ -47,8 +50,7 @@ struct IDS_ctr{
   int8_t last_avg_rss;
   char spoof_suspicious;
   
-};
-typedef struct IDS_ctr ids_ctr_t;
+} ids_ctr_t;
 
 
 //Mine for  IDS
@@ -70,9 +72,26 @@ void checkNodes();
 ids_ctr_t nodes[NODES_NUM];
 #elif IDS_CLIENT
 ids_ctr_t nodes[NODES_NUM_CL];
-struct etimer time_sniff;
+struct etimer time_sniff,packet_fw_timer;
 
-char tmp_ip_senders[NODES_NUM_CL];
+typedef struct tagids{
+  uint8_t dest[4]; //max number of parents to send packet
+  // char from;
+  char verified[4];
+  uint8_t index;
+  uint16_t count_fw_packets[4];
+} fw_stats;
+
+NBR_TABLE_DECLARE(nbr_fw_stats);
+// fw_stats _nbr_fw_stats_mem[NBR_TABLE_MAX_NEIGHBORS];
+// nbr_table_t nbr_fw_stats_struct; 
+// //  NBR_TABLE(fw_stats,nbr_fw_stats);
+
+typedef struct tag1{
+  char to_ip;
+} final_dest_ip;
+
+fw_stats tmp_ip_senders[NODES_NUM_CL];
 #endif
 
 //void ids_start(clock_time_t perioc);

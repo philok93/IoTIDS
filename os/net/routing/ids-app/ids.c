@@ -76,6 +76,26 @@ void checkNodes(){
 }
 
 #endif
+
+// #if IDS_SERVER || IDS_CLIENT
+
+// static void
+// callback_nbr_entry_removal(uip_ds6_nbr_entry_t *nbr_entry)
+// {
+//   uip_ds6_nbr_t *nbr;
+//   uip_ds6_nbr_t *next_nbr;
+//   if(nbr_entry == NULL) {
+//     return;
+//   }
+//   for(nbr = (uip_ds6_nbr_t *)list_head(nbr_entry->uip_ds6_nbrs);
+//       nbr != NULL;
+//       nbr = next_nbr) {
+//     next_nbr = (uip_ds6_nbr_t *)list_item_next(nbr);
+//     free_uip_ds6_nbr(nbr);
+//   }
+// }
+
+// #endif /* UIP_DS6_NBR_MULTI_IPV6_ADDRS */
 // PROCESS_THREAD(ids_process, ev, data)
 // {
  

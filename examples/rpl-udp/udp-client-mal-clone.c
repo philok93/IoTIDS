@@ -86,7 +86,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   simple_udp_register(&udp_conn, UDP_CLIENT_PORT, NULL,
                       UDP_SERVER_PORT, udp_rx_callback);
 
-  // etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+  etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
   
   // ctimer_set(&attack_time,30*CLOCK_SECOND,rpl_attack,NULL);
 

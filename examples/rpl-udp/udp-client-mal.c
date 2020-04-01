@@ -18,8 +18,10 @@
 #define SEND_INTERVAL		  (60 * CLOCK_SECOND)
 
 static struct simple_udp_connection udp_conn;
+#if !MAL_BLACKHOLE
 static void rpl_attack();
  static struct ctimer attack_time;
+#endif
 //  static struct etimer mytime;
 
 /*---------------------------------------------------------------------------*/
@@ -45,6 +47,7 @@ udp_rx_callback(struct simple_udp_connection *c,
 
 }
 
+#if !MAL_BLACKHOLE
 static void rpl_attack(void *ptr){
 
   // if (!etimer_expired(&mytime)){
@@ -63,6 +66,7 @@ static void rpl_attack(void *ptr){
   
   // ctimer_reset(&mytime);
 }
+#endif
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
 {
@@ -87,10 +91,11 @@ PROCESS_THREAD(udp_client_process, ev, data)
                       UDP_SERVER_PORT, udp_rx_callback);
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
-  // etimer_set(&mytime, 60*CLOCK_SECOND);
 
   // ctimer_set(&mytime,60*CLOCK_SECOND,rpl_attack,NULL);
+  #if !MAL_BLACKHOLE
   ctimer_set(&attack_time,30*CLOCK_SECOND,rpl_attack,NULL);
+  #endif
 
 
 

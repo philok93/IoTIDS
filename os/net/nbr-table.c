@@ -40,7 +40,7 @@
 #include "lib/list.h"
 #include "net/nbr-table.h"
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #include "sys/ctimer.h"
@@ -353,14 +353,16 @@ nbr_table_add_lladdr(nbr_table_t *table, const linkaddr_t *lladdr, nbr_table_rea
   int index;
   nbr_table_item_t *item;
   nbr_table_key_t *key;
-
+ PRINTF("here\n");
   if(table == NULL) {
+      PRINTF("NULLTAB:E\n");
     return NULL;
   }
 
   /* Allow lladdr-free insertion, useful e.g. for IPv6 ND.
    * Only one such entry is possible at a time, indexed by linkaddr_null. */
   if(lladdr == NULL) {
+      PRINTF("lladdr null\n");
     lladdr = &linkaddr_null;
   }
 
@@ -370,6 +372,7 @@ nbr_table_add_lladdr(nbr_table_t *table, const linkaddr_t *lladdr, nbr_table_rea
 
     /* No space available for new entry */
     if(key == NULL) {
+        PRINTF("nospace\n");
       return NULL;
     }
 

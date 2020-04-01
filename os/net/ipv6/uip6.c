@@ -83,8 +83,10 @@
 #include "packetbuf.h"
 
 
+
 #if IDS_SERVER || IDS_CLIENT
 #include "ids.h"
+#include "lib/list.h"
 #endif /* IDS_SERVER || IDS_CLIENT */
 
 #if UIP_ND6_SEND_NS
@@ -183,8 +185,9 @@ uint16_t uip_len, uip_slen;
   ids_ctr_t nodes[NODES_NUM];		
 #elif IDS_CLIENT		
   ids_ctr_t nodes[NODES_NUM_CL];		
-extern char tmp_ip_senders[NODES_NUM_CL];
-struct etimer time_sniff;
+extern fw_stats tmp_ip_senders[NODES_NUM_CL];
+
+struct etimer time_sniff, packet_fw_timer;
 #endif /* IDS_SERVER else IDS_CLIENT */
 
 /* The uip_flags variable is used for communication between the TCP/IP stack
@@ -413,6 +416,11 @@ uip_init(void)
   uip_ds6_init();
   uip_icmp6_init();
   uip_nd6_init();
+
+#if IDS_CLIENT
+//Initialize IDS detector stats for packets fw, also init list
+  nbr_table_register(nbr_fw_stats, NULL);
+#endif
 
 #if UIP_TCP
   for(c = 0; c < UIP_LISTENPORTS; ++c) {
@@ -1086,7 +1094,66 @@ uip_update_ttl(void)
   }
 }
 
+//IDS functions
+// 
+// void ids_output_to_benign(){
+//    fw_stats *m;
+//     for(m = nbr_table_head(nbr_fw_stats); m != NULL;
+//         m = nbr_table_next(nbr_fw_stats, m)) {
 
+//         linkaddr_t *lladdr=nbr_table_get_lladdr(nbr_fw_stats,m);
+//         uip_ipaddr_t ipaddr;
+//         NETSTACK_ROUTING.get_root_ipaddr(&ipaddr);
+//         // Set the destination ip address to be the current m node
+//         ipaddr.u8[sizeof(ipaddr.u8)-1]=lladdr->u8[sizeof(lladdr->u8)-1];
+//         // LOG_INFO_LLADDR(lladdr);
+//         LOG_INFO_6ADDR(&ipaddr);
+        
+//         unsigned char *buffer;		
+//         buffer = UIP_ICMP_PAYLOAD;	
+//         uint16_t pos=0;	
+//         buffer[pos++] = curr_instance.instance_id;
+//         // Get the number of nodes evaluated		
+//         buffer[pos++]=m->index;		
+//         LOG_INFO("inde:%d\n",m->index);
+//         // pos = pos + sizeof(char);		
+        
+//         uint8_t i=0;
+//         for(i=0; i<m->index; i++) {
+//           //Put ip, number of packets, and verified
+//             // buffer[pos++] = ((int)m->dest[i]) >> 8;
+//             // buffer[pos++] = ((int)m->dest[i]) & 0xff;
+//             // set16(buffer, pos, );		
+// 	          // pos = pos + sizeof(char);
+//             buffer[pos] = m->dest[i];
+//             pos=pos+sizeof(uint8_t);
+//             buffer[pos++] = (int)m->verified[i];
+//             // buffer[pos++] = m->verified[i] >> 8;
+//             // buffer[pos++] = m->verified[i] & 0xff;
+//             // set16(buffer, pos, m->verified[i]);		
+// 	          // pos = pos + sizeof(char);
+//             buffer[pos++] = m->count_fw_packets[i] >> 8;
+//             buffer[pos++] = m->count_fw_packets[i] & 0xff;
+//             // set16(buffer, pos, m->count_fw_packets[i]);		
+// 	          pos = pos + sizeof(uint16_t);
+            
+//             LOG_INFO("NOW:%d to:%d count:%d, ver:%d i:%d\n",lladdr->u8[sizeof(lladdr->u8) - 1],m->dest[i], m->count_fw_packets[i],m->verified[i],i);
+                        
+//         }
+//         if ((int)m->index>0 && NETSTACK_ROUTING.node_is_reachable()){
+//           LOG_INFO("packet sent!\n");
+//           uip_icmp6_send(&ipaddr, ICMP6_RPL,RPL_CODE_IDS_NORM, 2+ (m->index)*(1+sizeof(uint8_t) +sizeof(uint16_t)));	
+//         }else
+//           LOG_INFO("No info to send!\n");
+        
+                   
+
+//     }
+ 
+//   uipbuf_clear();   
+//   return;
+
+// }
 /**********************************/
 
 #if IDS_CLIENT
@@ -1206,51 +1273,6 @@ uip_process(uint8_t flag)
 // LOG_INFO("UIPr:%u f:%u icm:%u",uip_stat.icmp.sent,uip_stat.ip.forwarded,uip_stat.icmp.recv);
 
 
-  //Flag for IDS. Checking with RSSI if node is spoofing ip.
-  //If node is not root and its IP not equal to source ip but has same RSS then malicious.
-  #if IDS_CLIENT
-  const linkaddr_t *sender = packetbuf_addr(PACKETBUF_ADDR_FIRST);
-  const linkaddr_t *dest = packetbuf_addr(PACKETBUF_ADDR_RECEIVER);
-  // int id=NETSTACK_ROUTING.ext_header_hbh_update(ext_buf, opt_offset);
-  LOG_INFO("gh:f:%d-->%d-->%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],sender->u8[sizeof(sender->u8) - 1],dest->u8[sizeof(dest->u8) - 1]);
- 
-  uint8_t i=0;
-  while (i<NODES_NUM_CL){
-      //Skip if root is sending, store the sender to check later if it forwards packet
-      if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 &&
-        tmp_ip_senders[i]==0 && 
-          dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
-          tmp_ip_senders[i]=dest->u8[sizeof(dest->u8) - 1];
-          break;
-      } else if (tmp_ip_senders[i]==sender->u8[sizeof(sender->u8) - 1]){
-        LOG_INFO("FWOK %d\n",tmp_ip_senders[i]);
-          if (UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]==dest->u8[sizeof(dest->u8) - 1])
-            tmp_ip_senders[i]=0;
-          else
-            tmp_ip_senders[i]=dest->u8[sizeof(dest->u8) - 1];
-          
-          break;
-      }
-      i++;
-  }
-
-  //Used as flag to enter checkIDS
-  char flag_entered =0;
-  //  for (i = 0; i < NODES_NUM_CL; i++)
-  //   {
-  //     int8_t packet_rss=-(packetbuf_attr(PACKETBUF_ATTR_RSSI));
-  //     int8_t tmp_rss=(-(packetbuf_attr(PACKETBUF_ATTR_RSSI))+nodes[i].last_avg_rss)/2;
-  //     //change srcipaddr to packetbuf_addr(PACKETBUF_ADDR_FIRST) to get current node
-  //     // linkaddr_t *sender=packetbuf_addr(PACKETBUF_ADDR_FIRST);
-  //     if (nodes[i].address !=0 && 
-  //       (nodes[i].address == sender->u8[sizeof(sender->u8) - 1] &&
-  //       nodes[i].last_avg_rss !=packet_rss)){
-  //          nodes[i].spoof_suspicious=1;
-  //         LOG_INFO("src %d, idsRS:%d %d %d tmp:%d\n", sender->u8[sizeof(sender->u8) - 1],nodes[i].address,tmp_rss,nodes[i].last_avg_rss,packetbuf_attr(PACKETBUF_ATTR_RSSI));
-
-  //       }
-  //   }
-  #endif
 
   uint8_t *last_header;
   uint8_t protocol;
@@ -1268,7 +1290,7 @@ uip_process(uint8_t flag)
   }
 #endif /* UIP_UDP */
   uip_sappdata = uip_appdata = &uip_buf[UIP_IPTCPH_LEN];
-
+  
   /* Check if we were invoked because of a poll request for a
      particular connection. */
   if(flag == UIP_POLL_REQUEST) {
@@ -1302,7 +1324,7 @@ uip_process(uint8_t flag)
         }
       }
     }
-
+    
     /*
      * Check if the connection is in a state in which we simply wait
      * for the connection to time out. If so, we increase the
@@ -1415,7 +1437,6 @@ uip_process(uint8_t flag)
   }
 #endif /* UIP_UDP */
 
-
   /* This is where the input processing starts. */
   UIP_STAT(++uip_stat.ip.recv);
 
@@ -1450,7 +1471,7 @@ uip_process(uint8_t flag)
     LOG_ERR("packet shorter than reported in IP header\n");
     goto drop;
   }
-
+  
   /*
    * The length reported in the IPv6 header is the length of the
    * payload that follows the header. However, uIP uses the uip_len
@@ -1468,7 +1489,7 @@ uip_process(uint8_t flag)
 	     (int)uip_len, (int)sizeof(uip_buf));
     goto drop;
   }
-
+  
   /* Check sanity of extension headers, and compute the total extension header
    * length (uip_ext_len) as well as the final protocol (uip_last_proto) */
   uip_last_proto = 0;
@@ -1479,6 +1500,144 @@ uip_process(uint8_t flag)
   }
   /* Set uip_ext_len */
   uip_ext_len = last_header - UIP_IP_PAYLOAD(0);
+  
+  //IDS: icode is process in this point so lets start check
+
+  //Flag for IDS. Checking with RSSI if node is spoofing ip.
+  //If node is not root and its IP not equal to source ip but has same RSS then malicious.
+  
+  #if IDS_CLIENT
+  const linkaddr_t *sender = packetbuf_addr(PACKETBUF_ADDR_FIRST);
+  const linkaddr_t *dest = packetbuf_addr(PACKETBUF_ADDR_RECEIVER);
+  // int id=NETSTACK_ROUTING.ext_header_hbh_update(ext_buf, opt_offset);
+  LOG_INFO("gh:f:%d-->%d-->%d\n",UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1],sender->u8[sizeof(sender->u8) - 1],dest->u8[sizeof(dest->u8) - 1]);
+
+  //Create nbr table to save stats of packet_fw (from, to) in IDS detector
+  if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=1 && !uip_is_addr_mcast(&UIP_IP_BUF->destipaddr) &&
+      UIP_ICMP_BUF->icode!=RPL_CODE_DIS && 
+      UIP_ICMP_BUF->icode!=RPL_CODE_IDS ){
+      //Get node stats if exist  
+      // fw_stats *stats = nbr_table_get_from_lladdr(nbr_fw_stats, sender);
+      
+  //    if(stats == NULL) {
+        
+        fw_stats *m;
+        char found=0,exist=0;
+        for(m = nbr_table_head(nbr_fw_stats); m != NULL;
+            m = nbr_table_next(nbr_fw_stats, m)) {
+              uint8_t i=0;
+              linkaddr_t *lladdr=nbr_table_get_lladdr(nbr_fw_stats,m);
+              if(linkaddr_cmp(lladdr, &linkaddr_null)) {
+                LOG_INFO("error!!");
+                continue;
+              }
+              if (lladdr->u8[sizeof(lladdr->u8) - 1] != UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1])
+                continue;
+                
+              exist=1;
+              for(i=0; i<(int)m->index; i++) {
+                //  LOG_INFO("COMP:%d %d\n", (int)m->dest[i],sender->u8[sizeof(dest->u8) - 1]);
+                
+                // LOG_INFO("Chk:%d %d %d\n",lladdr->u8[sizeof(lladdr->u8) - 1],(int)m->dest[i], sender->u8[sizeof(dest->u8) - 1]);
+
+                if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=sender->u8[sizeof(dest->u8) - 1] &&
+                  (int)m->dest[i] == sender->u8[sizeof(dest->u8) - 1] ){
+                    // UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]==nbr_table_get_lladdr(nbr_fw_stats,m)){
+                  m->count_fw_packets[i]++; //Count only after verification
+                  LOG_INFO("FWOK %d\n",(int)m->dest[i]);
+                  m->verified[i]=1;
+                  found=1;
+                  break;
+                }
+          
+              }
+              if ((int) m->verified[i])
+                break;
+            
+        }
+
+        fw_stats *stats=NULL;
+        if (exist==0 && found==0 && dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1] &&
+          dest->u8[sizeof(dest->u8) - 1]!=0 && dest->u8[sizeof(dest->u8) - 1]!=1){
+             LOG_INFO("ADD table %d\n",sender->u8[sizeof(dest->u8) - 1]);
+            stats = nbr_table_add_lladdr(nbr_fw_stats, sender, NBR_TABLE_REASON_LINK_STATS, NULL);
+            if(stats != NULL) {
+                  /* Add the neighbor */
+                // list_init(stats->dest_ip);
+                // list_add(stats->dest_ip,dest->u8[sizeof(dest->u8) - 1])
+              
+                stats->dest[(int)stats->index]=dest->u8[sizeof(dest->u8) - 1];
+                //  stats->count_fw_packets++;
+                // stats->from=sender->u8[sizeof(sender->u8) - 1];
+                LOG_INFO("AD:%d %d i:%d\n",sender->u8[sizeof(sender->u8) - 1],stats->dest[(int)stats->index],stats->index);
+                stats->verified[(int)stats->index]=0;
+                stats->index=(int)(stats->index)+1;
+          
+            } else {
+              LOG_INFO("No space in detector\n"); /* No space left */
+            }
+           //below maybe false, case: 10:6-->7, 10:7-->1 
+        } //else if (found==0 && dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1] &&
+        //           dest->u8[sizeof(dest->u8) - 1]!=0 && dest->u8[sizeof(dest->u8) - 1]!=1){
+        //   LOG_INFO("SUSPIC:%d !!\n",sender->u8[sizeof(dest->u8) - 1]);
+        // }
+
+   //   }//added to cache
+      //check only 1-hop neigbour to forward packet
+      //This check is when >2 packets received from same sender
+      else if (dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
+       //UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] !=sender->u8[sizeof(dest->u8) - 1]) {//already in table
+          //need ot make stats=src address
+          fw_stats *stats = nbr_table_get_from_lladdr(nbr_fw_stats, sender);
+          uint8_t i=0,found=0;
+          LOG_INFO("in:%d\n",stats->index);
+          for(i=0; i<(int)stats->index; i++) {
+            // LOG_INFO("COMP:%d %d\n", sender->u8[sizeof(dest->u8) - 1],(int)stats->dest[i]);
+                if ((int)stats->dest[i] == sender->u8[sizeof(dest->u8) - 1]){
+                    // UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]==nbr_table_get){
+                  stats->count_fw_packets[i]++; //Count only after verification
+                  LOG_INFO("FWOK %d\n",(int)stats->dest[i]);
+                  stats->verified[i]=1;
+                  break;
+                }
+                if ((int)stats->dest[i] == dest->u8[sizeof(dest->u8) - 1])
+                  found=1;
+          
+          }
+          
+          if (dest->u8[sizeof(dest->u8) - 1]!=0 && dest->u8[sizeof(dest->u8) - 1]!=1 && found==0 && stats->index<4){
+            stats->dest[(int)stats->index]=dest->u8[sizeof(dest->u8) - 1];
+            stats->verified[(int)stats->index]=0;
+             stats->index=(int)(stats->index)+1;
+             LOG_INFO("not found,added to dest %d\n",stats->index);
+          }
+
+        
+      }
+
+      
+  }
+
+
+  //Used as flag to enter checkIDS
+  char flag_entered =0;
+  //  for (i = 0; i < NODES_NUM_CL; i++)
+  //   {
+  //     int8_t packet_rss=-(packetbuf_attr(PACKETBUF_ATTR_RSSI));
+  //     int8_t tmp_rss=(-(packetbuf_attr(PACKETBUF_ATTR_RSSI))+nodes[i].last_avg_rss)/2;
+  //     //change srcipaddr to packetbuf_addr(PACKETBUF_ADDR_FIRST) to get current node
+  //     // linkaddr_t *sender=packetbuf_addr(PACKETBUF_ADDR_FIRST);
+  //     if (nodes[i].address !=0 && 
+  //       (nodes[i].address == sender->u8[sizeof(sender->u8) - 1] &&
+  //       nodes[i].last_avg_rss !=packet_rss)){
+  //          nodes[i].spoof_suspicious=1;
+  //         LOG_INFO("src %d, idsRS:%d %d %d tmp:%d\n", sender->u8[sizeof(sender->u8) - 1],nodes[i].address,tmp_rss,nodes[i].last_avg_rss,packetbuf_attr(PACKETBUF_ATTR_RSSI));
+
+  //       }
+  //   }
+  #endif
+
+
 
   LOG_INFO("packet received from ");
   LOG_INFO_6ADDR(&UIP_IP_BUF->srcipaddr);
@@ -1511,6 +1670,7 @@ uip_process(uint8_t flag)
 #if UIP_CONF_ROUTER
 
 	#if IDS_CLIENT		
+  
 	  //Drop packets that I send to myself (IDS)		
 	  if (uip_ds6_is_my_addr(&UIP_IP_BUF->srcipaddr))		
 	  {		
@@ -1522,11 +1682,12 @@ uip_process(uint8_t flag)
    * If present, the Hop-by-Hop Option must be processed before forwarding
    * the packet.
    */
-
+  
   next_header = uipbuf_get_next_header(uip_buf, uip_len, &protocol, true);
   if(next_header != NULL && protocol == UIP_PROTO_HBHO) {
 
     #if IDS_CLIENT		
+    
 	    //My addition:just update statistics, never forward or process header		
 	    if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && 
           NETSTACK_ROUTING.node_is_reachable() &&		
@@ -1553,6 +1714,12 @@ uip_process(uint8_t flag)
     case 2:
       goto send; /* send icmp error message (created in
                     ext_hdr_options_process) and discard */
+    }
+  #elif MAL_BLACKHOLE
+    //Drop packet for blackhole attack
+    if (NETSTACK_ROUTING.node_is_reachable()){
+      LOG_INFO("Blackhole att:%d\n",packetbuf_addr(PACKETBUF_ADDR_FIRST)->u8[sizeof(packetbuf_addr(PACKETBUF_ADDR_FIRST)->u8) - 1]);
+      goto drop;
     }
   #else
   switch(ext_hdr_options_process(next_header)) {
@@ -1704,13 +1871,22 @@ uip_process(uint8_t flag)
       UIP_STAT(++uip_stat.ip.drop);
       goto drop;
     }
-  #endif
+  #endif //IDS_CLIENT
 #endif /* UIP_CONF_ROUTER */
 
 			
 #if IDS_CLIENT		
 
   LOG_INFO("I got IP:%u \n", UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]);		
+ 
+    unsigned char *buffer;
+    uint8_t a;
+    buffer=UIP_ICMP_PAYLOAD;
+    a=buffer[2];
+    LOG_INFO("FROM ids:%d %d %x\n",buffer[0],buffer[1],a);
+        
+
+
   if (!uip_is_addr_unspecified(&UIP_IP_BUF->srcipaddr) &&		
       !uip_is_addr_loopback(&UIP_IP_BUF->destipaddr) && 
       UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 &&
@@ -1897,6 +2073,7 @@ uint16_t i=0;
     }
   }
 
+
   /* Process upper-layer input */
   if(next_header != NULL) {
     switch(protocol) {
@@ -1914,6 +2091,7 @@ uint16_t i=0;
 
   
 	#if IDS_CLIENT		
+       
     if( NETSTACK_ROUTING.node_has_joined() && NETSTACK_ROUTING.node_is_reachable() && 
     UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS)		
 	      {		
@@ -1976,7 +2154,8 @@ uint16_t i=0;
   /* End of headers processing */
 
   icmp6_input:
-// Get the RSSI,cc2420 page 49, -45		
+
+    // Get the RSSI,cc2420 page 49, -45		
 	  //rss = packetbuf_attr(PACKETBUF_ATTR_RSSI);		
 	  //rss = cc2420_last_rssi -45;		
 			
@@ -2006,6 +2185,14 @@ uint16_t i=0;
 
   //IDS drops all packets except for BR
   #if IDS_CLIENT
+  // //Send to benign nodes from IDS
+  //   if (etimer_expired(&packet_fw_timer)){
+  //   ids_output_to_benign();
+  //   etimer_set(&packet_fw_timer,60*CLOCK_SECOND);
+  //   // goto drop;
+  // }
+    
+
     if (flag_entered==0 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
       flag_entered=1;
       checkIDS();
@@ -2015,7 +2202,7 @@ uint16_t i=0;
   #endif
 
   /* This is IPv6 ICMPv6 processing code. */
-  LOG_INFO("icmpv6 input length %d type: %d \n", uip_len, UIP_ICMP_BUF->type);
+  LOG_INFO("icmpv6 input length %d type: %d %d \n", uip_len, UIP_ICMP_BUF->type,UIP_ICMP_BUF->icode);
 
 #if UIP_CONF_IPV6_CHECKS
   /* Compute and check the ICMP header checksum */

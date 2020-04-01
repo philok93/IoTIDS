@@ -142,6 +142,9 @@ struct rpl_nbr {
 #endif /* RPL_WITH_MC */
   rpl_rank_t rank;
   uint8_t dtsn;
+  //Added fields from IDS stats
+  uint8_t ids_verified;
+  uint16_t fw_packets;
 };
 typedef struct rpl_nbr rpl_nbr_t;
 

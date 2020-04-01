@@ -680,6 +680,7 @@ tcpip_ipv6_output(void)
 
 #if UIP_ND6_AUTOFILL_NBR_CACHE
   if(nbr == NULL) {
+      LOG_INFO("auto add\n");
     /* Neighbor not found in cache? Derive its link-layer address from it's
     link-local IPv6, assuming it used autoconfiguration. This is not
     standard-compliant but this is a convenient way to keep the

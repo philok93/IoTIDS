@@ -212,6 +212,8 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   int nbr1_is_acceptable;
   int nbr2_is_acceptable;
 
+  //j=nbr1,i=6
+ 
   nbr1_is_acceptable = nbr1 != NULL && nbr_is_acceptable_parent(nbr1);
   nbr2_is_acceptable = nbr2 != NULL && nbr_is_acceptable_parent(nbr2);
 
@@ -221,6 +223,22 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   if(!nbr2_is_acceptable) {
     return nbr1_is_acceptable ? nbr1 : NULL;
   }
+  
+#if IDS_OF
+    const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
+    const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
+
+ uint16_t direct_trust=nbr1->fw_packets/(nbr1->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr1->fw_packets));
+ uint16_t direct_trust2=nbr2->fw_packets/(nbr2->fw_packets+0.01*(stats2->cnt_current.num_packets_tx - nbr2->fw_packets));
+
+  LOG_INFO("TRUST:%d ,%d OR %d %d\n",direct_trust,direct_trust*100,direct_trust2,direct_trust2*100);
+
+ uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
+  uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
+  LOG_INFO("acce:%d %d, %d %d ver:%d %d,st:%d %d st2:%d %d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1], nbr1->fw_packets,nbr2->fw_packets, nbr1->ids_verified,
+   nbr2->ids_verified,stats->cnt_current.num_packets_tx,
+  stats->cnt_current.num_packets_acked, stats2->cnt_current.num_packets_tx, stats2->cnt_current.num_packets_acked);
+#endif
 
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
@@ -232,6 +250,7 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
     return nbr2;
   }
 
+  
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
@@ -245,7 +264,7 @@ update_metric_container(void)
 static void
 update_metric_container(void)
 {
-  uint16_t path_cost;
+  uint16_t path_cost; 
   uint8_t type;
 
   if(!curr_instance.used) {

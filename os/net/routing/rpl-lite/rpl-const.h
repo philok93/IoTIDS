@@ -158,6 +158,8 @@
 #define RPL_CODE_IDS                    0x31
 #endif
 
+#define RPL_CODE_IDS_NORM               0x11
+
 #if IDS_CLIENT || IDS_SERVER || MAL_EXT
 #define RPL_CODE_MAL                    0x32
 #endif

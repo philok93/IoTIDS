@@ -861,7 +861,7 @@
       </interface_config>
       <interface_config>
         org.contikios.cooja.mspmote.interfaces.MspMoteID
-        <id>20</id>
+        <id>21</id>
       </interface_config>
       <motetype_identifier>z16</motetype_identifier>
     </mote>

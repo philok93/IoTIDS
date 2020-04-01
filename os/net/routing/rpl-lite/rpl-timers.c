@@ -106,7 +106,7 @@ rpl_timers_schedule_periodic_dis(void)
 #if MALICIOUS && (MAL_DIS || MAL_EXT)
   clock_time_t expiration_time = PERIODIC_DELAY;
 #elif IDS_CLIENT
-  clock_time_t expiration_time = 50;
+  clock_time_t expiration_time = 50*CLOCK_SECOND;
 #else
   clock_time_t expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
 #endif /*MALICIOUS*/
@@ -119,7 +119,8 @@ static void
 handle_dis_timer(void *ptr)
 {
 
-  #if MAL_RANK || MAL_EXT || !MALICIOUS
+  //Check if we want to send DIS and participate in network
+  #if MAL_RANK || MAL_EXT || !MALICIOUS || MAL_BLACKHOLE
     if (flag_ext==1){
         int i=0;
         LOG_INFO("\nSTART\n");
@@ -139,7 +140,7 @@ handle_dis_timer(void *ptr)
           rpl_timers_schedule_periodic_dis();
           
         }
-      }
+      } 
   // #elif MAL_DIS /* NOT MALICIOUS */
   //      int i=0;
   //     //My code

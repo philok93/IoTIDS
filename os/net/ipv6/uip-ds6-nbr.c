@@ -124,7 +124,7 @@ uip_ds6_nbr_add(const uip_ipaddr_t *ipaddr, const uip_lladdr_t *lladdr,
                 void *data)
 {
   uip_ds6_nbr_t *nbr;
-
+LOG_INFO("ds6 enter\n");
 #if UIP_DS6_NBR_MULTI_IPV6_ADDRS
   uip_ds6_nbr_entry_t *nbr_entry;
 

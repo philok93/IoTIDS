@@ -325,6 +325,7 @@ uip_ds6_route_add(const uip_ipaddr_t *ipaddr, uint8_t length,
                   const uip_ipaddr_t *nexthop)
 {
 #if (UIP_MAX_ROUTES != 0)
+LOG_INFO("ds6route\n");
   uip_ds6_route_t *r;
   struct uip_ds6_route_neighbor_route *nbrr;
 

@@ -28,12 +28,26 @@
 #define MAL_EXT       0
 #endif
 
+#ifndef MAL_BLACKHOLE
+#define MAL_BLACKHOLE       0
+#endif
+
+#ifndef CLONE_ATTACK
+#define CLONE_ATTACK       0
+#endif
+
+#ifndef IDS_OF
+#define IDS_OF       0
+#endif
+
+
+
 #ifdef DEBUG
 #undef DEBUG
 #define DEBUG   0
 #endif
 
-#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
@@ -44,10 +58,12 @@
 
 //------My IDS conf--------
 
+#if !IDS_SERVER
 #undef NETSTACK_CONF_MAC
 // #ifndef NETSTACK_CONF_MAC
  #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
 // #endif
+#endif
 
 // #ifdef IDS_SERVER
 //     #undef NBR_TABLE_CONF_MAX_NEIGHBORS

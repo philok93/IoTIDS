@@ -146,7 +146,20 @@ void rpl_icmp6_init(void);
 void ids_output(uip_ipaddr_t *addr);
 
 void ids_input(void);
+#endif
 
+#if !MALICIOUS && !IDS_CLIENT && !IDS_SERVER && !CLONE_ATTACK
+//Added signature of input function for ids trust
+void ids_input_benign(void);
+typedef struct tag_stats{
+  uint8_t candidate[4]; //max number of parents to send packet
+  // char from;
+  char verified[4];
+  uint8_t index;
+  uint16_t count_fw_packets[4];
+} fw_stats;
+#elif IDS_CLIENT
+void ids_output_to_benign(uip_ipaddr_t *);
 #endif
 
 #if MAL_EXT

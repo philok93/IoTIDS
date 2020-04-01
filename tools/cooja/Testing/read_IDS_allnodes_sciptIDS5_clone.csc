@@ -797,8 +797,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>74.40671015634945</x>
-        <y>24.859113277774014</y>
+        <x>75.02580565412322</x>
+        <y>27.025947519982207</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -915,7 +915,7 @@
       </interface_config>
       <interface_config>
         org.contikios.cooja.mspmote.interfaces.MspMoteID
-        <id>20</id>
+        <id>21</id>
       </interface_config>
       <motetype_identifier>z16</motetype_identifier>
     </mote>

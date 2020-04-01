@@ -59,15 +59,23 @@ static void reset_stats(void *ptr){
     nodes[i].last_avg_rss=0;
   }
   
-  i = 0; 
+  // i = 0; 
     LOG_INFO("RST tmp\n");
-    while (i<NODES_NUM_CL){
+    // while (i<NODES_NUM_CL){
       
-      // if (tmp_ip_senders[i]!=0){
-      //   LOG_INFO("Clone %d\n",tmp_ip_senders[i]);
-      // }
-      tmp_ip_senders[i++]=0; 
-    }
+    //   // if (tmp_ip_senders[i]!=0){
+    //   //   LOG_INFO("Clone %d\n",tmp_ip_senders[i]);
+    //   // }
+    //   tmp_ip_senders[i].from=0;
+    //   for (i=0;i<tmp_ip_senders[i].index;i++){
+    //     // tmp_ip_senders[i].dest[i]=0;
+    //     tmp_ip_senders[i].count_fw_packets[i]=0; 
+    //   }
+
+    //   i++;
+      
+    // }
+  // ids_output_to_benign();
   ctimer_reset(&time_to_reset);
 }
 
@@ -78,7 +86,8 @@ PROCESS_THREAD(udp_client_process, ev, data)
   static unsigned count;
   // static char str[32];
   uip_ipaddr_t dest_ipaddr;
-  extern char tmp_ip_senders[NODES_NUM_CL];
+  static unsigned i=0;
+  // extern fw_stats tmp_ip_senders[NODES_NUM_CL];
 
   PROCESS_BEGIN();
 
@@ -102,38 +111,50 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   //Used in uip6.c, starts detecting after 1 minute
   etimer_set(&time_sniff, (60*CLOCK_SECOND));
+  etimer_set(&periodic_timer, (10*CLOCK_SECOND)); 
 
-    etimer_set(&periodic_timer, (10*CLOCK_SECOND));  
+  // etimer_set(&packet_fw_timer, (60*CLOCK_SECOND)); //send metrics to nodes
   ctimer_set(&time_to_reset,180*CLOCK_SECOND,reset_stats,NULL);
 
+  // nbr_table_register(nbr_fw_stats, NULL);
+
+i=0;
   while(1) {
     // PROCESS_YIELD();
         // PROCESS_WAIT_EVENT();
 
+    // if (etimer_expired(&packet_fw_timer)){
+    //     ids_output_to_benign(&dest_ipaddr);
+    //     etimer_set(&packet_fw_timer,60*CLOCK_SECOND);
+    //     // goto drop;
+    //   }
 
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
     
-
-    // if(etimer_expired(&periodic_timer)){
-          etimer_reset(&periodic_timer);
+  
+       etimer_reset(&periodic_timer);
 
       if (NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.node_has_joined() && NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr)) {
-      // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
-      /* Send to DAG root */
-      LOG_INFO("Check IDS.Attempt: %u \n", count);
-      // LOG_INFO_6ADDR(&dest_ipaddr);
-      // LOG_INFO_("\n");
-      // snprintf(str, sizeof(str), "hello %d", count);
-      // simple_udp_sendto(&udp_conn, str, strlen(str), &dest_ipaddr);
-      // sett inn output_tru kall!
-      ids_output(&dest_ipaddr);
-      count++; 
-      
-    } else {
-      LOG_INFO("Not reachable yet\n");
-    }
+        // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
+        /* Send to DAG root */
+        LOG_INFO("Check IDS.Attempt: %u \n", count);
+        if (i==6){
+          i=0;
+          ids_output_to_benign(&dest_ipaddr);
+        }
+        // LOG_INFO_6ADDR(&dest_ipaddr);
+        // LOG_INFO_("\n");
+        // snprintf(str, sizeof(str), "hello %d", count);
+        // simple_udp_sendto(&udp_conn, str, strlen(str), &dest_ipaddr);
+        // sett inn output_tru kall!
+        ids_output(&dest_ipaddr);
+        count++;       
+        i+=1;
+      } else {
+        LOG_INFO("Not reachable yet\n");
+      }
 
-    
+   
   
 
     /* Add some jitter */

@@ -2154,6 +2154,7 @@ bool uip_remove_ext_hdr(void);
   * \return The result of IDS		
   */		
 uint8_t checkIDS(void);
+// void ids_output_to_benign(void);
 //uint16_t countOutNodes=0;		
 			
 	

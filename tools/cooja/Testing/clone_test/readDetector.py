@@ -4,7 +4,7 @@ def readFiles():
 	
 	sumavg=[]
 	kk=1
-	for kk in range(5,6):
+	for kk in range(1,11):
 
 		with open("result"+str(kk)+".txt","w") as f1:
 
@@ -19,7 +19,7 @@ def readFiles():
 			
 			#for each run
 			for i in range(1,6):
-				file1="read_IDS_allnodes_sciptIDS"+str(kk)+"_clone-"+str(i)+".log"
+				file1="read_IDS_allnodes_sciptIDS"+str(kk)+"-clone-"+str(i)+".log"
 				count=0
 				mals=[]
 				counters=[]
