@@ -3,7 +3,7 @@
 
 .vscode/**
 .directory
-*.z1
+*.z1*
 
 ### C ###
 # Prerequisites
