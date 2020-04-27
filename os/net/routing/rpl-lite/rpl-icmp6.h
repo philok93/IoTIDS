@@ -83,6 +83,7 @@ struct rpl_dao {
   uint8_t lifetime;
   uint8_t prefixlen;
   uint8_t flags;
+  uint8_t ids_flag;
 };
 typedef struct rpl_dao rpl_dao_t;
 
@@ -154,7 +155,7 @@ void ids_input_benign(void);
 typedef struct tag_stats{
   uint8_t candidate[4]; //max number of parents to send packet
   // char from;
-  char verified[4];
+  uint8_t verified[4];
   uint8_t index;
   uint16_t count_fw_packets[4];
 } fw_stats;

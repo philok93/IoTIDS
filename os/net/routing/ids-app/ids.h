@@ -77,7 +77,7 @@ struct etimer time_sniff,packet_fw_timer;
 typedef struct tagids{
   uint8_t dest[4]; //max number of parents to send packet
   // char from;
-  char verified[4];
+  uint8_t verified[4];
   uint8_t index;
   uint16_t count_fw_packets[4];
 } fw_stats;

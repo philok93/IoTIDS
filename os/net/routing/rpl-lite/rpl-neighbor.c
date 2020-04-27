@@ -227,10 +227,12 @@ rpl_neighbor_is_acceptable_parent(rpl_nbr_t *nbr)
 uint16_t
 rpl_neighbor_get_link_metric(rpl_nbr_t *nbr)
 {
+ 
   if(nbr != NULL && curr_instance.of->nbr_link_metric != NULL) {
     return curr_instance.of->nbr_link_metric(nbr);
   }
   return 0xffff;
+  
 }
 /*---------------------------------------------------------------------------*/
 rpl_rank_t
@@ -392,7 +394,8 @@ best_parent(int fresh_only)
   }
 
 #if IDS_CLIENT
-  return nbr_table_head(rpl_neighbors);
+LOG_INFO("bbb:%d\n",best->rank);
+//   return nbr_table_head(rpl_neighbors);
 #endif
   return best;
 }
@@ -408,6 +411,9 @@ rpl_neighbor_select_best(void)
 
   /* Look for best parent (regardless of freshness) */
   best = best_parent(0);
+  #if IDS_CLIENT
+    LOG_INFO("bes:%d\n",best!=NULL);
+    #endif
 
 #if RPL_WITH_PROBING
   if(best != NULL) {
@@ -417,6 +423,12 @@ rpl_neighbor_select_best(void)
       /* Return best if it is fresh */
       return best;
     } else {
+        //For IDS don't bother to find fresh nbr
+        // #if IDS_CLIENT
+        //     curr_instance.dag.urgent_probing_target=NULL;
+        //     return best;
+        // #endif
+
       rpl_nbr_t *best_fresh;
 
       /* The best is not fresh. Probe it (unless there is already an urgent

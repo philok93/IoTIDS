@@ -78,6 +78,7 @@ input_packet(void)
   uint8_t ackdata[CSMA_ACK_LEN];
 #endif
 
+
   if(packetbuf_datalen() == CSMA_ACK_LEN) {
     /* Ignore ack packets */
     LOG_DBG("ignored ack\n");
@@ -96,6 +97,12 @@ input_packet(void)
   } else {
     int duplicate = 0;
 
+    #if IDS_CLIENT
+        LOG_INFO("GR:%d\n",
+                linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
+                                         &linkaddr_node_addr));
+    #endif
+
     /* Check for duplicate packet. */
     duplicate = mac_sequence_is_duplicate();
     if(duplicate) {
@@ -108,6 +115,7 @@ input_packet(void)
     }
 
 #if CSMA_SEND_SOFT_ACK
+    LOG_INFO("reeq\n");
     if(packetbuf_attr(PACKETBUF_ATTR_MAC_ACK)) {
       ackdata[0] = FRAME802154_ACKFRAME;
       ackdata[1] = 0;

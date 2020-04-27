@@ -102,7 +102,19 @@ PROCESS_THREAD(udp_client_process, ev, data)
 // }
 
   // radio_value_t radio_rx_mode;
-  NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, 0);
+
+  //Uncomment below to reduce dupl packets
+  radio_value_t radio_rx_mode;
+/* Entering promiscuous mode so that the radio accepts all frames */
+NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
+LOG_INFO("val:%d",radio_rx_mode);
+// NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode &(~RADIO_RX_MODE_AUTOACK));
+//   if (NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, ~RADIO_RX_MODE_ADDRESS_FILTER | ~RADIO_RX_MODE_AUTOACK) != RADIO_RESULT_OK){
+//     LOG_INFO("Error enable promiscious\n");
+//     }
+  radio_rx_mode &= ~RADIO_RX_MODE_ADDRESS_FILTER;
+
+  NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode);
   /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
 
   /* Initialize UDP connection */

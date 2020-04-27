@@ -44,14 +44,14 @@
 
 #ifdef DEBUG
 #undef DEBUG
-#define DEBUG   0
+#define DEBUG   1
 #endif
 
 #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_DBG
 #define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_IDS                         LOG_LEVEL_INFO
 // #define RPL_CONF_DEFAULT_LEAF_ONLY 1
@@ -64,6 +64,18 @@
  #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
 // #endif
 #endif
+
+// #ifdef IDS_CLIENT
+// #undef CC2420_CONF_AUTOACK
+// #define CC2420_CONF_AUTOACK 0
+// #endif
+
+// #endif
+// #ifdef RADIO_RX_MODE_ADDRESS_FILTER
+// #undef RADIO_RX_MODE_ADDRESS_FILTER
+// #define RADIO_RX_MODE_ADDRESS_FILTER   (0 << 0)
+// #endif
+// #endif
 
 // #ifdef IDS_SERVER
 //     #undef NBR_TABLE_CONF_MAX_NEIGHBORS

@@ -113,8 +113,10 @@ reset(void)
 static uint16_t
 nbr_link_metric(rpl_nbr_t *nbr)
 {
+   
   const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr);
   return stats != NULL ? stats->etx : 0xffff;
+
 }
 /*---------------------------------------------------------------------------*/
 static uint16_t
@@ -216,7 +218,9 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
  
   nbr1_is_acceptable = nbr1 != NULL && nbr_is_acceptable_parent(nbr1);
   nbr2_is_acceptable = nbr2 != NULL && nbr_is_acceptable_parent(nbr2);
-
+//  #if IDS_CLIENT
+//     LOG_INFO("rcccrhere:%d %d\n",nbr1_is_acceptable,nbr2_is_acceptable);
+//     #endif
   if(!nbr1_is_acceptable) {
     return nbr2_is_acceptable ? nbr2 : NULL;
   }
@@ -228,10 +232,10 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
     const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
     const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 
- uint16_t direct_trust=nbr1->fw_packets/(nbr1->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr1->fw_packets));
- uint16_t direct_trust2=nbr2->fw_packets/(nbr2->fw_packets+0.01*(stats2->cnt_current.num_packets_tx - nbr2->fw_packets));
+ uint16_t direct_trust=(nbr1->fw_packets/(nbr1->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr1->fw_packets)))*1000;
+ uint16_t direct_trust2=(nbr2->fw_packets/(nbr2->fw_packets+0.01*(stats2->cnt_current.num_packets_tx - nbr2->fw_packets)))*1000;
 
-  LOG_INFO("TRUST:%d ,%d OR %d %d\n",direct_trust,direct_trust*100,direct_trust2,direct_trust2*100);
+  LOG_INFO("TRUST:%d ,%d OR %d %d\n",direct_trust,direct_trust,direct_trust2,direct_trust2);
 
  uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
   uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
@@ -240,6 +244,9 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   stats->cnt_current.num_packets_acked, stats2->cnt_current.num_packets_tx, stats2->cnt_current.num_packets_acked);
 #endif
 
+    #if IDS_CLIENT
+    LOG_INFO("rrhere:%d\n",nbr1_is_acceptable);
+    #endif
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */

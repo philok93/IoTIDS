@@ -145,6 +145,7 @@ struct rpl_nbr {
   //Added fields from IDS stats
   uint8_t ids_verified;
   uint16_t fw_packets;
+  uint8_t flag_ids_node;
 };
 typedef struct rpl_nbr rpl_nbr_t;
 

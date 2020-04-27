@@ -111,7 +111,8 @@ rpl_link_callback(const linkaddr_t *addr, int status, int numtx)
       LOG_INFO("packet sent to ");
       LOG_INFO_LLADDR(addr);
       LOG_INFO_(", status %u, tx %u, new link metric %u\n", status, numtx, rpl_neighbor_get_link_metric(nbr));
-      rpl_timers_schedule_state_update();
+      //Skip this each time to stable network (IDS_)
+      //rpl_timers_schedule_state_update();
     }
   }
 }

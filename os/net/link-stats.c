@@ -218,7 +218,7 @@ link_stats_input_callback(const linkaddr_t *lladdr)
 {
   struct link_stats *stats;
   int16_t packet_rssi = packetbuf_attr(PACKETBUF_ATTR_RSSI);
-
+LOG_INFO("LINKS:%d",packet_rssi);
   stats = nbr_table_get_from_lladdr(link_stats, lladdr);
   if(stats == NULL) {
     /* Add the neighbor */

@@ -84,6 +84,7 @@ uip_ipaddr_t IdsServerAddr;
 uint16_t ip_end = 0;
 uint8_t endofIP = 0;
 uint16_t countInNodes = 0;
+extern uint8_t flag_is_ids;
 #endif /*IDS_CLIENT || IDS_SERVER*/
 
 #if IDS_CLIENT
@@ -189,12 +190,12 @@ static void
 dis_input(void)
 {
 
-    #if IDS_CLIENT
-            unsigned char *buffer;
-            buffer=UIP_ICMP_PAYLOAD;
-            char a=buffer[2];
-            LOG_INFO("FROM ids:%d\n",a);
-    #endif
+    // #if IDS_CLIENT || IDS_SERVER
+    //     unsigned char *buffer;
+    //     buffer=UIP_ICMP_PAYLOAD;
+    //     char flag_ids=buffer[1];
+        
+    // #endif
 
     if (!curr_instance.used)
     {
@@ -202,11 +203,23 @@ dis_input(void)
         goto discard;
     }
 
+    
     LOG_INFO("received a DIS from ");
     LOG_INFO_6ADDR(&UIP_IP_BUF->srcipaddr);
     LOG_INFO_("\n");
 
+//     #if IDS_CLIENT
+//      unsigned char *buffer;
+//     buffer=UIP_ICMP_PAYLOAD;
+//         if (buffer[1]==2){
+//             flag_is_ids=2;
+//             LOG_INFO("enn\n");
+//             rpl_process_dis(&UIP_IP_BUF->srcipaddr, uip_is_addr_mcast(&UIP_IP_BUF->destipaddr));
+// //rpl_process_dis(&UIP_IP_BUF->srcipaddr,0);
+//         }
+//     #else
     rpl_process_dis(&UIP_IP_BUF->srcipaddr, uip_is_addr_mcast(&UIP_IP_BUF->destipaddr));
+    // #endif
 
 discard:
     uipbuf_clear();
@@ -223,8 +236,10 @@ void rpl_icmp6_dis_output(uip_ipaddr_t *addr)
     buffer[0] = buffer[1] = 0;
 
     #if IDS_CLIENT
+    //overwrite reserve fields in DIS object for IDS
         LOG_INFO("send as ids\n");
-        buffer[2]=0x02;
+    
+        buffer[1]=0x02;
     #endif
 
     if (addr == NULL)
@@ -236,11 +251,9 @@ void rpl_icmp6_dis_output(uip_ipaddr_t *addr)
     LOG_INFO_6ADDR(addr);
     LOG_INFO_("\n");
 
-    #if IDS_CLIENT
-        uip_icmp6_send(addr, ICMP6_RPL, RPL_CODE_DIS, 3);
-    #else 
-        uip_icmp6_send(addr, ICMP6_RPL, RPL_CODE_DIS, 2);
-    #endif
+    
+    uip_icmp6_send(addr, ICMP6_RPL, RPL_CODE_DIS, 2);
+    
 }
 /*---------------------------------------------------------------------------*/
 static void
@@ -286,8 +299,25 @@ dio_input(void)
     dio.dtsn = buffer[i++];
     /* two reserved bytes */
 
+    
     //Get flag for IDS detectors
-    i += 2;
+    #if IDS_CLIENT || IDS_SERVER
+    //  LOG_INFO("fromdiol:%d",flag_is_ids);
+    
+        uint8_t flag_ids;
+        flag_ids=buffer[i++];
+        rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&from);
+        // dio.flag_ids_node=flag_ids;
+       
+        if (nbr!=NULL){
+            nbr->flag_ids_node=flag_ids;
+        }
+        i+=1; //increase position
+        if (flag_ids==2)
+            LOG_INFO("info from ids:%d\n",flag_ids);
+    #else
+        i+= 2;
+    #endif
 
     memcpy(&dio.dag_id, buffer + i, sizeof(dio.dag_id));
     i += sizeof(dio.dag_id);
@@ -434,6 +464,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
     /* Make sure we're up-to-date before sending data out */
     rpl_dag_update_state();
 
+    
     if (rpl_get_leaf_only())
     {
         /* In leaf mode, we only send DIO messages as unicasts in response to
@@ -444,6 +475,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
             return;
         }
     }
+    
 
     /* DAG Information Object */
     pos = 0;
@@ -457,16 +489,15 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
     curr_instance.dag.rank = 2;
 #endif
 
+    
     if (rpl_get_leaf_only())
     {
-#if IDS_CLIENT //set correct rank for ids
-        set16(buffer, pos, curr_instance.dag.rank);
-#else
         set16(buffer, pos, RPL_INFINITE_RANK);
-#endif
     }
     else
     {
+        LOG_INFO("myrank:%d",curr_instance.dag.rank);
+        
         set16(buffer, pos, curr_instance.dag.rank);
     }
 
@@ -487,12 +518,32 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
     buffer[pos++] = curr_instance.dtsn_out;
 
     /* reserved 2 bytes */
-    buffer[pos++] = 0; /* flags */
+    //Use this flag for IDS to recognize detector
+     #if IDS_CLIENT
+        buffer[pos++]=0x02;
+        LOG_INFO("SETTING ids %d\n",flag_is_ids);
+    #elif IDS_SERVER
+        // rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(addr);
+        
+        buffer[pos++]=0x02;
+        if (uc_addr!=NULL)
+            buffer[pos++]=flag_is_ids;
+        LOG_INFO("SETTING flag ids %d\n",flag_is_ids);
+    #else
+        buffer[pos]=0;
+        LOG_INFO("logfla:%d",buffer[pos]);
+        pos++; //flags
+    #endif
+   
+
     buffer[pos++] = 0; /* reserved */
 
     memcpy(buffer + pos, &curr_instance.dag.dag_id, sizeof(curr_instance.dag.dag_id));
     pos += 16;
 
+    // #if IDS_CLIENT
+    //     if (flag_is_ids==2)
+    // #else
     if (!rpl_get_leaf_only())
     {
         if (curr_instance.mc.type != RPL_DAG_MC_NONE)
@@ -560,7 +611,11 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
         pos += 16;
     }
 
+    // #if IDS_CLIENT
+    //     if (flag_is_ids==2)
+    // #else
     if (!rpl_get_leaf_only())
+    // #endif
     {
         addr = addr != NULL ? addr : &rpl_multicast_addr;
     }
@@ -605,7 +660,20 @@ dao_input(void)
     pos++; /* instance ID */
     dao.lifetime = curr_instance.default_lifetime;
     dao.flags = buffer[pos++];
-    pos++; /* reserved */
+
+    //Lets use reserve bit to recognize IDS, no nbr exist yet
+    #if IDS_CLIENT
+        char flag_ids=buffer[pos++];
+        // dao.ids_flag=flag_ids;
+        rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&UIP_IP_BUF->srcipaddr);
+        if (nbr!=NULL)
+            nbr->flag_ids_node=flag_ids;
+        else
+            LOG_INFO("Nbr ids error\n");
+    #else
+        pos++; /* reserved */
+    #endif
+
     dao.sequence = buffer[pos++];
 
     /* Is the DAG ID present? */
@@ -712,8 +780,17 @@ void rpl_icmp6_dao_output(uint8_t lifetime)
         buffer[pos] |= RPL_DAO_K_FLAG;
     }
 #endif /* RPL_WITH_DAO_ACK */
-    ++pos;
-    buffer[pos++] = 0; /* reserved */
+    
+    //Read flag to IDS detector
+    
+    // buffer[pos++] = 0; /* reserved */
+    #if IDS_CLIENT || IDS_SERVER
+        buffer[++pos]=0x02;
+    #else
+        buffer[++pos]=0;
+    #endif
+    ++pos; //increase pos
+
     buffer[pos++] = curr_instance.dag.dao_last_seqno;
 
     /* create target subopt */
@@ -765,6 +842,17 @@ dao_ack_input(void)
     buffer = UIP_ICMP_PAYLOAD;
 
     instance_id = buffer[0];
+    //Get the flag for IDS detector in reserved field
+    #if IDS_CLIENT || IDS_SERVER
+        char flag_ids=buffer[1];
+        rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&UIP_IP_BUF->srcipaddr);
+        if (nbr!=NULL)
+            nbr->flag_ids_node=flag_ids;
+
+        if (flag_ids==2)
+         LOG_INFO("Parsedaoack %d\n",flag_ids);
+    #endif
+
     sequence = buffer[2];
     status = buffer[3];
 
@@ -795,7 +883,22 @@ void rpl_icmp6_dao_ack_output(uip_ipaddr_t *dest, uint8_t sequence, uint8_t stat
 
     buffer = UIP_ICMP_PAYLOAD;
     buffer[0] = curr_instance.instance_id;
-    buffer[1] = 0;
+    
+    //IDS detector send flag in reserve bit field
+    #if IDS_CLIENT
+        buffer[1]=0x02;
+    #elif IDS_SERVER
+        // rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(dest);
+        // if (nbr!=NULL)
+        //     buffer[1]=nbr->flag_ids_node;
+        // else{
+            buffer[1]=flag_is_ids;
+            LOG_INFO("No ids flag\n");
+        
+    #else
+        buffer[1] = 0; /* reserved */
+    #endif
+    
     buffer[2] = sequence;
     buffer[3] = status;
 

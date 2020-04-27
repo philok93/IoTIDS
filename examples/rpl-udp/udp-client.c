@@ -49,6 +49,12 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   PROCESS_BEGIN();
 
+
+  radio_value_t radio_rx_mode;
+/* Entering promiscuous mode so that the radio accepts all frames */
+NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
+// LOG_INFO("val:%d %d",radio_rx_mode,radio_rx_mode &(~RADIO_RX_MODE_ADDRESS_FILTER & ~RADIO_RX_MODE_AUTOACK));
+
   // stimer_set(&stimer_mine, 10);
   // while(stimer_expired(&stimer_mine)!=1)
   // {
