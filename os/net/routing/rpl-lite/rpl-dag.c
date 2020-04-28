@@ -345,7 +345,7 @@ void rpl_dag_update_state(void)
             }
             nbr = nbr_table_next(rpl_neighbors, nbr);
         }
-        #endif
+        // #endif
 
     // #if !IDS_CLIENT
         if (old_parent == NULL || curr_instance.dag.rank < curr_instance.dag.lowest_rank)
