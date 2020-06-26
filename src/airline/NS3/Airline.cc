@@ -20,6 +20,7 @@
 
 #define	_AIRLINE_CC_
 
+#define AIRLINE_PRN_DATA 1
 #include "common.h"
 #include "Airline.h"
 #include "ns3/log.h"
@@ -77,6 +78,7 @@ namespace ns3
 	//tx: usually called when packet is rcvd from node's stackline and to be sent on air interface
 	void Airline::tx(msg_buf_t *mbuf)
 	{
+        int numNodes = stoi(CFG("numOfNodes"));
 		McpsDataRequestParams params;
 
 		if(mbuf->flags & MBUF_IS_CMD) {
@@ -96,6 +98,16 @@ namespace ns3
 		if(mbuf->dst_id != 0xffff) {
 			params.m_txOptions = TX_OPTION_ACK;
 		}
+
+        // If the src node is in promiscuous mode then disable L2-ACK 
+        if(IN_RANGE(mbuf->src_id, 0, numNodes)) {
+            wf::Nodeinfo *ni=NULL;
+            ni = WF_config.get_node_info(mbuf->src_id);
+            if(ni && ni->getPromisMode()) {
+                params.m_txOptions   = TX_OPTION_NONE;
+            }
+        }
+        
 #if AIRLINE_PRN_DATA
         INFO << "TX DATA: "
              << " src_id=" << GetNode()->GetId()
@@ -143,10 +155,17 @@ namespace ns3
 	{
 		//INFO << "Airline application started ID:"<< GetNode()->GetId() << endl;
 		Ptr<LrWpanNetDevice> dev = GetNode()->GetDevice(0)->GetObject<LrWpanNetDevice>();
+        
+        
 		setShortAddress();
 		dev->GetMac()->SetMacMaxFrameRetries(CFG_INT("macMaxRetry", 3));
 		dev->GetMac()->SetMcpsDataConfirmCallback(MakeBoundCallback(&Airline::DataConfirm, this, dev));
 		dev->GetMac()->SetMcpsDataIndicationCallback(MakeBoundCallback (&Airline::DataIndication, this, dev));
+
+        // dev_ids->GetMac()->SetMacMaxFrameRetries(CFG_INT("macMaxRetry", 3));
+		// dev_ids->GetMac()->SetMcpsDataConfirmCallback(MakeBoundCallback(&Airline::DataConfirm, this, dev));
+		// dev_ids->GetMac()->SetMcpsDataIndicationCallback(MakeBoundCallback (&Airline::DataIndication, this, dev));
+
 		SPAWN_STACKLINE(GetNode()->GetId());
 	};
 
@@ -166,10 +185,30 @@ namespace ns3
 		mbuf->dst_id        = addr2id(params.m_dstAddr);
 		mbuf->info.sig.lqi  = params.m_mpduLinkQuality;
 		wf::Macstats::set_stats(AL_RX, mbuf);
+
+        //My addition, send to 2 IDS
+        // INFO << "sent to 2bro" << node_id << "\n";
+        // if ( node_id==2 || node_id==3 || node_id==4){
+        //     INFO << "send to idsnode:" << node_id << " src:" << mbuf->src_id <<"\n" ;
+        //     cl_sendto_q(MTYPE(SNIFFER, CL_MGR_ID), mbuf, sizeof(msg_buf_t) + mbuf->len);
+
+        // }
+        INFO << "send to:" << node_id << " src:" << mbuf->src_id <<"\n" ;
+
+
+        // cl_sendto_q(MTYPE(STACKLINE, 3), mbuf, sizeof(msg_buf_t) + mbuf->len);
+        // cl_sendto_q(MTYPE(STACKLINE, 4), mbuf, sizeof(msg_buf_t) + mbuf->len);
+
+        // cl_sendto_q(MTYPE(STACKLINE, 5), mbuf, sizeof(msg_buf_t) + mbuf->len);
+
+        // cl_sendto_q(MTYPE(STACKLINE, 6), mbuf, sizeof(msg_buf_t) + mbuf->len);
+
+        // cl_sendto_q(MTYPE(SNIFFER, CL_MGR_ID), mbuf, sizeof(msg_buf_t)+ mbuf->len);
 		cl_sendto_q(MTYPE(STACKLINE, node_id), mbuf, sizeof(msg_buf_t) + mbuf->len);
 #if AIRLINE_PRN_DATA
         INFO << "RX data"
-             << " src_id=" << node_id
+             << " me=" << node_id
+             << " src_id=" << mbuf->src_id
              << " dst_id=" << mbuf->dst_id
              << " lqi=" << (int)params.m_mpduLinkQuality
              << " len=" << mbuf->len

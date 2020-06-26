@@ -26,6 +26,28 @@
 #include "mac_stats.h"
 #include "Nodeinfo.h"
 
+int getNodeConfigVal(int id, char *key, char *val, int vallen)
+{
+	wf::Nodeinfo *ni=NULL;
+    ni=WF_config.get_node_info(id);
+    if (!ni) {
+        snprintf(val, vallen, "cudnot get nodeinfo id=%d", id);
+        ERROR << "Unable to get node config\n";
+        return 0;
+    }
+    if (!strcmp(key, "nodeexec")) {
+        return snprintf(val, vallen, "%s", (char *)ni->getNodeExecutable().c_str());
+    }
+    snprintf(val, vallen, "unknown key [%s]", key);
+    ERROR << "Unknown key " << key << "\n";
+    return 0;
+}
+
+int AirlineManager::cmd_node_exec(uint16_t id, char *buf, int buflen)
+{
+    return getNodeConfigVal(id, (char *)"nodeexec", buf, buflen);
+}
+
 int AirlineManager::cmd_node_position(uint16_t id, char *buf, int buflen)
 {
 	int n=0;
@@ -176,6 +198,7 @@ void AirlineManager::msgrecvCallback(msg_buf_t *mbuf)
 
 	if(mbuf->flags & MBUF_IS_CMD) {
         if(0) {}
+   		HANDLE_CMD(mbuf, cmd_node_exec)
 		HANDLE_CMD(mbuf, cmd_node_position)
 		HANDLE_CMD(mbuf, cmd_set_node_position)
 		HANDLE_CMD(mbuf, cmd_802154_set_short_addr)
@@ -219,7 +242,7 @@ void AirlineManager::nodePos(NodeContainer const & nodes, uint16_t id, double & 
 	mob.Install(nodes.Get(id));
 }
 
-void AirlineManager::setNodeSpecificPosition(NodeContainer & nodes) 
+void AirlineManager::setNodeSpecificParam(NodeContainer & nodes) 
 {
 	uint8_t is_set=0;
 	double x, y, z;
@@ -231,8 +254,18 @@ void AirlineManager::setNodeSpecificPosition(NodeContainer & nodes)
 			return;
 		}
 		ni->getNodePosition(is_set, x, y, z);
-		if(!is_set) continue;
-		nodePos(nodes, i, x, y, z);
+		if(is_set) {
+    		nodePos(nodes, i, x, y, z);
+        }
+		if(ni->getPromisMode()) {
+            INFO << "Set promiscuous mode for node:" << i << "\n";
+            Ptr<Node> node = nodes.Get(i); 
+            Ptr<LrWpanNetDevice> dev = node->GetDevice(0)->GetObject<LrWpanNetDevice>();
+            if (dev) {
+                INFO << "in Set promiscuous mode for node:" << i << "\n";
+                dev->GetMac()->SetPromiscuousMode(1);
+            }
+        }
 	}
 }
 
@@ -274,19 +307,32 @@ int AirlineManager::startNetwork(wf::Config & cfg)
 
 		setPositionAllocator(nodes);
 
-		setNodeSpecificPosition(nodes);
-
 		LrWpanHelper lrWpanHelper;
 		NetDeviceContainer devContainer = lrWpanHelper.Install(nodes);
 		lrWpanHelper.AssociateToPan (devContainer, CFG_PANID);
 
+        // Config::Connect ("/NodeList/*/DeviceList/*/$ns3::CsmaNetDevice/MacPromiscRx",
+        //            MakeCallback (&AirlineManager::msgrecvCallback, this));
+
+		//For promiscuous change here
 		string ns3_capfile = CFG("NS3_captureFile");
 		if(!ns3_capfile.empty()) {
 			INFO << "NS3 Capture File:" << ns3_capfile << endl;
-			lrWpanHelper.EnablePcapAll (ns3_capfile, false /*promiscuous*/);
+			// lrWpanHelper.EnablePcapAll (ns3_capfile, false /*promiscuous*/);
+            for (int i=0; i<devContainer.GetN();i++){
+                if (i==2 || i==3)
+                    lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),true /*promiscuous*/);
+                else
+			        lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),false /*promiscuous*/);
+
+            }
+			// lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(0),false /*promiscuous*/);
+
+
 		}
 
         setMacHeaderAdd(nodes);
+		setNodeSpecificParam(nodes);
 
 		AirlineHelper airlineApp;
 		ApplicationContainer apps = airlineApp.Install(nodes);

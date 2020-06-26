@@ -13,6 +13,7 @@ stackline.
 | |grid | Grid topology where nodes are separated by distance specified by fieldX * fieldY and the width of the grid is specified by gridWidth|
 |gridWidth| Uint range | Width of the grid. Only applicable when topologyType=grid |
 |nodePosition[*]|10,20,0|Manually position the node at the given location specified by x,y,z coordinates|
+|nodePromiscuous[*]|1|Set promiscuous mode for the node. Node will receive not only broadcast or unicast packets destined to it but also other packets not destined to it but the node is in receive range.|
 |panID|Ushort range| PAN identifier to be used in LOWPAN |
 |macPktQlen|<100|Maximum number of packets that can be buffered/queued at MAC layer|
 |macMaxRetry| <20 | Maximum number of times the mac packet will be retried |
@@ -31,3 +32,7 @@ nodeExec[10-19]=/path/to/riot
 In the above configuration the first nodeExec=/path/to/contiki will result in the execuatable getting set for all nodes. 
 In the subsequent config statement, nodes[10-19] (inclusive) will override the nodeExec path. 
 Note that the sequence of configuration option is important in this particular case.
+
+### Sample layout for Grid topology
+
+![Alt text](res/grid-top-layout.png "Grid Topology Layout")

@@ -2,6 +2,7 @@
 
 DIR=`dirname $0`
 . $DIR/helpers.sh
+. $DIR/get_node_attr.sh
 TMP="/tmp/wf_graphviz_$$"
 POSF="/tmp/wf_node_pos_$$"
 
@@ -16,11 +17,16 @@ tree_graph() {
 	for((i=0;i<${#nodelist[@]};i++)); do
 		id=`echo ${nodelist[$i]} | awk '{ print $3 }'`
 		parent_ip=`sl_cmd "$id:cmd_def_route"`
-		if [ "$parent_ip" != "[NONE]" ]; then
+        echo "$id -> 0[ style = invis ];" >> $TMP
+		if [[ $parent_ip == [fF][eE]80::* ]]; then
 			prnt_id=`ip2id $parent_ip`
 			#echo "Node $id, parent $prnt_id"
 			echo "$id -> $prnt_id;" >> $TMP
 		fi
+	done
+    for((i=0;i<${#nodelist[@]};i++)); do
+        color=`get_node_color $i | jq -r .color`
+		echo "$i [ fillcolor=$color style=filled]" >> $TMP
 	done
 	echo "}" >> $TMP
 	dot -Tpng $TMP > $1
@@ -38,7 +44,8 @@ position_graph() {
 	for((i=0;i<${#nodelist[@]};i++)); do
 		id=`echo ${nodelist[$i]} | awk '{ print $3 }'`
 		parent_ip=`sl_cmd "$id:cmd_def_route"`
-		if [ "$parent_ip" != "[NONE]" ]; then
+        echo "$id -> 0[ style = invis ];" >> $TMP
+		if [[ $parent_ip == [fF][eE]80::* ]]; then
 			prnt_id=`ip2id $parent_ip`
 			#echo "Node $id, parent $prnt_id"
 			echo "$id -> $prnt_id;" >> $TMP
@@ -48,9 +55,14 @@ position_graph() {
 	#Dump node absolute position
 	#cat $POSF
 	readarray nodepos < $POSF
+    [[ "$scale" == "" ]] && scale=1
 	for((i=0;i<${#nodepos[@]};i++)); do
+        color=`get_node_color $i | jq -r .color`
+
 		IFS=' ' read -r -a arr <<< "${nodepos[$i]}"
-		echo "${arr[1]} [ pos=\"${arr[3]},${arr[4]}!\"]" >> $TMP
+        xpos=`echo "${arr[3]}*$scale" | bc -q`
+        ypos=`echo "${arr[4]}*$scale" | bc -q`
+		echo "${arr[1]} [ pos=\"${xpos},${ypos}!\" fillcolor=$color style=filled]" >> $TMP
 	done
 
 	echo "}" >> $TMP

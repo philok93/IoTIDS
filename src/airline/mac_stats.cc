@@ -133,6 +133,7 @@ namespace wf {
 
 	void Macstats::set_stats(int dir, const msg_buf_t *mbuf) {
 		Nodeinfo *ni=WF_config.get_node_info(mbuf->src_id);
+		
 		if(!ni) {
 			ERROR << "Invalida src_id in set_stats: " << (int)mbuf->src_id << endl;
 			return;
