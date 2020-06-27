@@ -1,0 +1,210 @@
+[2020-02-26 22:15:24] read_IDS_allnodes_sciptIDS5_clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS5_clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.log) --
+1799988303 ID:1 [INFO: RPL       ] ext hdr: packet from fd00::c30c:0:0:24 to fd00::c30c:0:0:1 going up, sender closer 0 (265 < 128), rank error 0, loop detected 0
+last msg: [INFO: RPL       ] ext hdr: packet from fd00::c30c:0:0:24 to fd00::c30c:0:0:1 going up, sender closer 0 (265 < 128), rank error 0, loop detected 0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.cooja_log) --
+[22:32:49 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 445.9 sec
+[22:34:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 370.3 sec
+[22:35:09 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 295.0 sec
+[22:36:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 222.1 sec
+[22:37:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 149.0 sec
+[22:39:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 74.5 sec
+[22:40:17 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[22:40:17 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[22:40:17 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582749617471	Duration: 1487849 ms	Simulated time 1800000 ms	Ratio 1.2098001880567182
+[22:40:17 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-26 22:40:18] read_IDS_allnodes_sciptIDS5_clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS5_clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.log) --
+1799852921 ID:1 [ERR : RPL       ] failed to add link on incoming DAO
+last msg: [ERR : RPL       ] failed to add link on incoming DAO
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.cooja_log) --
+[22:58:31 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 466.6 sec
+[22:59:45 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 387.4 sec
+[23:00:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 308.3 sec
+[23:02:08 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 230.4 sec
+[23:03:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 152.4 sec
+[23:04:18 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 75.5 sec
+[23:05:33 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[23:05:33 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:05:33 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582751133849	Duration: 1510782 ms	Simulated time 1800000 ms	Ratio 1.191435958331513
+[23:05:34 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-26 23:05:34] read_IDS_allnodes_sciptIDS5_clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS5_clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.log) --
+1799999657 ID:10 [INFO: IPv6 Route] Default route found, IP address fe80::c30c:0:0:1
+last msg: [INFO: IPv6 Route] Default route found, IP address fe80::c30c:0:0:1
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.cooja_log) --
+[23:22:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 346.4 sec
+[23:23:54 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 273.5 sec
+[23:24:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 202.5 sec
+[23:25:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 133.6 sec
+[23:26:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 66.7 sec
+[23:27:48 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[23:27:48 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:27:48 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582752468620	Duration: 1328665 ms	Simulated time 1800000 ms	Ratio 1.354743294961484
+[23:27:49 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+[23:27:49 - Thread-3] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@683dbc2c
+
+
+[2020-02-26 23:27:49] read_IDS_allnodes_sciptIDS5_clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS5_clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.log) --
+1799999506 ID:17 [WARN: RPL       ] no parent, scheduling periodic DIS, will leave if no parent is found
+last msg: [WARN: RPL       ] no parent, scheduling periodic DIS, will leave if no parent is found
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.cooja_log) --
+[23:43:33 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 402.5 sec
+[23:44:36 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 334.1 sec
+[23:45:39 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 266.4 sec
+[23:46:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 200.6 sec
+[23:47:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 133.8 sec
+[23:49:05 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 66.9 sec
+[23:50:11 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[23:50:11 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[23:50:11 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582753811656	Duration: 1337653 ms	Simulated time 1800000 ms	Ratio 1.3456404613154533
+[23:50:12 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-26 23:50:12] read_IDS_allnodes_sciptIDS5_clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS5_clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.log) --
+1799987586 ID:15 [WARN: RPL       ] no parent, scheduling periodic DIS, will leave if no parent is found
+last msg: [WARN: RPL       ] no parent, scheduling periodic DIS, will leave if no parent is found
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS5_clone.cooja_log) --
+[00:07:38 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 446.2 sec
+[00:08:48 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 370.7 sec
+[00:09:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 291.3 sec
+[00:10:37 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 215.4 sec
+[00:11:32 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 141.7 sec
+[00:12:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 70.8 sec
+[00:13:53 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[00:13:53 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:13:53 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582755233868	Duration: 1416858 ms	Simulated time 1800000 ms	Ratio 1.2704166543153936
+[00:13:54 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-27 00:13:54] read_IDS_allnodes_sciptIDS1-clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS1-clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.log) --
+1799993526 ID:1 [ERR : RPL       ] failed to add link on incoming DAO
+last msg: [ERR : RPL       ] failed to add link on incoming DAO
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.cooja_log) --
+[00:33:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 508.4 sec
+[00:34:56 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 419.0 sec
+[00:36:31 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 338.0 sec
+[00:37:11 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 245.6 sec
+[00:37:50 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 159.0 sec
+[00:38:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 77.3 sec
+[00:39:45 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[00:39:45 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[00:39:45 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582756785872	Duration: 1546139 ms	Simulated time 1800000 ms	Ratio 1.1641902830211255
+[00:39:46 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-27 00:39:46] read_IDS_allnodes_sciptIDS1-clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS1-clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.log) --
+1799958970 ID:1 [ERR : RPL       ] failed to add link on incoming DAO
+last msg: [ERR : RPL       ] failed to add link on incoming DAO
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.cooja_log) --
+[00:56:10 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 419.5 sec
+[00:57:02 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 343.8 sec
+[00:57:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 272.2 sec
+[00:58:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 202.7 sec
+[00:59:58 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 134.1 sec
+[01:01:06 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 67.1 sec
+[01:02:12 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[01:02:12 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:02:12 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582758132032	Duration: 1340784 ms	Simulated time 1800000 ms	Ratio 1.3424981205026314
+[01:02:12 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-27 01:02:12] read_IDS_allnodes_sciptIDS1-clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS1-clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.log) --
+1799917183 ID:37 [INFO: IPv6      ] Sending packet with length 98 (58)
+last msg: [INFO: IPv6      ] Sending packet with length 98 (58)
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.cooja_log) --
+[01:19:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 444.6 sec
+[01:20:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 369.7 sec
+[01:21:52 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 293.7 sec
+[01:22:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 219.2 sec
+[01:24:04 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 145.2 sec
+[01:25:26 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 73.1 sec
+[01:26:25 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[01:26:25 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:26:25 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582759585543	Duration: 1448054 ms	Simulated time 1800000 ms	Ratio 1.2430475659056914
+[01:26:26 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-27 01:26:26] read_IDS_allnodes_sciptIDS1-clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS1-clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.log) --
+1799871851 ID:18 [INFO: RPL       ] packet sent to c10c.0000.0000.0006, status 0, tx 1, new link metric 144
+last msg: [INFO: RPL       ] packet sent to c10c.0000.0000.0006, status 0, tx 1, new link metric 144
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.cooja_log) --
+[01:43:34 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 438.6 sec
+[01:44:46 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 365.3 sec
+[01:45:59 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 292.2 sec
+[01:47:14 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 219.5 sec
+[01:48:28 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 146.5 sec
+[01:49:42 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 73.2 sec
+[01:50:51 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[01:50:51 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[01:50:51 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582761051621	Duration: 1460776 ms	Simulated time 1800000 ms	Ratio 1.2322217780138776
+[01:50:52 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+
+[2020-02-27 01:50:52] read_IDS_allnodes_sciptIDS1-clone: FAIL
+-- NO TEST INFO AVAILABLE (read_IDS_allnodes_sciptIDS1-clone.info) --
+-- TEST OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.log) --
+1799994136 ID:13 [INFO: RPL       ] ext hdr: packet from fd00::c30c:0:0:12 to fd00::c30c:0:0:1 going up, sender closer 0 (639 < 296), rank error 0, loop detected 0
+last msg: [INFO: RPL       ] ext hdr: packet from fd00::c30c:0:0:12 to fd00::c30c:0:0:1 going up, sender closer 0 (639 < 296), rank error 0, loop detected 0
+TEST TIMEOUT
+TEST FAILED
+Test ended at simulation time: 1800000000
+-- COOJA OUTPUT (tail read_IDS_allnodes_sciptIDS1-clone.cooja_log) --
+[02:08:47 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 70.00%, done in 458.8 sec
+[02:10:00 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 75.00%, done in 381.1 sec
+[02:11:09 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 80.00%, done in 303.0 sec
+[02:12:16 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 85.00%, done in 225.8 sec
+[02:13:27 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 90.00%, done in 150.1 sec
+[02:14:41 - Thread-2] [LogScriptEngine.java:389] [INFO] - Test script at 95.00%, done in 75.0 sec
+[02:15:40 - Thread-2] [LogScriptEngine.java:375] [INFO] - Timeout event @ 1800000000
+[02:15:40 - Thread-1] [LogScriptEngine.java:309] [INFO] - Test script finished
+[02:15:40 - Thread-2] [Simulation.java:312] [INFO] - Simulation main loop stopped, system time: 1582762540802	Duration: 1483822 ms	Simulated time 1800000 ms	Ratio 1.2130835100167001
+[02:15:41 - AWT-EventQueue-0] [ScriptRunner.java:430] [INFO] - Test script deactivated
+
+

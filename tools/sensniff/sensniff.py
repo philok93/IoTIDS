@@ -168,7 +168,10 @@ class SerialInputHandler(object):
         if b[0:4] not in (self.__sensniff_magic, self.__sensniff_magic_legacy):
             # Peripheral UART output - print it
             per_out = self.port.readline().rstrip()
-            logger.info("Peripheral: %s%s" % (b.decode(), per_out.decode()))
+            try:
+                logger.info("Peripheral: %s%s" % (b.decode(), per_out.decode()))
+            except UnicodeDecodeError as e:
+                logger.info("Error decoding peripheral output: %s"%e)
             stats['Non-Frame'] += 1
             return ''
 
@@ -201,7 +204,9 @@ class SerialInputHandler(object):
         # If we reach here, we have a packet of proto ver SNIFFER_PROTO_VERSION
         # Read CMD and LEN
         try:
+            size = 0
             b = self.port.read(3)
+            size = len(b)
 
         except (IOError, OSError) as e:
             logger.error('Error reading port: %s' % (self.port.port,))
@@ -525,18 +530,18 @@ if __name__ == '__main__':
         out_handlers.append(PcapDumpOutHandler(args.pcap))
 
     if args.non_interactive is False:
-        h = ("Commands:\n"
-             "c: Print current RF Channel\n"
-             "m: Print Min RF Channel\n"
-             "M: Print Max RF Channel\n"
-             "n: Trigger new pcap header before the next frame\n"
-             "h,?: Print this message\n"
-             "<number>: Change RF channel.\n"
-             "q: Quit")
+        help_str = ("Commands:\n"
+                    "c: Print current RF Channel\n"
+                    "m: Print Min RF Channel\n"
+                    "M: Print Max RF Channel\n"
+                    "n: Trigger new pcap header before the next frame\n"
+                    "h,?: Print this message\n"
+                    "<number>: Change RF channel.\n"
+                    "q: Quit")
 
-        e = 'Unknown Command. Type h or ? for help'
+        err_str = 'Unknown Command. Type h or ? for help'
 
-        print(h)
+        print(help_str)
 
         in_handler.get_channel()
 
@@ -547,7 +552,7 @@ if __name__ == '__main__':
                     cmd = sys.stdin.readline().strip()
                     logger.info('User input: "%s"' % (cmd,))
                     if cmd in ('h', '?'):
-                        print(h)
+                        print(help_str)
                     elif cmd == 'c':
                         in_handler.get_channel()
                     elif cmd == 'm':
@@ -567,7 +572,7 @@ if __name__ == '__main__':
             except select.error:
                 logger.warn('Error while trying to read stdin')
             except ValueError:
-                print(e)
+                print(err_str)
             except UnboundLocalError:
                 # Raised by command 'n' when -o was specified at command line
                 pass

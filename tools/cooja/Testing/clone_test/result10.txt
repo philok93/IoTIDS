@@ -1,0 +1,124 @@
+
+File:read_IDS_allnodes_sciptIDS10-clone-1.log
+SURE NODES:43, 4, 6, 3, 2, 5, 
+sure count:362
+Clone nodes:21 count:216
+Clone nodes:5 count:2
+
+Malicious id:43 62
+Malicious id:4 86
+Malicious id:6 57
+Malicious id:3 56
+Malicious id:2 86
+Malicious id:5 29
+FP id:43
+FP id:4
+FP id:6
+FP id:3
+FP id:2
+FP id:5
+FP id:7
+FP id:32
+FP id:21
+
+File:read_IDS_allnodes_sciptIDS10-clone-2.log
+SURE NODES:2, 4, 7, 5, 6, 3, 
+sure count:411
+Clone nodes:21 count:91
+
+Malicious id:2 86
+Malicious id:4 86
+Malicious id:7 86
+Malicious id:5 85
+Malicious id:6 57
+Malicious id:3 29
+FP id:2
+FP id:4
+FP id:7
+FP id:5
+FP id:6
+FP id:39
+FP id:3
+FP id:21
+FP id:31
+
+File:read_IDS_allnodes_sciptIDS10-clone-3.log
+SURE NODES:42, 7, 4, 6, 2, 5, 3, 
+sure count:370
+Clone nodes:21 count:200
+
+Malicious id:42 27
+Malicious id:7 86
+Malicious id:4 86
+Malicious id:6 56
+Malicious id:2 54
+Malicious id:5 59
+Malicious id:3 20
+FP id:42
+FP id:7
+FP id:4
+FP id:6
+FP id:2
+FP id:5
+FP id:3
+FP id:8
+FP id:11
+
+File:read_IDS_allnodes_sciptIDS10-clone-4.log
+SURE NODES:46, 2, 3, 5, 7, 4, 6, 
+sure count:382
+Clone nodes:21 count:232
+
+Malicious id:46 36
+Malicious id:2 56
+Malicious id:3 55
+Malicious id:5 57
+Malicious id:7 86
+Malicious id:4 59
+Malicious id:6 55
+FP id:46
+FP id:2
+FP id:3
+FP id:5
+FP id:7
+FP id:6
+FP id:4
+FP id:23
+FP id:17
+
+File:read_IDS_allnodes_sciptIDS10-clone-5.log
+SURE NODES:5, 7, 4, 3, 2, 41, 6, 
+sure count:371
+Clone nodes:19 count:5
+Clone nodes:21 count:42
+
+Malicious id:5 86
+Malicious id:7 86
+Malicious id:4 86
+Malicious id:3 50
+Malicious id:2 55
+Malicious id:41 24
+Malicious id:6 17
+FP id:5
+FP id:7
+FP id:4
+FP id:3
+FP id:2
+FP id:6
+FP id:41
+FP id:21
+Total in 1: 376.0
+Total in 2: 429.0
+Total in 3: 388.0
+Total in 4: 404.0
+Total in 5: 404.0
+AVG 1: 212.4
+AVG 2: 351.2
+AVG 3: 347.0
+AVG 4: 366.8
+AVG 5: 383.6
+AVG 6: 381.6
+AVG 7: 392.0
+AVG 8: 405.2
+AVG 9: 422.2
+AVG 10: 400.2
