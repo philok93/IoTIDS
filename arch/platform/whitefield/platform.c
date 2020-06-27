@@ -226,10 +226,12 @@ set_global_address(void)
   LOG_INFO_6ADDR(&ipaddr);
   LOG_INFO_("\n");
 
+#if 0
   /* set the PREFIX::1 address to the IF */
   uip_ip6addr_copy(&ipaddr, default_prefix);
   ipaddr.u8[15] = 1;
   uip_ds6_defrt_add(&ipaddr, 0);
+#endif
 }
 #endif
 /*---------------------------------------------------------------------------*/

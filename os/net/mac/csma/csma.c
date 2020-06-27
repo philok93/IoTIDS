@@ -75,14 +75,6 @@ send_packet(mac_callback_t sent, void *ptr)
 static void
 input_packet(void)
 {
-
- //Leave promiscious
-//   #if IDS_CLIENT
-//    radio_value_t radio_rx_mode;
-
-//     NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-//     NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode | RADIO_RX_MODE_ADDRESS_FILTER);
-//     #endif
     
 #if CSMA_SEND_SOFT_ACK
   uint8_t ackdata[CSMA_ACK_LEN];
@@ -135,12 +127,6 @@ input_packet(void)
     }
   }
 
-
-//   #if IDS_CLIENT
-//     /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
-//     NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-//     NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode & (~RADIO_RX_MODE_ADDRESS_FILTER));
-//     #endif
   
 }
 /*---------------------------------------------------------------------------*/

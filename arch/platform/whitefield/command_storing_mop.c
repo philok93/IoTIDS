@@ -31,7 +31,7 @@ int get_route_list(FILE *fp, char *buf, int buflen)
 
 int cmd_rtsize(uint16_t id, char *buf, int buflen)
 {
-	return snprintf(buf, buflen, "%d", uip_ds6_route_num_routes());
+	return snprintf(buf, buflen, "%d", uip_sr_num_nodes());
 }
 
 #endif

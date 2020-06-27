@@ -169,24 +169,12 @@ static int
 send_one_packet(struct neighbor_queue *n, struct packet_queue *q)
 {
 
-// #if IDS_CLIENT
-//    radio_value_t radio_rx_mode;
-// //    #if IDS_CLIENT
-
-//     // NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-//     // NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode | RADIO_RX_MODE_ADDRESS_FILTER);
-//     // #endif
-// #endif
-
   int ret;
   int last_sent_ok = 0;
 
   packetbuf_set_addr(PACKETBUF_ADDR_SENDER, &linkaddr_node_addr);
-  #if IDS_CLIENT
-  packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 0);
-  #else
-packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
-  #endif
+
+  packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
 
 #if LLSEC802154_ENABLED
 #if LLSEC802154_USES_EXPLICIT_KEYS
@@ -228,11 +216,8 @@ packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
           /* Wait for max CSMA_ACK_WAIT_TIME */
           RTIMER_BUSYWAIT_UNTIL(NETSTACK_RADIO.pending_packet(), CSMA_ACK_WAIT_TIME);
 
-        // #if IDS_CLIENT
-        //     ret=MAC_TX_OK;
-        // #else
           ret = MAC_TX_NOACK;
-        // #endif
+
           if(NETSTACK_RADIO.receiving_packet() ||
              NETSTACK_RADIO.pending_packet() ||
              NETSTACK_RADIO.channel_clear() == 0) {
@@ -248,12 +233,6 @@ packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
                 /* Ack received */
                 ret = MAC_TX_OK;
 
-                // #if IDS_CLIENT
-                // // radio_value_t radio_rx_mode;
-                //     /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
-                //     NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-                //     NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode & (~RADIO_RX_MODE_ADDRESS_FILTER));
-                //     #endif
               } else {
                 /* Not an ack or ack not for us: collision */
                 ret = MAC_TX_COLLISION;
@@ -278,11 +257,6 @@ packetbuf_set_attr(PACKETBUF_ATTR_MAC_ACK, 1);
 
   packet_sent(n, q, ret, 1);
 
-    // #if IDS_CLIENT
-    // /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
-    // NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-    // NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode & (~RADIO_RX_MODE_ADDRESS_FILTER));
-    // #endif
  
   return last_sent_ok;
 }

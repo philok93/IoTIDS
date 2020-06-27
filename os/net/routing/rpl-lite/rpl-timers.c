@@ -108,7 +108,7 @@ void rpl_timers_schedule_periodic_dis(void)
     if (ctimer_expired(&dis_timer))
     {
 //Set interval to 30 sec when malicious node sends DIS
-#if MALICIOUS && (MAL_DIS || MAL_EXT)
+#if (MAL_DIS || MAL_EXT)
         clock_time_t expiration_time = PERIODIC_DELAY;
 #elif IDS_CLIENT
         clock_time_t expiration_time = RPL_DIS_INTERVAL/2;
@@ -126,7 +126,7 @@ handle_dis_timer(void *ptr)
 
     
     //Check if we want to send DIS and participate in network
-    #if MAL_RANK || MAL_EXT || !MALICIOUS || MAL_BLACKHOLE
+    #if /*MAL_RANK ||*/ MAL_EXT || !MALICIOUS
         if (flag_ext == 1)
         {
             int i = 0;
@@ -145,7 +145,6 @@ handle_dis_timer(void *ptr)
                 (!curr_instance.used ||
                 curr_instance.dag.preferred_parent == NULL))
             {
-            
                 // uip_ipaddr_t iproot;
                 // NETSTACK_ROUTING.get_root_ipaddr(iproot);
                 /* Send DIS and schedule next */
@@ -154,16 +153,16 @@ handle_dis_timer(void *ptr)
             }
         }
 
-        //Send dis to root only
-    #elif IDS_CLIENT
-            if (!rpl_dag_root_is_root() &&
-                (!curr_instance.used ||
-                curr_instance.dag.preferred_parent == NULL))
-            {
-                /* Send DIS and schedule next */
-                rpl_icmp6_dis_output(NULL);
-                rpl_timers_schedule_periodic_dis();
-            }
+    //     //Send dis to root only
+    // #elif IDS_CLIENT
+    //         if (!rpl_dag_root_is_root() &&
+    //             (!curr_instance.used ||
+    //             curr_instance.dag.preferred_parent == NULL))
+    //         {
+    //             /* Send DIS and schedule next */
+    //             rpl_icmp6_dis_output(NULL);
+    //             rpl_timers_schedule_periodic_dis();
+    //         }
 
     #else
             if (!rpl_dag_root_is_root() &&
@@ -171,7 +170,6 @@ handle_dis_timer(void *ptr)
                 curr_instance.dag.preferred_parent == NULL ||
                 curr_instance.dag.rank == RPL_INFINITE_RANK))
             {
-
                 /* Send DIS and schedule next */
                 rpl_icmp6_dis_output(NULL);
                 rpl_timers_schedule_periodic_dis();
@@ -218,6 +216,15 @@ new_dio_interval(void)
 
     /* schedule the timer */
     ctimer_set(&curr_instance.dag.dio_timer, ticks, &handle_dio_timer, NULL);
+    
+    //Set time IDS trust update
+    #if IDS_CLIENT
+        LOG_INFO("set idsINT:%d\n",curr_instance.dag.dio_intcurrent);
+
+        // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
+        ctimer_set(&curr_instance.dag.dio_timer, ticks, &ids_output_to_benign,NULL);
+        // ids_output_to_benign(&dest_ipaddr);
+    #endif
 
 #ifdef RPL_CALLBACK_NEW_DIO_INTERVAL
     RPL_CALLBACK_NEW_DIO_INTERVAL((CLOCK_SECOND * 1UL << curr_instance.dag.dio_intcurrent) / 1000);
@@ -281,6 +288,23 @@ handle_dio_timer(void *ptr)
         }
         curr_instance.dag.dio_send = 0;
         ctimer_set(&curr_instance.dag.dio_timer, curr_instance.dag.dio_next_delay, handle_dio_timer, NULL);
+        
+        #if IDS_CLIENT
+        uip_ipaddr_t *dest_ipaddr=NULL;
+        LOG_INFO("set ids2:%d\n",curr_instance.dag.dio_intcurrent);
+
+        if (&curr_instance.dag.dag_id!=NULL){
+            LOG_INFO("fineb2\n");
+            dest_ipaddr=&curr_instance.dag.dag_id;
+            LOG_INFO("finea2f:%d\n",dest_ipaddr->u8[15]);
+
+        }
+        else
+            LOG_INFO("check2 EROR\n");
+
+        ctimer_set(&curr_instance.dag.dio_timer, curr_instance.dag.dio_next_delay, ids_output_to_benign,&dest_ipaddr);
+    #endif
+
     }
     else
     {
@@ -431,19 +455,19 @@ resend_dao(void *ptr)
     rpl_icmp6_dao_output(curr_instance.default_lifetime);
 
     /* Schedule next retransmission, or abort */
-    #if IDS_CLIENT
-        if (curr_instance.dag.dao_transmissions < 2)
-    {
-        schedule_dao_retransmission();
-    }
-    #else
+    // #if IDS_CLIENT
+    //     if (curr_instance.dag.dao_transmissions < 2)
+    // {
+    //     schedule_dao_retransmission();
+    // }
+    // #else
 
     if (curr_instance.dag.dao_transmissions < RPL_DAO_MAX_RETRANSMISSIONS)
     {
         schedule_dao_retransmission();
     }
 
-    #endif
+    // #endif
     else
     {
         /* No more retransmissions. Perform local repair. */

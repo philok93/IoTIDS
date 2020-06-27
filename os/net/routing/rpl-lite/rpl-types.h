@@ -143,8 +143,9 @@ struct rpl_nbr {
   rpl_rank_t rank;
   uint8_t dtsn;
   //Added fields from IDS stats
-  uint8_t ids_verified;
+  uint16_t trust_value;
   uint16_t fw_packets;
+//   int16_t last_num_packets_tx;
   uint8_t flag_ids_node;
 };
 typedef struct rpl_nbr rpl_nbr_t;

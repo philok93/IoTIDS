@@ -9,7 +9,11 @@
 #include "net/netstack.h"
 #include "os/net/routing/rpl-classic/rpl-private.h"
 #include "os/net/ipv6/uip.h"
+#include "os/net/link-stats.h"
+
 #include "net/ipv6/uip-ds6-route.h"
+
+#include "net/ipv6/uip-sr.h"
 
 #define INFO    printf
 #define ERROR   printf

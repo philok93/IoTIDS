@@ -149,4 +149,10 @@ void rpl_set_leaf_only(uint8_t value);
 uint8_t rpl_get_leaf_only(void);
  /** @} */
 
+
+// #if IDS_OF
+
+// LIST(blacklist);
+// #endif
+
 #endif /* RPL_H */

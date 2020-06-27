@@ -163,6 +163,7 @@ link_stats_packet_sent(const linkaddr_t *lladdr, int status, int numtx)
 #else /* LINK_STATS_INIT_ETX_FROM_RSSI */
       stats->etx = ETX_DEFAULT * ETX_DIVISOR;
 #endif /* LINK_STATS_INIT_ETX_FROM_RSSI */
+
     } else {
       return; /* No space left, return */
     }
@@ -223,7 +224,8 @@ link_stats_input_callback(const linkaddr_t *lladdr)
 {
   struct link_stats *stats;
   int16_t packet_rssi = packetbuf_attr(PACKETBUF_ATTR_RSSI);
-LOG_INFO("LINKS:%d",packet_rssi);
+
+    //IDS test linkstats in whitefield
   stats = nbr_table_get_from_lladdr(link_stats, lladdr);
   if(stats == NULL) {
     /* Add the neighbor */
@@ -242,6 +244,10 @@ LOG_INFO("LINKS:%d",packet_rssi);
     }
     return;
   }
+
+// #if LINK_STATS_PACKET_COUNTERS
+      LOG_INFO("linkstats lqi/rss:%d\n",packetbuf_attr(PACKETBUF_ATTR_LINK_QUALITY));
+// #endif
 
   /* Update RSSI EWMA */
   stats->rssi = ((int32_t)stats->rssi * (EWMA_SCALE - EWMA_ALPHA) +

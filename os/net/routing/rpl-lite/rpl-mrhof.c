@@ -49,6 +49,10 @@
 #include "net/nbr-table.h"
 #include "net/link-stats.h"
 
+#if IDS_OF==1
+#include "ids.h"
+#endif
+
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "RPL"
@@ -102,6 +106,11 @@
  * better than our preferred parent for at least TIME_THRESHOLD, switch to
  * this neighbor regardless of RANK_THRESHOLD. */
 #define TIME_THRESHOLD (10 * 60 * CLOCK_SECOND)
+
+// #if IDS_OF==1
+// extern list_t blacklist;
+
+// #endif
 
 /*---------------------------------------------------------------------------*/
 static void
@@ -213,14 +222,39 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
 {
   int nbr1_is_acceptable;
   int nbr2_is_acceptable;
-
-  //j=nbr1,i=6
  
   nbr1_is_acceptable = nbr1 != NULL && nbr_is_acceptable_parent(nbr1);
   nbr2_is_acceptable = nbr2 != NULL && nbr_is_acceptable_parent(nbr2);
-//  #if IDS_CLIENT
-//     LOG_INFO("rcccrhere:%d %d\n",nbr1_is_acceptable,nbr2_is_acceptable);
-//     #endif
+
+//Here start the algorithm for OF with IDS
+#if IDS_OF==1
+
+  uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
+  uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
+ 
+
+//    LOG_INFO("CHECK LIST ip:%d ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
+   
+        if (nbr1_is_acceptable && check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
+            LOG_INFO("exist mal ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1]);
+            if (nbr2_is_acceptable)
+                return nbr2;
+            else
+                return NULL;
+
+        }else if (nbr2_is_acceptable && check_list(ip_nbr2->u8[sizeof(ip_nbr2->u8) - 1])){
+            LOG_INFO("mal:%d\n",ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
+            if (nbr1_is_acceptable)
+                return nbr1;
+            else
+                return NULL;
+        }
+        
+
+#endif
+
+
+    //Check if nbr ETX is <MAX_ETX
   if(!nbr1_is_acceptable) {
     return nbr2_is_acceptable ? nbr2 : NULL;
   }
@@ -229,24 +263,34 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   }
   
 #if IDS_OF
-    const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
-    const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 
- uint16_t direct_trust=(nbr1->fw_packets/(nbr1->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr1->fw_packets)))*1000;
- uint16_t direct_trust2=(nbr2->fw_packets/(nbr2->fw_packets+0.01*(stats2->cnt_current.num_packets_tx - nbr2->fw_packets)))*1000;
+const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
+const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 
-  LOG_INFO("TRUST:%d ,%d OR %d %d\n",direct_trust,direct_trust,direct_trust2,direct_trust2);
+// uint16_t values[2]={nbr1->trust_value,nbr2->trust_value};
 
- uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
-  uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
-  LOG_INFO("acce:%d %d, %d %d ver:%d %d,st:%d %d st2:%d %d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1], nbr1->fw_packets,nbr2->fw_packets, nbr1->ids_verified,
-   nbr2->ids_verified,stats->cnt_current.num_packets_tx,
-  stats->cnt_current.num_packets_acked, stats2->cnt_current.num_packets_tx, stats2->cnt_current.num_packets_acked);
+  LOG_INFO("TRUST:%d OR %d\n",nbr1->trust_value,nbr2->trust_value);
+
+
+  LOG_INFO("ip:%d %d, fw:%d %d trust:%d %d,st:%d st2:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],
+  ip_nbr2->u8[sizeof(ip_nbr2->u8)-1], 
+  nbr1->fw_packets,
+  nbr2->fw_packets, 
+  nbr1->trust_value,
+   nbr2->trust_value,
+   stats->cnt_current.num_packets_tx,
+  stats2->cnt_current.num_packets_tx);
+
+if (nbr1->trust_value > nbr2->trust_value)
+    return nbr1;
+else if (nbr2->trust_value > nbr1->trust_value)
+    return nbr2;
+
 #endif
 
-    #if IDS_CLIENT
-    LOG_INFO("rrhere:%d\n",nbr1_is_acceptable);
-    #endif
+    // #if IDS_CLIENT
+    // LOG_INFO("rrhere:%d\n",nbr1_is_acceptable);
+    // #endif
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */
@@ -256,7 +300,6 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   if(nbr2 == curr_instance.dag.preferred_parent && within_hysteresis(nbr1)) {
     return nbr2;
   }
-
   
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }

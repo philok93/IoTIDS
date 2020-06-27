@@ -154,13 +154,15 @@
 
 
 //Define IDS code for RPL message
-#if IDS_CLIENT || IDS_SERVER
+#if IDS_CLIENT==1 || IDS_SERVER==1
 #define RPL_CODE_IDS                    0x31
 #endif
 
-#define RPL_CODE_IDS_NORM               0x11
+#if IDS_OF==1 || IDS_CLIENT==1
+    #define RPL_CODE_IDS_NORM               0x11
+#endif
 
-#if IDS_CLIENT || IDS_SERVER || MAL_EXT
+#if IDS_CLIENT==1 || IDS_SERVER==1 || MAL_EXT
 #define RPL_CODE_MAL                    0x32
 #endif
 

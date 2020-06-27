@@ -308,23 +308,11 @@ void rpl_dag_update_state(void)
         // #endif
 
         /* Select and set preferred parent */
-        // #if IDS_CLIENT
-                rpl_neighbor_set_preferred_parent(rpl_neighbor_select_best());
-        // #else
-        //         rpl_neighbor_set_preferred_parent(rpl_neighbor_select_best());
-        // #endif
+        rpl_neighbor_set_preferred_parent(rpl_neighbor_select_best());
+        
 
         /* Update rank  */
-        #if !MAL_RANK
-                curr_instance.dag.rank = rpl_neighbor_rank_via_nbr(curr_instance.dag.preferred_parent);
-        #else
-                curr_instance.dag.rank = 127;
-        #endif
-
-        //Keep constant rank for detectors
-        // #if IDS_CLIENT
-        //         curr_instance.dag.rank = 800;//400;
-        // #else       
+        curr_instance.dag.rank = rpl_neighbor_rank_via_nbr(curr_instance.dag.preferred_parent);
 
         /* Update better_parent_since flag for each neighbor */
         nbr = nbr_table_head(rpl_neighbors);
@@ -438,11 +426,22 @@ update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
             LOG_ERR("failed to add neighbor\n");
             return NULL;
         }
+
+        //Normal node get from IDS trust value and fw_packets
+        #if IDS_OF==1
+            nbr->trust_value=63; //Initial value
+            nbr->fw_packets=0;
+            // nbr->last_num_packets_tx=-1;
+            nbr->flag_ids_node=0;
+        #endif
     }
 
     /* Update neighbor info from DIO */
     nbr->rank = dio->rank;
     nbr->dtsn = dio->dtsn;
+    //Client from IDS init values to 0 (IDS_CLIENT ref)
+    
+
 #if RPL_WITH_MC
     memcpy(&nbr->mc, &dio->mc, sizeof(nbr->mc));
 #endif /* RPL_WITH_MC */
@@ -807,7 +806,7 @@ int rpl_process_hbh(rpl_nbr_t *sender, uint16_t sender_rank, int loop_detected, 
             // #endif
         }
     }
-    // LOG_INFO("ret:%d\n",drop);
+    LOG_INFO("ret:%d\n",drop);
     return !drop;
 }
 /*---------------------------------------------------------------------------*/

@@ -353,7 +353,7 @@ nbr_table_add_lladdr(nbr_table_t *table, const linkaddr_t *lladdr, nbr_table_rea
   int index;
   nbr_table_item_t *item;
   nbr_table_key_t *key;
- PRINTF("here\n");
+  
   if(table == NULL) {
       PRINTF("NULLTAB\n");
     return NULL;

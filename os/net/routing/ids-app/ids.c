@@ -14,7 +14,7 @@
 // #define NODES_NUM_CL 30
 // #endifs
 
-#if IDS_SERVER
+#if IDS_SERVER==1
 ids_ctr_t nodes[NODES_NUM];
 
 #define LOG_MODULE "IDS"
@@ -41,7 +41,7 @@ void checkNodes(){
 
                       count+=nodes[j].counterDetect[c];
               }
-              LOG_INFO("c;%d %d\n",count,nodes[j].detected);
+              LOG_INFO("c:%d %d\n",count,nodes[j].detected);
 
               if (count>=2 && nodes[j].detected==1){
                 LOG_INFO("sure mal ID %u!\n",(unsigned)nodes[j].address);

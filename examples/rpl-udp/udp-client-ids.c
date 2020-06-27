@@ -5,9 +5,10 @@
 #include "net/ipv6/simple-udp.h"
 
 // #include "packetbuf.h"
-
+#include "net/routing/rpl-lite/rpl.h"
+#include "net/routing/rpl-lite/rpl-icmp6.h"
 #include "sys/log.h"
-#include "dev/cc2420/cc2420.h"
+
 #include "ids.h"
 #define LOG_MODULE "IDS"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -59,7 +60,6 @@ static void reset_stats(void *ptr){
     nodes[i].last_avg_rss=0;
   }
   
-  // i = 0; 
     LOG_INFO("RST tmp\n");
     // while (i<NODES_NUM_CL){
       
@@ -76,6 +76,7 @@ static void reset_stats(void *ptr){
       
     // }
   // ids_output_to_benign();
+
   ctimer_reset(&time_to_reset);
 }
 
@@ -104,17 +105,17 @@ PROCESS_THREAD(udp_client_process, ev, data)
   // radio_value_t radio_rx_mode;
 
   //Uncomment below to reduce dupl packets
-  radio_value_t radio_rx_mode;
+//   radio_value_t radio_rx_mode;
 /* Entering promiscuous mode so that the radio accepts all frames */
-NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
-LOG_INFO("val:%d",radio_rx_mode);
+// NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
+// LOG_INFO("val:%d",radio_rx_mode);
 // NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode &(~RADIO_RX_MODE_AUTOACK));
 //   if (NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, ~RADIO_RX_MODE_ADDRESS_FILTER | ~RADIO_RX_MODE_AUTOACK) != RADIO_RESULT_OK){
 //     LOG_INFO("Error enable promiscious\n");
 //     }
-  radio_rx_mode &= ~RADIO_RX_MODE_ADDRESS_FILTER;
-//    NETSTACK_RADIO.set_frame_filtering(0);
-  NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode);
+//   radio_rx_mode &= ~RADIO_RX_MODE_ADDRESS_FILTER;
+
+//   NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode);
   /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
 
   /* Initialize UDP connection */
@@ -123,7 +124,7 @@ LOG_INFO("val:%d",radio_rx_mode);
 
   //Used in uip6.c, starts detecting after 1 minute
   etimer_set(&time_sniff, (60*CLOCK_SECOND));
-  etimer_set(&periodic_timer, (10*CLOCK_SECOND)); 
+  etimer_set(&periodic_timer, (60*CLOCK_SECOND)); 
 
   // etimer_set(&packet_fw_timer, (60*CLOCK_SECOND)); //send metrics to nodes
   ctimer_set(&time_to_reset,180*CLOCK_SECOND,reset_stats,NULL);
@@ -150,15 +151,16 @@ i=0;
         // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
         /* Send to DAG root */
         LOG_INFO("Check IDS.Attempt: %u \n", count);
-        if (i==6){
+        if (i==13/*120*/){ //5 minute report
           i=0;
+          LOG_INFO("fromids\n");
           ids_output_to_benign(&dest_ipaddr);
         }
-        // LOG_INFO_6ADDR(&dest_ipaddr);
-        // LOG_INFO_("\n");
+        LOG_INFO_6ADDR(&dest_ipaddr);
+        LOG_INFO_("\n");
         // snprintf(str, sizeof(str), "hello %d", count);
         // simple_udp_sendto(&udp_conn, str, strlen(str), &dest_ipaddr);
-        // sett inn output_tru kall!
+        
         ids_output(&dest_ipaddr);
         count++;       
         i+=1;

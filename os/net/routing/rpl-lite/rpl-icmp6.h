@@ -142,15 +142,15 @@ void rpl_icmp6_init(void);
  /** @} */
 
 
-#if IDS_SERVER || IDS_CLIENT
+#if IDS_SERVER==1 || IDS_CLIENT==1
 //Added IDS
 void ids_output(uip_ipaddr_t *addr);
 
 void ids_input(void);
 #endif
 
-#if !MALICIOUS && !IDS_CLIENT && !IDS_SERVER && !CLONE_ATTACK
-//Added signature of input function for ids trust
+#if !MALICIOUS && IDS_CLIENT==0 && IDS_SERVER==0 && !CLONE_ATTACK && IDS_OF
+//Added signature of input function for ids trust, NORMAL NODE STRUCT
 void ids_input_benign(void);
 typedef struct tag_stats{
   uint8_t candidate[4]; //max number of parents to send packet
@@ -159,8 +159,8 @@ typedef struct tag_stats{
   uint8_t index;
   uint16_t count_fw_packets[4];
 } fw_stats;
-#elif IDS_CLIENT
-void ids_output_to_benign(uip_ipaddr_t *);
+#elif IDS_CLIENT ==1 
+void ids_output_to_benign(void *);
 #endif
 
 #if MAL_EXT

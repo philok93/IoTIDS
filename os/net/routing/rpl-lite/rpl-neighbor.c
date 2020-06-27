@@ -117,7 +117,7 @@ rpl_neighbor_snprint(char *buf, int buflen, rpl_nbr_t *nbr)
   if(index >= buflen) {
     return index;
   }
-  if(stats->last_tx_time > 0) {
+  if(stats != NULL && stats->last_tx_time > 0) {
     index += snprintf(buf+index, buflen-index,
                               " (last tx %u min ago",
                               (unsigned)((clock_now - stats->last_tx_time) / (60 * CLOCK_SECOND)));
@@ -407,9 +407,9 @@ rpl_neighbor_select_best(void)
 
   /* Look for best parent (regardless of freshness) */
   best = best_parent(0);
-  #if IDS_CLIENT
-    LOG_INFO("bes:%d\n",best!=NULL);
-    #endif
+//   #if IDS_CLIENT
+//     LOG_INFO("bes:%d\n",best!=NULL);
+//     #endif
 
 #if RPL_WITH_PROBING
   if(best != NULL) {
@@ -419,11 +419,7 @@ rpl_neighbor_select_best(void)
       /* Return best if it is fresh */
       return best;
     } else {
-        //For IDS don't bother to find fresh nbr
-        // #if IDS_CLIENT
-        //     curr_instance.dag.urgent_probing_target=NULL;
-        //     return best;
-        // #endif
+       
 
       rpl_nbr_t *best_fresh;
 

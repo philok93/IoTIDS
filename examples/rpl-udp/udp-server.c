@@ -32,11 +32,9 @@
 #include "net/netstack.h"
 #include "net/ipv6/simple-udp.h"
 
-#if IDS_SERVER
+#if IDS_SERVER == 1
 #include "ids.h"
-#pragma message "added ids"
 #endif
-
 #include "sys/log.h"
 #define LOG_MODULE "App"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -47,9 +45,11 @@
 
 extern void checkNodes();
 static struct simple_udp_connection udp_conn;
+
+#if IDS_SERVER == 1
  static struct ctimer time_to_reset;
  static void reset_stats();
-
+#endif
 
 PROCESS(udp_server_process, "UDP server");
 AUTOSTART_PROCESSES(&udp_server_process);
@@ -73,6 +73,7 @@ udp_rx_callback(struct simple_udp_connection *c,
 #endif /* WITH_SERVER_REPLY */
 }
 
+#if IDS_SERVER == 1
 static void reset_stats(void *ptr){
   uint8_t i=0;
   for (i=0;i<NODES_NUM;i++){
@@ -96,6 +97,7 @@ static void reset_stats(void *ptr){
   
   ctimer_reset(&time_to_reset);
 }
+#endif
 
 
 /*---------------------------------------------------------------------------*/
@@ -113,17 +115,21 @@ PROCESS_THREAD(udp_server_process, ev, data)
                       UDP_CLIENT_PORT, udp_rx_callback);
 
   etimer_set(&mytimer, 20*CLOCK_SECOND);
+
+  #if IDS_SERVER == 1
   //Reset after 10 min
   ctimer_set(&time_to_reset,600*CLOCK_SECOND,reset_stats,NULL);
-    
+  #endif
+
   while(1){
 
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));
 
     // PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));
     // if (etimer_expired(&mytimer)) {
-      
+      #if IDS_SERVER==1
       checkNodes();
+      #endif
 
       etimer_reset(&mytimer);
     // }

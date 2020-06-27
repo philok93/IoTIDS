@@ -47,16 +47,38 @@
 #define DEBUG   1
 #endif
 
-//#undef LOG_CONF_LEVEL_IPV6
-#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
+// #undef LOG_CONF_LEVEL_RPL
+// #undef LOG_CONF_LEVEL_6LOWPAN
+// #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
+// #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_WARN
+// #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
+// #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
+// #define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_DBG
+// #define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_INFO
+// #define LOG_CONF_LEVEL_IDS                         LOG_LEVEL_INFO
+
 #define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_DBG
+#define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_IDS                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_FRAMER                      LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_COAP                        LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_LWM2M                       LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_6TOP                        LOG_LEVEL_NONE
+#define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_INFO
 
-// #define RPL_CONF_DEFAULT_LEAF_ONLY 1
+#if IDS_OF || IDS_CLIENT
+/* configure network size and density */
+#undef NETSTACK_MAX_ROUTE_ENTRIES
+#define UIP_CONF_MAX_ROUTES 15
+#define NETSTACK_MAX_ROUTE_ENTRIES   15
+
+#undef NBR_TABLE_CONF_MAX_NEIGHBORS
+#define NBR_TABLE_CONF_MAX_NEIGHBORS 15
+#endif /* NETSTACK_MAX_ROUTE_ENTRIES */
+
+
 
 //------My IDS conf--------
 
@@ -67,10 +89,10 @@
 // // #endif
 // #endif
 
-// #ifdef IDS_CLIENT
-// #undef CC2420_CONF_AUTOACK
-// #define CC2420_CONF_AUTOACK 0
-// #endif
+//#ifdef IDS_CLIENT
+//#undef CC2420_CONF_AUTOACK
+//#define CC2420_CONF_AUTOACK 0
+//#endif
 
 // #endif
 // #ifdef RADIO_RX_MODE_ADDRESS_FILTER

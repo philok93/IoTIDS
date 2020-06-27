@@ -68,14 +68,14 @@ radio_LQI(void)
 static int
 radio_on(void)
 {
-  LOG_INFO("turning ON whitefield radio\n");
+  INFO("turning ON whitefield radio\n");
   return 0;
 }
 /*---------------------------------------------------------------------------*/
 static int
 radio_off(void)
 {
-  LOG_INFO("turning OFF whitefield radio\n");
+  INFO("turning OFF whitefield radio\n");
   return 0;
 }
 
@@ -93,10 +93,10 @@ static int radio_read(void *inbuf, unsigned short bufsize)
 	if(mbuf->len == 0) {
 		return 0;
 	}
-	LOG_INFO("RECV ret:%d src:%x dst:%x len:%d flags:%x\n", 
+	INFO("RECV ret:%d src:%x dst:%x len:%d flags:%x\n", 
 		ret, mbuf->src_id, mbuf->dst_id, mbuf->len, mbuf->flags);
 	if(mbuf->len > bufsize) {
-		LOG_ERR("How can mbuflen(%d) be greater than bufsize:%d?!\n", mbuf->len, bufsize);
+		ERROR("How can mbuflen(%d) be greater than bufsize:%d?!\n", mbuf->len, bufsize);
 		return 0;
 	}
 	if(mbuf->flags & MBUF_IS_CMD) {
@@ -188,9 +188,9 @@ PROCESS_THREAD(wfradio_process, ev, data)
 static int init(void)
 {
     process_start(&wfradio_process, NULL);
-    LOG_INFO("initing wfradio\n");
+    INFO("initing wfradio\n");
 	if(cl_init(MTYPE(STACKLINE, gNodeID), CL_ATTACHQ)!=CL_SUCCESS) {
-		LOG_ERR("commline init failed\n");
+		ERROR("commline init failed\n");
 		return 1;
 	}
 	return 0;
