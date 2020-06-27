@@ -601,7 +601,7 @@ init_dag_from_dio(rpl_dio_t *dio)
         return 0;
     }
 
-    LOG_INFO("rpl:%d",dio->instance_id);
+    // LOG_INFO("rpl:%d",dio->instance_id);
     /* Instance */
     curr_instance.mop = dio->mop;
     curr_instance.mc.type = dio->mc.type;
@@ -807,7 +807,7 @@ int rpl_process_hbh(rpl_nbr_t *sender, uint16_t sender_rank, int loop_detected, 
             // #endif
         }
     }
-    LOG_INFO("ret:%d\n",drop);
+    // LOG_INFO("ret:%d\n",drop);
     return !drop;
 }
 /*---------------------------------------------------------------------------*/

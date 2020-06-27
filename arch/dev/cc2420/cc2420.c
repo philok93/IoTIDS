@@ -275,6 +275,7 @@ set_value(radio_param_t param, radio_value_t value)
     set_auto_ack((value & RADIO_RX_MODE_AUTOACK) != 0);
     set_poll_mode((value & RADIO_RX_MODE_POLL_MODE) != 0);
     return RADIO_RESULT_OK;
+   
   case RADIO_PARAM_TX_MODE:
     if(value & ~(RADIO_TX_MODE_SEND_ON_CCA)) {
       return RADIO_RESULT_INVALID_VALUE;
@@ -1101,8 +1102,9 @@ set_auto_ack(uint8_t enable)
   } else {
     reg &= ~(AUTOACK);
   }
-
+      
   setreg(CC2420_MDMCTRL0, reg);
+  
   RELEASE_LOCK();
 }
 /*---------------------------------------------------------------------------*/

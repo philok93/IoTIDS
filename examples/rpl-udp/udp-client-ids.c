@@ -7,7 +7,7 @@
 // #include "packetbuf.h"
 
 #include "sys/log.h"
-
+#include "dev/cc2420/cc2420.h"
 #include "ids.h"
 #define LOG_MODULE "IDS"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -113,7 +113,7 @@ LOG_INFO("val:%d",radio_rx_mode);
 //     LOG_INFO("Error enable promiscious\n");
 //     }
   radio_rx_mode &= ~RADIO_RX_MODE_ADDRESS_FILTER;
-
+//    NETSTACK_RADIO.set_frame_filtering(0);
   NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode);
   /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
 

@@ -47,23 +47,25 @@
 #define DEBUG   1
 #endif
 
+//#undef LOG_CONF_LEVEL_IPV6
 #define LOG_CONF_LEVEL_RPL                         LOG_LEVEL_DBG
-#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_INFO
+#define LOG_CONF_LEVEL_IPV6                        LOG_LEVEL_DBG
 #define LOG_CONF_LEVEL_6LOWPAN                     LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_TCPIP                       LOG_LEVEL_NONE
-#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_DBG
+#define LOG_CONF_LEVEL_MAC                         LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_MAIN                        LOG_LEVEL_NONE
 #define LOG_CONF_LEVEL_IDS                         LOG_LEVEL_INFO
+
 // #define RPL_CONF_DEFAULT_LEAF_ONLY 1
 
 //------My IDS conf--------
 
-#if !IDS_SERVER
-#undef NETSTACK_CONF_MAC
-// #ifndef NETSTACK_CONF_MAC
- #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
+// #if !IDS_SERVER
+// #undef NETSTACK_CONF_MAC
+// // #ifndef NETSTACK_CONF_MAC
+//  #define NETSTACK_CONF_MAC	csma_driver //csma_driver nullmac_driver
+// // #endif
 // #endif
-#endif
 
 // #ifdef IDS_CLIENT
 // #undef CC2420_CONF_AUTOACK

@@ -393,10 +393,6 @@ best_parent(int fresh_only)
     best = curr_instance.of->best_parent(best, nbr);
   }
 
-#if IDS_CLIENT
-LOG_INFO("bbb:%d\n",best->rank);
-//   return nbr_table_head(rpl_neighbors);
-#endif
   return best;
 }
 /*---------------------------------------------------------------------------*/

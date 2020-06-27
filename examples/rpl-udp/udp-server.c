@@ -115,7 +115,7 @@ PROCESS_THREAD(udp_server_process, ev, data)
   etimer_set(&mytimer, 20*CLOCK_SECOND);
   //Reset after 10 min
   ctimer_set(&time_to_reset,600*CLOCK_SECOND,reset_stats,NULL);
-
+    
   while(1){
 
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&mytimer));

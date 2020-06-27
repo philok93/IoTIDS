@@ -4,6 +4,7 @@
 .vscode/**
 .directory
 *.z1*
+*.native
 
 ### C ###
 # Prerequisites

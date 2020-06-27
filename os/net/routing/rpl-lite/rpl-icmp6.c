@@ -531,7 +531,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
         LOG_INFO("SETTING flag ids %d\n",flag_is_ids);
     #else
         buffer[pos]=0;
-        LOG_INFO("logfla:%d",buffer[pos]);
+        // LOG_INFO("logfla:%d",buffer[pos]);
         pos++; //flags
     #endif
    

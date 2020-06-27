@@ -69,11 +69,21 @@ send_packet(mac_callback_t sent, void *ptr)
   init_sec();
 
   csma_output_packet(sent, ptr);
+
 }
 /*---------------------------------------------------------------------------*/
 static void
 input_packet(void)
 {
+
+ //Leave promiscious
+//   #if IDS_CLIENT
+//    radio_value_t radio_rx_mode;
+
+//     NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
+//     NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode | RADIO_RX_MODE_ADDRESS_FILTER);
+//     #endif
+    
 #if CSMA_SEND_SOFT_ACK
   uint8_t ackdata[CSMA_ACK_LEN];
 #endif
@@ -96,12 +106,6 @@ input_packet(void)
     LOG_WARN("frame from ourselves\n");
   } else {
     int duplicate = 0;
-
-    #if IDS_CLIENT
-        LOG_INFO("GR:%d\n",
-                linkaddr_cmp(packetbuf_addr(PACKETBUF_ADDR_RECEIVER),
-                                         &linkaddr_node_addr));
-    #endif
 
     /* Check for duplicate packet. */
     duplicate = mac_sequence_is_duplicate();
@@ -130,6 +134,14 @@ input_packet(void)
       NETSTACK_NETWORK.input();
     }
   }
+
+
+//   #if IDS_CLIENT
+//     /* Entering promiscuous mode so that the radio accepts the enhanced ACK */
+//     NETSTACK_RADIO.get_value(RADIO_PARAM_RX_MODE, &radio_rx_mode);
+//     NETSTACK_RADIO.set_value(RADIO_PARAM_RX_MODE, radio_rx_mode & (~RADIO_RX_MODE_ADDRESS_FILTER));
+//     #endif
+  
 }
 /*---------------------------------------------------------------------------*/
 static int
