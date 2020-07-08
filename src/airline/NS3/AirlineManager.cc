@@ -318,14 +318,14 @@ int AirlineManager::startNetwork(wf::Config & cfg)
 		string ns3_capfile = CFG("NS3_captureFile");
 		if(!ns3_capfile.empty()) {
 			INFO << "NS3 Capture File:" << ns3_capfile << endl;
-			// lrWpanHelper.EnablePcapAll (ns3_capfile, false /*promiscuous*/);
-            for (int i=0; i<devContainer.GetN();i++){
-                if (i==2 || i==3)
-                    lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),true /*promiscuous*/);
-                else
-			        lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),false /*promiscuous*/);
+			lrWpanHelper.EnablePcapAll (ns3_capfile, false /*promiscuous*/);
+            // for (int i=0; i<devContainer.GetN();i++){
+            //     if (i==2 || i==3)
+            //         lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),true /*promiscuous*/);
+            //     else
+			//         lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(i),false /*promiscuous*/);
 
-            }
+            // }
 			// lrWpanHelper.EnablePcap(ns3_capfile,devContainer.Get(0),false /*promiscuous*/);
 
 
