@@ -18,11 +18,11 @@
 
 #if IDS_SERVER==1
 #pragma message ("IDS_SERVER")
-#define NODES_NUM 5
+#define NODES_NUM 10 //Change this for future simulations
 #define DETECTORS_NUM 10
 #elif IDS_CLIENT==1
 #pragma message ("IDS_CLIENT")
-#define NODES_NUM_CL 5
+#define NODES_NUM_CL 10
 #else
 #pragma message ("IDS_GENERAL")
 #endif
@@ -40,6 +40,7 @@ typedef struct IDS_ctr{
   #if IDS_SERVER==1 /*IDS_SERVER 3 detectors*/
   uip_ip6addr_t fromNode[DETECTORS_NUM];
   uint8_t counterDetect[DETECTORS_NUM];
+  uint8_t blackhole_mal;
   #endif  /*IDS_SERVER 3 detectors*/
   uint16_t counterMsg;
   uint16_t counterDIS;
@@ -75,6 +76,7 @@ ids_ctr_t nodes[NODES_NUM];
 ids_ctr_t nodes[NODES_NUM_CL];
 struct etimer time_sniff,packet_fw_timer;
 
+//IDS client struct to check Blackhole attack
 typedef struct tagids{
   uint8_t dest[4]; //max number of parents to send packet
   // char from;

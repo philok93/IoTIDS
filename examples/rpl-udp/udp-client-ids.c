@@ -151,7 +151,8 @@ i=0;
         // NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr);
         /* Send to DAG root */
         LOG_INFO("Check IDS.Attempt: %u \n", count);
-        if (i==13/*120*/){ //5 minute report
+        
+        if (i==13){ //5 minute report
           i=0;
           LOG_INFO("fromids\n");
           ids_output_to_benign(&dest_ipaddr);

@@ -907,7 +907,7 @@ ext_hdr_options_process(uint8_t *ext_buf,char flag_entered)
             !uip_ds6_is_my_maddr(&UIP_IP_BUF->destipaddr)) )
         {
          
-          LOG_INFO("exthdr ids\n");
+        //   LOG_INFO("exthdr ids\n");
           if (flag_entered==0  && 
             UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != IDS_IP){
             flag_entered=1;
@@ -1111,79 +1111,13 @@ uip_update_ttl(void)
   }
 }
 
-//IDS functions
-// 
-// void ids_output_to_benign(){
-//    fw_stats *m;
-//     for(m = nbr_table_head(nbr_fw_stats); m != NULL;
-//         m = nbr_table_next(nbr_fw_stats, m)) {
 
-//         linkaddr_t *lladdr=nbr_table_get_lladdr(nbr_fw_stats,m);
-//         uip_ipaddr_t ipaddr;
-//         NETSTACK_ROUTING.get_root_ipaddr(&ipaddr);
-//         // Set the destination ip address to be the current m node
-//         ipaddr.u8[sizeof(ipaddr.u8)-1]=lladdr->u8[sizeof(lladdr->u8)-1];
-//         // LOG_INFO_LLADDR(lladdr);
-//         LOG_INFO_6ADDR(&ipaddr);
-        
-//         unsigned char *buffer;		
-//         buffer = UIP_ICMP_PAYLOAD;	
-//         uint16_t pos=0;	
-//         buffer[pos++] = curr_instance.instance_id;
-//         // Get the number of nodes evaluated		
-//         buffer[pos++]=m->index;		
-//         LOG_INFO("inde:%d\n",m->index);
-//         // pos = pos + sizeof(char);		
-        
-//         uint8_t i=0;
-//         for(i=0; i<m->index; i++) {
-//           //Put ip, number of packets, and verified
-//             // buffer[pos++] = ((int)m->dest[i]) >> 8;
-//             // buffer[pos++] = ((int)m->dest[i]) & 0xff;
-//             // set16(buffer, pos, );		
-// 	          // pos = pos + sizeof(char);
-//             buffer[pos] = m->dest[i];
-//             pos=pos+sizeof(uint8_t);
-//             buffer[pos++] = (int)m->verified[i];
-//             // buffer[pos++] = m->verified[i] >> 8;
-//             // buffer[pos++] = m->verified[i] & 0xff;
-//             // set16(buffer, pos, m->verified[i]);		
-// 	          // pos = pos + sizeof(char);
-//             buffer[pos++] = m->count_fw_packets[i] >> 8;
-//             buffer[pos++] = m->count_fw_packets[i] & 0xff;
-//             // set16(buffer, pos, m->count_fw_packets[i]);		
-// 	          pos = pos + sizeof(uint16_t);
-            
-//             LOG_INFO("NOW:%d to:%d count:%d, ver:%d i:%d\n",lladdr->u8[sizeof(lladdr->u8) - 1],m->dest[i], m->count_fw_packets[i],m->verified[i],i);
-                        
-//         }
-//         if ((int)m->index>0 && NETSTACK_ROUTING.node_is_reachable()){
-//           LOG_INFO("packet sent!\n");
-//           uip_icmp6_send(&ipaddr, ICMP6_RPL,RPL_CODE_IDS_NORM, 2+ (m->index)*(1+sizeof(uint8_t) +sizeof(uint16_t)));	
-//         }else
-//           LOG_INFO("No info to send!\n");
-        
-                   
-
-//     }
- 
-//   uipbuf_clear();   
-//   return;
-
-// }
 /**********************************/
 
 #if IDS_CLIENT
 //The function that runs the IDS logic
 uint8_t checkIDS()
 {
-
-  // uip_ipaddr_t *ipaddr=NULL;
-  // uint16_t opt_offset = 2;
-  // uint8_t *ext_buf=0;
-   // 
-  
-
   
   //Start detection after 1 minute
   if (!etimer_expired(&time_sniff)){
@@ -1529,10 +1463,10 @@ uip_process(uint8_t flag)
     
     buffer=UIP_ICMP_PAYLOAD;
     
-    rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&UIP_IP_BUF->srcipaddr);
-    if (nbr!=NULL){
-        LOG_INFO("exist nbr\n");
-    }
+    // rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&UIP_IP_BUF->srcipaddr);
+    // if (nbr!=NULL){
+    //     LOG_INFO("exist nbr\n");
+    // }
     // rpl_nbr_t *nbr_dest= rpl_neighbor_get_from_ipaddr(&UIP_IP_BUF->destipaddr);
     switch (UIP_ICMP_BUF->icode)
     {
@@ -1643,10 +1577,12 @@ uip_process(uint8_t flag)
                 continue;
                 
               exist=1;
-              uint8_t *tmp_ver=0;
+              uint8_t *tmp_ver;
+              uint8_t entered=0;
               for(i=0; i<(int)m->index; i++) {
                 //  LOG_INFO("COMP:%d %d\n", (int)m->dest[i],sender->u8[sizeof(dest->u8) - 1]);
                 tmp_ver=&m->verified[i];
+                entered=1;
                 LOG_INFO("Chk:%d dst:%d send:%d\n",lladdr->u8[sizeof(lladdr->u8) - 1],(int)m->dest[i], sender->u8[sizeof(sender->u8) - 1]);
 
                 if (UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]!=sender->u8[sizeof(dest->u8) - 1] &&
@@ -1664,12 +1600,12 @@ uip_process(uint8_t flag)
               }
               if (found==1)
                 break;
-              else if (found==0 && dest->u8[sizeof(dest->u8) - 1]==UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
+              else if (entered==1 && found==0 && dest->u8[sizeof(dest->u8) - 1]==UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
                 LOG_INFO("set valid\n");
                 *tmp_ver=1; //not found then is not verified node
 
               }
-              else if (found==0 && dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
+              else if (entered==1 && found==0 && dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
                 LOG_INFO("set NOT valid\n");
                *tmp_ver=0; //not found then is not verified node
 
@@ -1717,17 +1653,17 @@ uip_process(uint8_t flag)
             LOG_INFO("in:%d final:%d\n",stats->index,UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]);
             for(i=0; i<(int)stats->index; i++) {
                 LOG_INFO("COMP:%d %d\n", sender->u8[sizeof(sender->u8) - 1],(int)stats->dest[i]);
-                    if ((int)stats->dest[i] == sender->u8[sizeof(sender->u8) - 1]){
+                if ((int)stats->dest[i] == sender->u8[sizeof(sender->u8) - 1]){
                         // UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]==nbr_table_get){
                     stats->count_fw_packets[i]++; //Count only after verification
                     LOG_INFO("FWOK %d\n",(int)stats->dest[i]);
                     stats->verified[i]=1;
                     break;
-                    }
-                    if ((int)stats->dest[i] == dest->u8[sizeof(dest->u8) - 1])
+                }
+                if ((int)stats->dest[i] == dest->u8[sizeof(dest->u8) - 1])
                     found=1;
-                    else
-                        stats->verified[i]=0;
+                else
+                    stats->verified[i]=0;
             
             }
             
@@ -1817,7 +1753,7 @@ uip_process(uint8_t flag)
         //     (flag_is_ids==2 && dest->u8[sizeof(dest->u8) - 1]== UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]) ) 
 
 	    {		
-            LOG_INFO("dropinfo\n");
+            // LOG_INFO("dropinfo\n");
             if (flag_entered==0){
                 checkIDS();		
                 //Flag for entering here		
@@ -1989,7 +1925,7 @@ if (instance_ids!=RPL_DEFAULT_INSTANCE &&
          
             // if (flag_is_ids!=2 || (flag_is_ids!=2 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS) || 
             //     (flag_is_ids==2 && dest->u8[sizeof(dest->u8) - 1]== UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]))   {
-                    LOG_INFO("idsdrop2\n");
+                    // LOG_INFO("idsdrop2\n");
           if (flag_entered==0  && 
             UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != IDS_IP){
             flag_entered=1;
@@ -2380,8 +2316,6 @@ uint16_t i=0;
   //IDS drops all packets except for BR
   #if IDS_CLIENT
   
-    
-// if (flag_is_ids!=2 && curr_instance.instance_id!=RPL_DEFAULT_INSTANCE){
     if (instance_ids!=RPL_DEFAULT_INSTANCE && 
             UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != IDS_IP){
     // if (flag_is_ids!=2 && UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1] != 1 && UIP_ICMP_BUF->icode!=RPL_CODE_IDS){

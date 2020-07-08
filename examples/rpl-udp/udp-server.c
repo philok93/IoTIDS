@@ -85,6 +85,7 @@ static void reset_stats(void *ptr){
     nodes[i].detected=0;
     nodes[i].last_avg_rss=0;
     nodes[i].spoof_suspicious=0;
+    nodes[i].blackhole_mal=0;
 
     uint8_t c=0;
     for (c=0;c<DETECTORS_NUM;c++){		
@@ -117,8 +118,8 @@ PROCESS_THREAD(udp_server_process, ev, data)
   etimer_set(&mytimer, 20*CLOCK_SECOND);
 
   #if IDS_SERVER == 1
-  //Reset after 10 min
-  ctimer_set(&time_to_reset,600*CLOCK_SECOND,reset_stats,NULL);
+  //Reset after 30 min
+  ctimer_set(&time_to_reset,1800*CLOCK_SECOND,reset_stats,NULL);
   #endif
 
   while(1){

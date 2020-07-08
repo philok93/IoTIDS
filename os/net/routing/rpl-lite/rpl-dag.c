@@ -806,7 +806,7 @@ int rpl_process_hbh(rpl_nbr_t *sender, uint16_t sender_rank, int loop_detected, 
             // #endif
         }
     }
-    LOG_INFO("ret:%d\n",drop);
+    // LOG_INFO("ret:%d\n",drop);
     return !drop;
 }
 /*---------------------------------------------------------------------------*/

@@ -156,6 +156,7 @@
 //Define IDS code for RPL message
 #if IDS_CLIENT==1 || IDS_SERVER==1
 #define RPL_CODE_IDS                    0x31
+#define RPL_CODE_IDS2                   0x33
 #endif
 
 #if IDS_OF==1 || IDS_CLIENT==1

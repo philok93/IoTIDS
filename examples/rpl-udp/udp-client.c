@@ -86,7 +86,7 @@ int check_list(uint8_t item){
 
 void update_list(uint8_t ip){
     uint8_t chk=check_list(ip);
-    LOG_INFO("already in=%d\n",chk);
+    // LOG_INFO("already in=%d\n",chk);
 
     uint8_t size=list_length(blacklist);
 
@@ -94,7 +94,7 @@ void update_list(uint8_t ip){
 
         nodes[size].ipaddr=ip;
         list_add(blacklist,&nodes[size]);
-         LOG_INFO("updating len:%d\n",list_length(blacklist));
+        //  LOG_INFO("updating len:%d\n",list_length(blacklist));
 
     }else
         LOG_INFO("no space or %d\n",chk);   

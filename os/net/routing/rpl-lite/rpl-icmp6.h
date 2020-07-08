@@ -146,6 +146,10 @@ void rpl_icmp6_init(void);
 //Added IDS
 void ids_output(uip_ipaddr_t *addr);
 
+#if IDS_SERVER==1
+void ids_blackhole_input(void);
+#endif
+
 void ids_input(void);
 #endif
 

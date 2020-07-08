@@ -53,6 +53,11 @@
 
 #if IDS_SERVER == 1 || IDS_CLIENT==1 || IDS_OF==1
 #include "ids.h"
+#include "net/netstack.h"
+
+#include "contiki.h"
+#include "net/routing/routing.h"
+
 #endif
 
 #include <limits.h>
@@ -120,6 +125,10 @@ UIP_ICMP6_HANDLER(mal_handler, ICMP6_RPL, RPL_CODE_MAL, mal_input);
 #if IDS_CLIENT==1 || IDS_SERVER == 1
 UIP_ICMP6_HANDLER(ids_handler, ICMP6_RPL, RPL_CODE_IDS, ids_input);
 
+#endif /*IDS_CLIENT*/
+
+#if IDS_SERVER == 1
+UIP_ICMP6_HANDLER(ids_BH_handler, ICMP6_RPL, RPL_CODE_IDS2, ids_blackhole_input);
 #endif /*IDS_CLIENT*/
 
 #if IDS_CLIENT==0 && IDS_SERVER == 0 && !MALICIOUS && !CLONE_ATTACK && IDS_OF
@@ -298,23 +307,23 @@ dio_input(void)
 
     
     //Get flag for IDS detectors
-    #if IDS_CLIENT==1 || IDS_SERVER == 1
-    //  LOG_INFO("fromdiol:%d",flag_is_ids);
+    // #if IDS_CLIENT==1 || IDS_SERVER == 1
+    // //  LOG_INFO("fromdiol:%d",flag_is_ids);
     
-        uint8_t flag_ids;
-        flag_ids=buffer[i++];
-        rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&from);
-        // dio.flag_ids_node=flag_ids;
+    //     uint8_t flag_ids;
+    //     flag_ids=buffer[i++];
+    //     rpl_nbr_t *nbr= rpl_neighbor_get_from_ipaddr(&from);
+    //     // dio.flag_ids_node=flag_ids;
        
-        if (nbr!=NULL){
-            nbr->flag_ids_node=flag_ids;
-        }
-        i+=1; //increase position
-        if (flag_ids==2)
-            LOG_INFO("info from ids:%d\n",flag_ids);
-    #else
+    //     if (nbr!=NULL){
+    //         nbr->flag_ids_node=flag_ids;
+    //     }
+    //     i+=1; //increase position
+    //     if (flag_ids==2)
+    //         LOG_INFO("info from ids:%d\n",flag_ids);
+    // #else
         i+= 2;
-    #endif
+    // #endif
 
     memcpy(&dio.dag_id, buffer + i, sizeof(dio.dag_id));
     i += sizeof(dio.dag_id);
@@ -493,7 +502,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
     }
     else
     {
-        LOG_INFO("myrank:%d\n",curr_instance.dag.rank);
+        // LOG_INFO("myrank:%d\n",curr_instance.dag.rank);
         
         set16(buffer, pos, curr_instance.dag.rank);
     }
@@ -525,7 +534,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
         buffer[pos++]=0x02;
         if (uc_addr!=NULL)
             buffer[pos++]=flag_is_ids;
-        LOG_INFO("SETTING flag ids %d\n",flag_is_ids);
+        // LOG_INFO("SETTING flag ids %d\n",flag_is_ids);
     #else
         buffer[pos]=0;
         // LOG_INFO("logfla:%d",buffer[pos]);
@@ -881,7 +890,7 @@ void rpl_icmp6_dao_ack_output(uip_ipaddr_t *dest, uint8_t sequence, uint8_t stat
         //     buffer[1]=nbr->flag_ids_node;
         // else{
             buffer[1]=flag_is_ids;
-            LOG_INFO("No ids flag\n");
+            // LOG_INFO("No ids flag\n");
         
     #else
         buffer[1] = 0; /* reserved */
@@ -907,6 +916,10 @@ void rpl_icmp6_init()
 #if IDS_CLIENT==1 || IDS_SERVER  == 1 /*IDS client*/
     uip_icmp6_register_input_handler(&ids_handler);
 #endif /*Only for IDS client*/
+
+#if IDS_SERVER==1
+    uip_icmp6_register_input_handler(&ids_BH_handler);
+#endif
 
 #if IDS_CLIENT==0 && IDS_SERVER ==0 && MALICIOUS==0 && !CLONE_ATTACK && IDS_OF==1 /*IDS client*/
     uip_icmp6_register_input_handler(&ids_to_normal_handler);
@@ -941,11 +954,7 @@ void ids_output(uip_ipaddr_t *addr)
     //If border router: Do not send. Update trust at once.
     if (uip_ipaddr_cmp(addr, currentNodesAddr))
     {
-        //PRINTF("BORDER=ROUTER\nip:");
-
-        endofIP = IdsServerAddr.u8[sizeof(IdsServerAddr.u8) - 1];
-       
-       
+        endofIP = IdsServerAddr.u8[sizeof(IdsServerAddr.u8) - 1];       
     }
     else
     {
@@ -973,8 +982,10 @@ void ids_output(uip_ipaddr_t *addr)
             if (nodes[k].address == 0)
                 continue;
 
-            //Interval is 15 because formula in rpl-timers.c says:expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
-            //So DIS_INTERVAL is defined as 30 so the min allowed time is 15.
+            //Interval is 15 because formula in rpl-timers.c: expiration_time = RPL_DIS_INTERVAL / 2 + (random_rand() % (RPL_DIS_INTERVAL));
+            //So DIS_INTERVAL is defined as 30 so the min allowed time is 15. DIS attack and Clone attacks
+            
+
             if (nodes[k].spoof_suspicious == 1 || (nodes[k].intervals < 15 && nodes[k].counterDIS >= 3))
             {
                 if (nodes[k].spoof_suspicious == 1)
@@ -1053,8 +1064,69 @@ void ids_output(uip_ipaddr_t *addr)
 
 /*---------------------------------------------------------------------------*/
 
-#if IDS_CLIENT==1 || IDS_SERVER  == 1
+#if IDS_SERVER==1
+void ids_blackhole_input(void)
+{
+    unsigned char *buffer;
+    buffer = UIP_ICMP_PAYLOAD;
 
+    LOG_INFO("received BH from client\n");
+
+    uint16_t pos = 0;
+    // uint8_t instance_id;
+    // instance_id = buffer[pos++];
+    
+
+    if (!curr_instance.used || curr_instance.instance_id != buffer[pos++])
+    {
+        LOG_INFO("IDS IN: unknown instance, discard\n");
+
+        goto discard;
+    }
+
+    uint8_t counter = (int)buffer[pos++];
+    uint8_t i = 0;
+
+    for (i = 0; i < counter; i++)
+    {
+        uint8_t ipend = buffer[pos++];
+
+        uint8_t verified=buffer[pos];
+        pos = pos + 3;
+        // nbr->fw_packets += get16(buffer, pos);
+        // pos = pos + sizeof(uint16_t);
+        // nbr->flag_ids_node=1;
+
+        LOG_INFO("bh n:%d val:%d\n",ipend,verified);
+        uint8_t found=0;
+
+        //Check if node exist in blacklist or add it
+        if (verified==0 && ipend!=0){
+            for (int j=0; j<NODES_NUM;j++){
+                if (nodes[j].address == ipend){
+                    nodes[j].blackhole_mal=nodes[j].blackhole_mal+1;
+                    found=1;
+                    break;
+                }
+                if (nodes[j].address==0 && found==0){
+                    nodes[j].address=ipend;
+                    nodes[j].blackhole_mal=1;
+                    break;
+                }
+            }
+            
+        }
+
+    }
+
+    discard:
+        uipbuf_clear();
+                
+}
+#endif
+
+
+#if IDS_CLIENT==1 || IDS_SERVER  == 1
 void ids_input(void)
 {
 #if IDS_SERVER == 1
@@ -1064,28 +1136,6 @@ void ids_input(void)
 #endif
 
     // uint16_t pos = 0;
-
-    // if (detectorIP==1){
-    //   #if IDS_CLIENT
-    //     pos = pos + 2;
-    //   #endif
-    //   uint8_t i=0;
-    //   // LOG_PRINT("RESET\n");
-    //   #if IDS_SERVER
-    //     for(i = 0; i < NODES_NUM; i++)
-    //   #elif IDS_CLIENT
-    //     for(i = 0; i < NODES_NUM_CL; i++)
-    //   #endif
-    //   {
-    //       nodes[i].counterDIS=0;
-    //       nodes[i].counterMsg=0;
-    //       nodes[i].intervals=999;
-    //       //nodes[i].flag=0;
-    //       nodes[i].timestamp=0;
-
-    //   }
-    //   return;
-    // }
 
 #if IDS_SERVER == 1 /*code for IDS_SERVER*/
     //The number of observed nodes
@@ -1196,10 +1246,8 @@ void ids_input(void)
             }
 
             j++;
-            // if (j==NODES_NUM){
-            //   LOG_PRINT("size prb\n");
-            //   break;
-            // }
+            
+            
         }
 
         // LOG_INFO("BEDNODES\n");
@@ -1288,7 +1336,6 @@ void ids_input_benign(void)
             // LOG_INFO("bef:%d %d\n", ipend, ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
             if (ipend != ip_nbr->u8[sizeof(ip_nbr->u8) - 1])
             {
-                
                 continue;
             }
 
@@ -1317,7 +1364,7 @@ void ids_input_benign(void)
             else
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
 
-            LOG_INFO("ip:%d beftrust:%d new:%d ver:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1],nbr->trust_value,direct_trust,verified);
+            // LOG_INFO("ip:%d beftrust:%d new:%d ver:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1],nbr->trust_value,direct_trust,verified);
             nbr->trust_value=direct_trust;
 
             // ids_item_t mal_node;
@@ -1331,7 +1378,7 @@ void ids_input_benign(void)
                 //If node not in blacklist, add
                 if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
                      update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
-                    LOG_INFO("added to list:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
+                    // LOG_INFO("added to list:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                 }
 
             }else{//remove from list trusted node
@@ -1440,8 +1487,6 @@ void ids_output_to_benign(void *ipaddr)
     if (ipaddr!=NULL)
         ipaddr2=ipaddr;
     
-
-    // LOG_INFO("ent idstobenign! %d\n",ipaddr2!=NULL);
     fw_stats *m;
     for (m = nbr_table_head(nbr_fw_stats); m != NULL;
          m = nbr_table_next(nbr_fw_stats, m))
@@ -1453,15 +1498,16 @@ void ids_output_to_benign(void *ipaddr)
             LOG_INFO("Error ids\n");
             uipbuf_clear();
             return;
+
         }else if (ipaddr2!=NULL){
             ipaddr2=&curr_instance.dag.dag_id;
-
         }
 
         if (ipaddr2==NULL){
             LOG_INFO("null here\n");
             return;
         }
+
         ipaddr2->u8[sizeof(ipaddr2->u8) - 1] = lladdr->u8[sizeof(lladdr->u8) - 1];
 
         //Add the link-local prefix to send to neighbor
@@ -1476,7 +1522,7 @@ void ids_output_to_benign(void *ipaddr)
         buffer = UIP_ICMP_PAYLOAD;
         uint16_t pos = 0;
         //Change instance to send to normal nodes
-        buffer[pos++] = 0;//curr_instance.instance_id;
+        buffer[pos++] = 0;
         // Get the number of nodes evaluated
         buffer[pos++] = m->index;
         // pos = pos + sizeof(char);
@@ -1499,6 +1545,7 @@ void ids_output_to_benign(void *ipaddr)
             LOG_INFO("NOW:%d to:%d count:%d, ver:%d i:%d\n", lladdr->u8[sizeof(lladdr->u8) - 1], m->dest[i], m->count_fw_packets[i], m->verified[i], i);
             m->count_fw_packets[i] = 0;
             m->verified[i] = 0;
+            m->dest[i]=0;
         }
         if ((int)m->index > 0)
         {
@@ -1507,9 +1554,25 @@ void ids_output_to_benign(void *ipaddr)
             LOG_INFO_("\n");
             
             uip_icmp6_send(ipaddr2, ICMP6_RPL, RPL_CODE_IDS_NORM, 2 + (m->index) * (1 + sizeof(uint8_t) + sizeof(uint16_t)));
+
+            buffer[0]=1; //ids instance
+            //Send blackhole to IDS   
+            uip_ipaddr_t addr2;
+            // uip_ipaddr_t addr3;
+            // NETSTACK_ROUTING.get_root_ipaddr(&addr3);
+            if (rpl_dag_get_root_ipaddr(&addr2)){
+                addr2.u8[sizeof(addr2.u8) - 1]=1;
+                printf("Used:%d root:%d\n",curr_instance.used,addr2.u8[sizeof(addr2.u8) - 1]);
+            
+                uip_icmp6_send(&addr2, ICMP6_RPL, RPL_CODE_IDS2, 2 + (m->index) * (1 + sizeof(uint8_t) + sizeof(uint16_t)));
+            }
+            
         }
         else
             LOG_INFO("OF:No info to send!\n");
+        
+        //Zero the index for number of nodes
+        m->index=0;
     }
 
     uipbuf_clear();

@@ -47,6 +47,7 @@ def updateTopology(child, parent):
 
 def parseRPL(log):
     res = re.compile('.*? rank (\d*).*?dioint (\d*).*?nbr count (\d*)').match(log)
+    # print(res)
     if res:
         rank = int(res.group(1))
         trickle = (2**int(res.group(2)))/(60*1000.)
@@ -59,9 +60,11 @@ def parseRPL(log):
     res = re.compile('sending a (.+?) ').match(log)
     if res:
         message = res.group(1)
+        # print(res)
         return {'event': 'sending', 'message': message }
     res = re.compile('links: 6G-(\d+)\s*to 6G-(\d+)').match(log)
     if res:
+        # print("here")
         child = int(res.group(1))
         parent = int(res.group(2))
         updateTopology(child, parent)
@@ -104,15 +107,16 @@ def parseApp(log):
     return None
 
 def parseLine(line):
-    res = re.compile('\s*([.\d]+)\\tID:(\d+)\\t\[(.*?):(.*?)\](.*)$').match(line)
+    res = re.compile('\[(.*?):(.*?)\](.*)$').match(line)
+    # print(res)
     if res:
-        time = float(res.group(1))
-        nodeid = int(res.group(2))
-        level = res.group(3).strip()
-        module = res.group(4).strip()
-        log = res.group(5).strip()
-        return time, nodeid, level, module, log
-    return None, None, None, None, None
+        # time = float(res.group(1))
+        # nodeid = int(res.group(2))
+        # level = res.group(3).strip()
+        module = res.group(2).strip()
+        log = res.group(3).strip()
+        return module, log
+    return None, None
 
 def doParse(file):
     global networkFormationTime
@@ -130,24 +134,24 @@ def doParse(file):
         "topology": [],
     }
 
-#    print("\nProcessing %s" %(file))
+    print("\nProcessing %s" %(file))
     # Filter out non-printable chars from log file
     os.system("cat %s | tr -dc '[:print:]\n\t' | sponge %s" %(file, file))
     for line in open(file, 'r').readlines():
         # match time, id, module, log; The common format for all log lines
-        time, nodeid, level, module, log = parseLine(line)
+        module, log = parseLine(line)
+        # print(module,log)
+        # if time == None:
+        #     # malformed line
+        #     continue
 
-        if time == None:
-            # malformed line
-            continue
-
-        if time - lastPrintedTime >= 60:
-#            print("%u, "%(time / 60),end='', flush=True)
-            lastPrintedTime = time
+#         if time - lastPrintedTime >= 60:
+# #            print("%u, "%(time / 60),end='', flush=True)
+#             lastPrintedTime = time
 
         entry = {
-            "timestamp": timedelta(seconds=time),
-            "node": nodeid,
+            "timestamp": timedelta(seconds=10),
+            "node": 1,
         }
 
         try:
@@ -175,6 +179,7 @@ def doParse(file):
 
             if module == "RPL":
                 ret = parseRPL(log)
+                # print(ret)
                 if(ret != None):
                     entry.update(ret)
                     if(ret['event'] == 'rank'):
@@ -188,6 +193,7 @@ def doParse(file):
                         if not ret['message'] in arrays:
                             arrays[ret['message']] = []
                         arrays[ret['message']].append(entry)
+                        # print(arrays)
                     elif(ret['event'] == 'topology'):
                         for n in parents.keys():
                             nodeEntry = entry.copy()
@@ -200,11 +206,12 @@ def doParse(file):
             continue
 
 #    print("")
-
+    print("bef",arrays["packets"])
     # Remove last few packets -- might be in-flight when test stopped
     arrays["packets"] = arrays["packets"][0:-10]
 
     dfs = {}
+    # print(arrays)
     for key in arrays.keys():
         if(len(arrays[key]) > 0):
             df = DataFrame(arrays[key])
@@ -237,27 +244,27 @@ def main():
 
     # Parse the original log
     dfs = doParse(file)
-
+    # print("df:",dfs)
     if len(dfs) == 0:
         return
 
     print("global-stats:")
-    print("  pdr: %.4f" %(dfs["packets"]["pdr"].mean()))
-    print("  loss-rate: %.e" %(1-(dfs["packets"]["pdr"].mean()/100)))
-    print("  packets-sent: %u" %(dfs["packets"]["pdr"].count()))
-    print("  packets-received: %u" %(dfs["packets"]["pdr"].sum()/100))
-    print("  latency: %.4f" %(dfs["packets"]["latency"].mean()))
-    print("  duty-cycle: %.2f" %(dfs["energest"]["duty-cycle"].mean()))
-    print("  channel-utilization: %.2f" %(dfs["energest"]["channel-utilization"].mean()))
-    print("  network-formation-time: %.2f" %(networkFormationTime))
+    # print("  pdr: %.4f" %(dfs["packets"]["pdr"].mean()))
+    # print("  loss-rate: %.e" %(1-(dfs["packets"]["pdr"].mean()/100)))
+    # print("  packets-sent: %u" %(dfs["packets"]["pdr"].count()))
+    # print("  packets-received: %u" %(dfs["packets"]["pdr"].sum()/100))
+    # print("  latency: %.4f" %(dfs["packets"]["latency"].mean()))
+    # print("  duty-cycle: %.2f" %(dfs["energest"]["duty-cycle"].mean()))
+    # print("  channel-utilization: %.2f" %(dfs["energest"]["channel-utilization"].mean()))
+    # print("  network-formation-time: %.2f" %(networkFormationTime))
     print("stats:")
 
     # Output relevant metrics
-    outputStats(dfs, "packets", "pdr", "mean", "Round-trip PDR (%)")
-    outputStats(dfs, "packets", "latency", "mean", "Round-trip latency (s)")
+    # outputStats(dfs, "packets", "pdr", "mean", "Round-trip PDR (%)")
+    # outputStats(dfs, "packets", "latency", "mean", "Round-trip latency (s)")
 
-    outputStats(dfs, "energest", "duty-cycle", "mean", "Radio duty cycle (%)")
-    outputStats(dfs, "energest", "channel-utilization", "mean", "Channel utilization (%)")
+    # outputStats(dfs, "energest", "duty-cycle", "mean", "Radio duty cycle (%)")
+    # outputStats(dfs, "energest", "channel-utilization", "mean", "Channel utilization (%)")
 
     outputStats(dfs, "ranks", "rank", "mean", "RPL rank (ETX-128)")
     outputStats(dfs, "switches", "pswitch", "count", "RPL parent switches (#)")
