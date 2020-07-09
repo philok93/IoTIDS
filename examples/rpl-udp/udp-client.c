@@ -102,6 +102,8 @@ void update_list(uint8_t ip){
 
 
 void remove_from_list(uint8_t ip){
+    if (!check_list(ip))
+        return;
     for(ids_item_t *node = list_head(blacklist); node != NULL; node = node->next) {
         if (node->ipaddr==ip){
             list_remove(blacklist,node);

@@ -1119,6 +1119,8 @@ void ids_blackhole_input(void)
 
     }
 
+    goto discard;
+
     discard:
         uipbuf_clear();
                 
@@ -1343,7 +1345,7 @@ void ids_input_benign(void)
             int16_t direct_trust=-1;
             
             //skip if node didn't send to nbr
-            if (stats->cnt_current.num_packets_tx==0)
+            if (stats==NULL || stats->cnt_current.num_packets_tx==0)
                 continue;
 
 
@@ -1364,13 +1366,7 @@ void ids_input_benign(void)
             else
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
 
-            // LOG_INFO("ip:%d beftrust:%d new:%d ver:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1],nbr->trust_value,direct_trust,verified);
             nbr->trust_value=direct_trust;
-
-            // ids_item_t mal_node;
-            // mal_node.ipaddr=ip_nbr->u8[sizeof(ip_nbr->u8) - 1];
-            // mal_node.next=NULL;
-
 
             if (direct_trust<38){
                 LOG_INFO("blacklst:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
