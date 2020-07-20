@@ -39,6 +39,8 @@ typedef struct ids_item {
 } ids_item_t;
 
 static ids_item_t nodes[ELEMENT_COUNT];
+static struct ctimer time_to_reset; //Reset stats of nbr
+void reset_pkt_fw(void *ptr);
 
 #endif
 
@@ -114,6 +116,18 @@ void remove_from_list(uint8_t ip){
      
 }
 
+void reset_pkt_fw(void *ptr){
+    rpl_nbr_t *nbr;
+    for (nbr = nbr_table_head(rpl_neighbors);
+            nbr != NULL;
+            nbr = nbr_table_next(rpl_neighbors, nbr))
+    {
+        nbr->fw_packets=0; 
+    }
+
+    ctimer_reset(&time_to_reset);
+}
+
 #endif
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(udp_client_process, ev, data)
@@ -130,6 +144,10 @@ PROCESS_THREAD(udp_client_process, ev, data)
                       UDP_SERVER_PORT, udp_rx_callback);
 
   etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+
+#if IDS_OF ==1
+    ctimer_set(&time_to_reset,930*CLOCK_SECOND,reset_pkt_fw,NULL);
+#endif
 
 // LOG_INFO("hereeeee");
 #if IDS_OF==1

@@ -1326,7 +1326,8 @@ void ids_input_benign(void)
     for (i = 0; i < counter; i++)
     {
 
-        uint8_t ipend = buffer[pos++];
+        uint8_t ipend = buffer[pos];
+        pos = pos + sizeof(uint8_t);
 
         for (nbr = nbr_table_head(rpl_neighbors);
              nbr != NULL;
@@ -1360,15 +1361,16 @@ void ids_input_benign(void)
 
             LOG_INFO("packet dropped:%d fw:%d sent:%d\n",(stats->cnt_current.num_packets_tx - nbr->fw_packets),nbr->fw_packets,stats->cnt_current.num_packets_tx);
 
-            
-            if (verified==0)
+            if (stats->cnt_current.num_packets_tx < nbr->fw_packets) 
+                direct_trust=100;           
+            else if (verified==0)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
 
             nbr->trust_value=direct_trust;
 
-            if (direct_trust<38){
+            if (direct_trust<26){
                 LOG_INFO("blacklst:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                 
                 //If node not in blacklist, add
@@ -1415,7 +1417,7 @@ void ids_input_benign(void)
            
             // LOG_INFO("got:%d totfw:%d res:%d\n", ipend ,nbr->fw_packets,direct_trust);
 
-            nbr->fw_packets=0;
+            // nbr->fw_packets=0; //Reset after 15 minutes
             
             break;
         }
@@ -1558,8 +1560,7 @@ void ids_output_to_benign(void *ipaddr)
             // NETSTACK_ROUTING.get_root_ipaddr(&addr3);
             if (rpl_dag_get_root_ipaddr(&addr2)){
                 addr2.u8[sizeof(addr2.u8) - 1]=1;
-                printf("Used:%d root:%d\n",curr_instance.used,addr2.u8[sizeof(addr2.u8) - 1]);
-            
+                
                 uip_icmp6_send(&addr2, ICMP6_RPL, RPL_CODE_IDS2, 2 + (m->index) * (1 + sizeof(uint8_t) + sizeof(uint16_t)));
             }
             

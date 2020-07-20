@@ -262,7 +262,7 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
     return nbr1_is_acceptable ? nbr1 : NULL;
   }
   
-#if IDS_OF
+#if IDS_OF ==1
 
 const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
 const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
@@ -281,16 +281,16 @@ const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
    stats->cnt_current.num_packets_tx,
   stats2->cnt_current.num_packets_tx);
 
-if (nbr1->trust_value > nbr2->trust_value)
+// uint8_t path_cost_res= (nbr_path_cost(nbr1) == nbr_path_cost(nbr2));
+
+if ( nbr1->trust_value > nbr2->trust_value || nbr2->trust_value < 38 )
     return nbr1;
-else if (nbr2->trust_value > nbr1->trust_value)
+
+else if (nbr2->trust_value > nbr1->trust_value || nbr1->trust_value < 38)
     return nbr2;
 
 #endif
 
-    // #if IDS_CLIENT
-    // LOG_INFO("rrhere:%d\n",nbr1_is_acceptable);
-    // #endif
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */

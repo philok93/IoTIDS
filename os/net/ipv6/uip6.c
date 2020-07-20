@@ -1534,7 +1534,7 @@ uip_process(uint8_t flag)
   //Flag for IDS. Checking with RSSI if node is spoofing ip.
   //If node is not root and its IP not equal to source ip but has same RSS then malicious.
   
-  #if IDS_CLIENT
+  #if IDS_CLIENT==1
   
   const linkaddr_t *sender = packetbuf_addr(PACKETBUF_ADDR_FIRST);
   const linkaddr_t *dest = packetbuf_addr(PACKETBUF_ADDR_RECEIVER);
@@ -1550,14 +1550,8 @@ uip_process(uint8_t flag)
       UIP_ICMP_BUF->icode!=RPL_CODE_DIS && 
       UIP_ICMP_BUF->icode!=RPL_CODE_IDS){
       //Get node stats if exist  
-      LOG_INFO("check fw\n");
+    //   LOG_INFO("check fw\n");
 
-      //check if destination is in range to decide if we can monitor or not
-    //   if (nbr_table_get_from_lladdr(ds6_neighbors, dest)!=NULL){
-    //     LOG_INFO("neighbour exist!");
-    //   }else{
-    //       goto normal_state;
-    //   }
 
         
         //for each nbr of IDS detector, find the one that sent the packet (scrIP of packet is original sender). 
@@ -1601,12 +1595,12 @@ uip_process(uint8_t flag)
               if (found==1)
                 break;
               else if (entered==1 && found==0 && dest->u8[sizeof(dest->u8) - 1]==UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
-                LOG_INFO("set valid\n");
+                // LOG_INFO("set valid\n");
                 *tmp_ver=1; //not found then is not verified node
 
               }
               else if (entered==1 && found==0 && dest->u8[sizeof(dest->u8) - 1]!=UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]){
-                LOG_INFO("set NOT valid\n");
+                // LOG_INFO("set NOT valid\n");
                *tmp_ver=0; //not found then is not verified node
 
               }
@@ -1622,18 +1616,17 @@ uip_process(uint8_t flag)
             stats = nbr_table_add_lladdr(nbr_fw_stats, sender, NBR_TABLE_REASON_LINK_STATS, NULL);
             if(stats != NULL) {
                   /* Add the neighbor */
-                // list_init(stats->dest_ip);
-                // list_add(stats->dest_ip,dest->u8[sizeof(dest->u8) - 1])
-              
+                
                 stats->dest[(int)stats->index]=dest->u8[sizeof(dest->u8) - 1];
-                //  stats->count_fw_packets++;
-                // stats->from=sender->u8[sizeof(sender->u8) - 1];
-                LOG_INFO("AD:%d %d i:%d\n",sender->u8[sizeof(sender->u8) - 1],stats->dest[(int)stats->index],stats->index);
+               
+               
+                // LOG_INFO("AD:%d %d i:%d\n",sender->u8[sizeof(sender->u8) - 1],stats->dest[(int)stats->index],stats->index);
                 stats->verified[(int)stats->index]=0;
                 stats->index=(int)(stats->index)+1;
           
             } else {
               LOG_INFO("No space in detector\n"); /* No space left */
+              
             }
            //below maybe false, case: 10:6-->7, 10:7-->1 
         }
@@ -1652,7 +1645,7 @@ uip_process(uint8_t flag)
             uint8_t i=0,found=0;
             LOG_INFO("in:%d final:%d\n",stats->index,UIP_IP_BUF->destipaddr.u8[sizeof(UIP_IP_BUF->destipaddr.u8) - 1]);
             for(i=0; i<(int)stats->index; i++) {
-                LOG_INFO("COMP:%d %d\n", sender->u8[sizeof(sender->u8) - 1],(int)stats->dest[i]);
+                // LOG_INFO("COMP:%d %d\n", sender->u8[sizeof(sender->u8) - 1],(int)stats->dest[i]);
                 if ((int)stats->dest[i] == sender->u8[sizeof(sender->u8) - 1]){
                         // UIP_IP_BUF->srcipaddr.u8[sizeof(UIP_IP_BUF->srcipaddr.u8) - 1]==nbr_table_get){
                     stats->count_fw_packets[i]++; //Count only after verification
@@ -1685,20 +1678,7 @@ uip_process(uint8_t flag)
 
   //Used as flag to enter checkIDS
   char flag_entered =0;
-  //  for (i = 0; i < NODES_NUM_CL; i++)
-  //   {
-  //     int8_t packet_rss=-(packetbuf_attr(PACKETBUF_ATTR_RSSI));
-  //     int8_t tmp_rss=(-(packetbuf_attr(PACKETBUF_ATTR_RSSI))+nodes[i].last_avg_rss)/2;
-  //     //change srcipaddr to packetbuf_addr(PACKETBUF_ADDR_FIRST) to get current node
-  //     // linkaddr_t *sender=packetbuf_addr(PACKETBUF_ADDR_FIRST);
-  //     if (nodes[i].address !=0 && 
-  //       (nodes[i].address == sender->u8[sizeof(sender->u8) - 1] &&
-  //       nodes[i].last_avg_rss !=packet_rss)){
-  //          nodes[i].spoof_suspicious=1;
-  //         LOG_INFO("src %d, idsRS:%d %d %d tmp:%d\n", sender->u8[sizeof(sender->u8) - 1],nodes[i].address,tmp_rss,nodes[i].last_avg_rss,packetbuf_attr(PACKETBUF_ATTR_RSSI));
-
-  //       }
-  //   }
+  
   #endif
 
 

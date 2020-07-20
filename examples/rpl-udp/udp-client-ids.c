@@ -22,7 +22,7 @@
 static struct simple_udp_connection udp_conn;
 
  static struct ctimer time_to_reset;
- static void reset_stats();
+ static void reset_stats(void *ptr);
 // static struct etimer time_sniff;
 
 /*---------------------------------------------------------------------------*/
@@ -78,6 +78,15 @@ static void reset_stats(void *ptr){
   // ids_output_to_benign();
 
   ctimer_reset(&time_to_reset);
+}
+
+static void reset_nbr_tbl(){
+    struct fw_stats *stats;
+    stats = nbr_table_head(nbr_fw_stats);
+    while(stats != NULL) {
+        nbr_table_remove(nbr_fw_stats, stats);
+        stats = nbr_table_next(nbr_fw_stats, stats);
+    }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -152,10 +161,14 @@ i=0;
         /* Send to DAG root */
         LOG_INFO("Check IDS.Attempt: %u \n", count);
         
-        if (i==13){ //5 minute report
-          i=0;
+        if (i%3==0){ //13th minute report
+        //   i=0;
           LOG_INFO("fromids\n");
           ids_output_to_benign(&dest_ipaddr);
+          if (i%15==0 || i%16==0){ //reset every 15 minutes
+            reset_nbr_tbl();
+            i=0;
+          }
         }
         LOG_INFO_6ADDR(&dest_ipaddr);
         LOG_INFO_("\n");
@@ -164,12 +177,12 @@ i=0;
         
         ids_output(&dest_ipaddr);
         count++;       
-        i+=1;
+        
       } else {
         LOG_INFO("Not reachable yet\n");
       }
 
-   
+      i+=1;
   
 
     /* Add some jitter */

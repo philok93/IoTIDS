@@ -33,8 +33,8 @@ void checkNodes()
                      (unsigned)nodes[j].counterDIS, (unsigned)nodes[j].counterMsg, (unsigned)nodes[j].intervals, nodes[j].blackhole_mal);
 
             //Check for BH nodes and reset
-            if (nodes[j].blackhole_mal>2){
-                 LOG_INFO("BH Attacker:%d\n", (unsigned)nodes[j].address);
+            if (nodes[j].blackhole_mal>3){
+                 LOG_INFO("BH Attacker:%d,%d\n", (unsigned)nodes[j].address,nodes[j].blackhole_mal);
                  nodes[j].blackhole_mal=0;
             }
 
