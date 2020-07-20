@@ -83,6 +83,10 @@ static void dao_input(void);
 fw_stats nbr_stats;
 #endif
 
+#if IDS_OF==1
+    uint32_t last_time_from_ids=0;
+#endif
+
 //Added IDS
 #if IDS_CLIENT==1 || IDS_SERVER == 1
 //void ids_output(uip_ipaddr_t *addr);
@@ -1306,7 +1310,22 @@ void ids_input_benign(void)
     unsigned char *buffer;
     buffer = UIP_ICMP_PAYLOAD;
 
-    LOG_INFO("received success from client\n");
+    // LOG_INFO("received success from client\n");
+
+    uint32_t curr_time=clock_time();
+    uint8_t flag_interval=0;
+    // LOG_INFO("time:%d,%d\n",curr_time,last_time_from_ids);
+
+    if (last_time_from_ids+150 > curr_time ){
+        // LOG_INFO("same IDSavoid\n");
+        flag_interval=1;
+    }
+    // else{
+    //     LOG_INFO("update ids\n");
+    // }
+
+    last_time_from_ids=curr_time;
+    
 
     uint16_t pos = 0;
     uint8_t instance_id;
@@ -1355,15 +1374,27 @@ void ids_input_benign(void)
             //buffer[pos] is verified from ids
             uint8_t verified=buffer[pos];
             pos = pos + 1;
-            nbr->fw_packets += get16(buffer, pos);
+            uint16_t fw_packets_buf=get16(buffer, pos);
+
+            //Avoid updating packetes 2 times when we receive from multiple IDS detectors
+            if (flag_interval==1){
+                // LOG_INFO("pack:%d<-%d\n",fw_packets_buf,nbr->fw_packets);
+                if (nbr->fw_packets >= fw_packets_buf){
+                    pos = pos + sizeof(uint16_t);
+                    break;
+                }
+            }
+
+            nbr->fw_packets += fw_packets_buf;
             pos = pos + sizeof(uint16_t);
             nbr->flag_ids_node=1;
 
             LOG_INFO("packet dropped:%d fw:%d sent:%d\n",(stats->cnt_current.num_packets_tx - nbr->fw_packets),nbr->fw_packets,stats->cnt_current.num_packets_tx);
 
-            if (stats->cnt_current.num_packets_tx < nbr->fw_packets) 
-                direct_trust=100;           
-            else if (verified==0)
+            // if (stats->cnt_current.num_packets_tx < nbr->fw_packets) 
+            //     direct_trust=100;           
+            // else 
+            if (verified==0)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
@@ -1379,8 +1410,8 @@ void ids_input_benign(void)
                     // LOG_INFO("added to list:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                 }
 
-            }else{//remove from list trusted node
-                LOG_INFO("recover blklist node\n");
+            }else if (direct_trust>50){//remove from list trusted node
+                // LOG_INFO("recover blklist node\n");
                 remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
             }
             // if (verified==1 && direct_trust==0)

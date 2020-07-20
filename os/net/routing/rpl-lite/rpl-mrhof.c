@@ -232,9 +232,9 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
   uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
  
+    if (ip_nbr && ip_nbr2){
+        // LOG_INFO("CHECK LIST ip:%d ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
 
-//    LOG_INFO("CHECK LIST ip:%d ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
-   
         if (nbr1_is_acceptable && check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
             LOG_INFO("exist mal ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1]);
             if (nbr2_is_acceptable)
@@ -250,7 +250,7 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
                 return NULL;
         }
         
-
+    }
 #endif
 
 
@@ -281,12 +281,16 @@ const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
    stats->cnt_current.num_packets_tx,
   stats2->cnt_current.num_packets_tx);
 
-// uint8_t path_cost_res= (nbr_path_cost(nbr1) == nbr_path_cost(nbr2));
+//Keep preferred parent if trusted
 
-if ( nbr1->trust_value > nbr2->trust_value || nbr2->trust_value < 38 )
+if ( (nbr1 == curr_instance.dag.preferred_parent && nbr1->trust_value>75) ||
+     (nbr1->trust_value > nbr2->trust_value) || 
+     (nbr2->trust_value < 38) )
     return nbr1;
 
-else if (nbr2->trust_value > nbr1->trust_value || nbr1->trust_value < 38)
+else if ( (nbr2 == curr_instance.dag.preferred_parent && nbr2->trust_value>75) ||
+        (nbr2->trust_value > nbr1->trust_value) || 
+        (nbr1->trust_value < 38))
     return nbr2;
 
 #endif
