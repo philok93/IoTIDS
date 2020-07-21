@@ -146,7 +146,7 @@ struct rpl_nbr {
   uint16_t trust_value;
   uint16_t fw_packets;
 //   int16_t last_num_packets_tx;
-  uint8_t flag_ids_node;
+  uint8_t verified_node;
 };
 typedef struct rpl_nbr rpl_nbr_t;
 

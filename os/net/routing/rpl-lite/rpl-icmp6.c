@@ -1112,7 +1112,7 @@ void ids_blackhole_input(void)
                     found=1;
                     break;
                 }
-                if (nodes[j].address==0 && found==0){
+                if (j==NODES_NUM-1 && nodes[j].address==0 && found==0){
                     nodes[j].address=ipend;
                     nodes[j].blackhole_mal=1;
                     break;
@@ -1380,6 +1380,11 @@ void ids_input_benign(void)
             if (flag_interval==1){
                 // LOG_INFO("pack:%d<-%d\n",fw_packets_buf,nbr->fw_packets);
                 if (nbr->fw_packets >= fw_packets_buf){
+                    if (verified==1){
+                        nbr->verified_node=verified;
+                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                        nbr->trust_value=direct_trust;
+                    }
                     pos = pos + sizeof(uint16_t);
                     break;
                 }
@@ -1387,7 +1392,7 @@ void ids_input_benign(void)
 
             nbr->fw_packets += fw_packets_buf;
             pos = pos + sizeof(uint16_t);
-            nbr->flag_ids_node=1;
+            nbr->verified_node=verified;
 
             LOG_INFO("packet dropped:%d fw:%d sent:%d\n",(stats->cnt_current.num_packets_tx - nbr->fw_packets),nbr->fw_packets,stats->cnt_current.num_packets_tx);
 

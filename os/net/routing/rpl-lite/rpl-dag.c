@@ -432,7 +432,7 @@ update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
             nbr->trust_value=63; //Initial value
             nbr->fw_packets=0;
             // nbr->last_num_packets_tx=-1;
-            nbr->flag_ids_node=0;
+            nbr->verified_node=0;
         #endif
     }
 
