@@ -94,7 +94,6 @@ fw_stats tmp_ip_senders[NODES_NUM_CL];
 #if IDS_OF==1
 
 // typedef struct ids_item ids_item_t;
-
 void update_list(uint8_t mal_node);
 int check_list(uint8_t item);
 void remove_from_list(uint8_t ip);

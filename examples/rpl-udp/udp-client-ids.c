@@ -161,7 +161,7 @@ i=0;
         /* Send to DAG root */
         LOG_INFO("Check IDS.Attempt: %u \n", count);
         
-        if (i%3==0){ //13th minute report
+        if (i%3==0){ //3 minute report
         //   i=0;
           LOG_INFO("fromids\n");
           ids_output_to_benign(&dest_ipaddr);

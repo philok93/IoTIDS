@@ -105,6 +105,7 @@ extern ids_ctr_t nodes[NODES_NUM_CL];
 
 NBR_TABLE_GLOBAL(fw_stats, nbr_fw_stats);
 #elif IDS_SERVER == 1
+uint32_t BR_last_time_from_ids=0;
 uint16_t detectorsIP[DETECTORS_NUM];
 //Average time,number of DIS for IDS
 extern ids_ctr_t nodes[NODES_NUM];
@@ -1102,17 +1103,28 @@ void ids_blackhole_input(void)
         // nbr->flag_ids_node=1;
 
         LOG_INFO("bh n:%d val:%d\n",ipend,verified);
-        uint8_t found=0;
+
+        uint32_t curr_time=clock_time();
+        uint8_t flag_interval=0;
+        // LOG_INFO("time:%d,%d\n",curr_time,last_time_from_ids);
+
+        if (BR_last_time_from_ids+150 > curr_time ){
+            flag_interval=1;
+        }
+
+        BR_last_time_from_ids=curr_time;
 
         //Check if node exist in blacklist or add it
-        if (verified==0 && ipend!=0){
+        if (verified==1 || (flag_interval==0 && verified==0 && ipend!=0)){
             for (int j=0; j<NODES_NUM;j++){
-                if (nodes[j].address == ipend){
-                    nodes[j].blackhole_mal=nodes[j].blackhole_mal+1;
-                    found=1;
+                if (nodes[j].address!=0 && nodes[j].address == ipend){
+                    if (verified==1 && nodes[j].blackhole_mal>0)
+                        nodes[j].blackhole_mal=nodes[j].blackhole_mal-1;
+                    else if (verified==0)
+                        nodes[j].blackhole_mal=nodes[j].blackhole_mal+1;
                     break;
                 }
-                if (j==NODES_NUM-1 && nodes[j].address==0 && found==0){
+                if (j==NODES_NUM-1 && nodes[j].address==0 && verified==0){
                     nodes[j].address=ipend;
                     nodes[j].blackhole_mal=1;
                     break;
@@ -1320,9 +1332,6 @@ void ids_input_benign(void)
         // LOG_INFO("same IDSavoid\n");
         flag_interval=1;
     }
-    // else{
-    //     LOG_INFO("update ids\n");
-    // }
 
     last_time_from_ids=curr_time;
     
@@ -1334,7 +1343,6 @@ void ids_input_benign(void)
     if (!curr_instance.used || curr_instance.instance_id != instance_id)
     {
         LOG_INFO("IDS IN: unknown instance, discard\n");
-
         goto discard;
     }
 
@@ -1384,6 +1392,15 @@ void ids_input_benign(void)
                         nbr->verified_node=verified;
                         direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
                         nbr->trust_value=direct_trust;
+
+                        if (direct_trust<26){
+                            if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
+                                update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
+                            }
+                        }else if (direct_trust>50){//remove from list trusted node
+                            remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
+                        }
+
                     }
                     pos = pos + sizeof(uint16_t);
                     break;
@@ -1400,7 +1417,7 @@ void ids_input_benign(void)
             //     direct_trust=100;           
             // else 
             if (verified==0)
-                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.1*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
 

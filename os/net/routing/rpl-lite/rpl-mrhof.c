@@ -229,10 +229,11 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
 //Here start the algorithm for OF with IDS
 #if IDS_OF==1
 
+if (nbr1!=NULL && nbr2!=NULL){
   uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
   uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
  
-    if (ip_nbr && ip_nbr2){
+    
         // LOG_INFO("CHECK LIST ip:%d ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
 
         if (nbr1_is_acceptable && check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
@@ -264,22 +265,22 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
   
 #if IDS_OF ==1
 
-const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
-const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
+// const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
+// const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 
 // uint16_t values[2]={nbr1->trust_value,nbr2->trust_value};
 
-  LOG_INFO("TRUST:%d OR %d\n",nbr1->trust_value,nbr2->trust_value);
+//   LOG_INFO("TRUST:%d OR %d\n",nbr1->trust_value,nbr2->trust_value);
 
 
-  LOG_INFO("ip:%d %d, fw:%d %d trust:%d %d,st:%d st2:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],
-  ip_nbr2->u8[sizeof(ip_nbr2->u8)-1], 
-  nbr1->fw_packets,
-  nbr2->fw_packets, 
-  nbr1->trust_value,
-   nbr2->trust_value,
-   stats->cnt_current.num_packets_tx,
-  stats2->cnt_current.num_packets_tx);
+//   LOG_INFO("ip:%d %d, fw:%d %d trust:%d %d,st:%d st2:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],
+//   ip_nbr2->u8[sizeof(ip_nbr2->u8)-1], 
+//   nbr1->fw_packets,
+//   nbr2->fw_packets, 
+//   nbr1->trust_value,
+//    nbr2->trust_value,
+//    stats->cnt_current.num_packets_tx,
+//   stats2->cnt_current.num_packets_tx);
 
 //Keep preferred parent if trusted
 
