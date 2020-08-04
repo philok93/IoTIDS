@@ -237,14 +237,14 @@ if (nbr1!=NULL && nbr2!=NULL){
         // LOG_INFO("CHECK LIST ip:%d ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1],ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
 
         if (nbr1_is_acceptable && check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
-            LOG_INFO("exist mal ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1]);
+            // LOG_INFO("exist mal ip:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8)-1]);
             if (nbr2_is_acceptable)
                 return nbr2;
             else
                 return NULL;
 
         }else if (nbr2_is_acceptable && check_list(ip_nbr2->u8[sizeof(ip_nbr2->u8) - 1])){
-            LOG_INFO("mal:%d\n",ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
+            // LOG_INFO("mal:%d\n",ip_nbr2->u8[sizeof(ip_nbr2->u8)-1]);
             if (nbr1_is_acceptable)
                 return nbr1;
             else

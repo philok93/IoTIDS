@@ -1384,30 +1384,41 @@ void ids_input_benign(void)
             pos = pos + 1;
             uint16_t fw_packets_buf=get16(buffer, pos);
 
-            //Avoid updating packetes 2 times when we receive from multiple IDS detectors
-            if (flag_interval==1){
-                // LOG_INFO("pack:%d<-%d\n",fw_packets_buf,nbr->fw_packets);
-                if (nbr->fw_packets >= fw_packets_buf){
-                    if (verified==1){
-                        nbr->verified_node=verified;
-                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-                        nbr->trust_value=direct_trust;
+            //Avoid updating packets 2 times when we receive from multiple IDS detectors
+            if (flag_interval==1 && nbr->fw_packets >= fw_packets_buf){
+                //buffer:5, nbr->fw:3
+                LOG_INFO("NBRFW:%d >= %d actual:%d\n",nbr->fw_packets,fw_packets_buf,stats->cnt_current.num_packets_tx);
 
-                        if (direct_trust<26){
-                            if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
-                                update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
-                            }
-                        }else if (direct_trust>50){//remove from list trusted node
-                            remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
+                if (verified==1){
+                    nbr->verified_node=verified;
+                    direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    nbr->trust_value=direct_trust;
+
+                    if (direct_trust<26){
+                        if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
+                            update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                         }
-
+                    }else if (direct_trust>50){//remove from list trusted node
+                        remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
                     }
-                    pos = pos + sizeof(uint16_t);
-                    break;
+
                 }
+                pos = pos + sizeof(uint16_t);
+                break;
+            
             }
 
-            nbr->fw_packets += fw_packets_buf;
+            // LOG_INFO("infobef:%d buf:%d,sent:%d\n",nbr->fw_packets ,fw_packets_buf,stats->cnt_current.num_packets_tx);
+            //transmitted less than forward, update directly
+            
+            //Enter only if sent more than what detected.
+            if (stats->cnt_current.num_packets_tx>nbr->fw_packets || fw_packets_buf+nbr->fw_packets >= stats->cnt_current.num_packets_tx ){
+                nbr->fw_packets = stats->cnt_current.num_packets_tx;
+            }else{
+                nbr->fw_packets += fw_packets_buf;
+            }
+
+
             pos = pos + sizeof(uint16_t);
             nbr->verified_node=verified;
 
@@ -1416,11 +1427,16 @@ void ids_input_benign(void)
             // if (stats->cnt_current.num_packets_tx < nbr->fw_packets) 
             //     direct_trust=100;           
             // else 
-            if (verified==0)
-                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.1*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-            else
+            if (nbr->fw_packets==0 && verified==0)
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.3*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else if (nbr->fw_packets>0 && verified==0)
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.2*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else if (verified==1 && nbr->fw_packets>0)
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else if (verified==1 && nbr->fw_packets>5)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-
+            
+            LOG_INFO("trust:%d\n",direct_trust);
             nbr->trust_value=direct_trust;
 
             if (direct_trust<26){
