@@ -1653,9 +1653,10 @@ uip_process(uint8_t flag)
                     stats->verified[i]=1;
                     break;
                 }
-                if ((int)stats->dest[i] == dest->u8[sizeof(dest->u8) - 1])
+                if ((int)stats->dest[i] == dest->u8[sizeof(dest->u8) - 1]){
                     found=1;
-                else
+                    stats->verified[i]=0;
+                }else
                     stats->verified[i]=0;
             
             }

@@ -228,7 +228,7 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
 
 //Here start the algorithm for OF with IDS
 #if IDS_OF==1
-
+if (curr_instance.instance_id)
 if (nbr1!=NULL && nbr2!=NULL){
   uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
   uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);
@@ -284,12 +284,12 @@ if (nbr1!=NULL && nbr2!=NULL){
 
 //Keep preferred parent if trusted
 
-if ( (nbr1 == curr_instance.dag.preferred_parent && nbr1->trust_value>75) ||
+if ( /*(nbr1 == curr_instance.dag.preferred_parent && nbr1->trust_value>75) ||*/
      (nbr1->trust_value > nbr2->trust_value) || 
      (nbr2->trust_value < 38) )
     return nbr1;
 
-else if ( (nbr2 == curr_instance.dag.preferred_parent && nbr2->trust_value>75) ||
+else if ( /*(nbr2 == curr_instance.dag.preferred_parent && nbr2->trust_value>75) ||*/
         (nbr2->trust_value > nbr1->trust_value) || 
         (nbr1->trust_value < 38))
     return nbr2;

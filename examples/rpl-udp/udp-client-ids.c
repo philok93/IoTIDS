@@ -174,9 +174,13 @@ i=0;
         LOG_INFO_("\n");
         // snprintf(str, sizeof(str), "hello %d", count);
         // simple_udp_sendto(&udp_conn, str, strlen(str), &dest_ipaddr);
-        
+        // uip_ipaddr_t addr2;
+            
+        dest_ipaddr.u8[sizeof(dest_ipaddr.u8) - 1]=1;
         ids_output(&dest_ipaddr);
-        count++;       
+
+        count++; 
+            
         
       } else {
         LOG_INFO("Not reachable yet\n");

@@ -24,8 +24,8 @@ void checkNodes();
 void checkNodes()
 {
     uint8_t j = 0;
-    LOG_INFO("Running IDS\n");
     for (j = 0; j < NODES_NUM; j++) {
+    LOG_INFO("Running IDS %d %d\n",j,nodes[j].address);
 
         if (nodes[j].address > 0 && nodes[j].address != 1) {
 
@@ -33,12 +33,13 @@ void checkNodes()
                      (unsigned)nodes[j].counterDIS, (unsigned)nodes[j].counterMsg, (unsigned)nodes[j].intervals, nodes[j].blackhole_mal);
 
             //Check for BH nodes and reset
-            if (nodes[j].blackhole_mal>4){
+            if (nodes[j].blackhole_mal>2){
                  LOG_INFO("BH Attacker:%d,%d\n", (unsigned)nodes[j].address,nodes[j].blackhole_mal);
                  nodes[j].blackhole_mal=0;
             }
 
-            if (nodes[j].intervals <= 30 && nodes[j].counterDIS >= 3) {
+            //Changed the time interval
+            if (nodes[j].intervals <= 20 && nodes[j].counterDIS >= 5) {
                 uint8_t count = 0, c = 0;
                 for (c = 0; c < DETECTORS_NUM; c++) {
             

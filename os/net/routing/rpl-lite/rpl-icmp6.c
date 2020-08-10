@@ -1124,7 +1124,7 @@ void ids_blackhole_input(void)
                         nodes[j].blackhole_mal=nodes[j].blackhole_mal+1;
                     break;
                 }
-                if (j==NODES_NUM-1 && nodes[j].address==0 && verified==0){
+                if ((nodes[j].address==0 || j==NODES_NUM-1) && verified==0){
                     nodes[j].address=ipend;
                     nodes[j].blackhole_mal=1;
                     break;
@@ -1268,6 +1268,7 @@ void ids_input(void)
             
         }
 
+        LOG_INFO("afteirneter:%d %d %d\n",j,nodes[j].address,NODES_NUM);
         // LOG_INFO("BEDNODES\n");
         if (j == NODES_NUM || flag_detector == 1)
             continue;
@@ -1278,6 +1279,8 @@ void ids_input(void)
             nodes[j].counterDIS = tmpdis;
             nodes[j].counterMsg = tmpdio;
             nodes[j].intervals = tmpinter;
+            nodes[j].blackhole_mal=0;
+
             uint8_t c = 0;
 
             for (c = 0; c < DETECTORS_NUM; c++)
@@ -1390,8 +1393,26 @@ void ids_input_benign(void)
                 LOG_INFO("NBRFW:%d >= %d actual:%d\n",nbr->fw_packets,fw_packets_buf,stats->cnt_current.num_packets_tx);
 
                 if (verified==1){
+                    if (fw_packets_buf>=0)
+                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    else if (fw_packets_buf>0 && nbr->fw_packets>5)
+                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    
+                }else if (verified==0){
+                    if (fw_packets_buf==0)
+                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    else if (fw_packets_buf>0)
+                        direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.2*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    else
+                        direct_trust=0;
+                }
+                    // if (nbr->fw_packets>0)
+                    //     direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    // else if (nbr->fw_packets>5)
+                    //     direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    
                     nbr->verified_node=verified;
-                    direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                    // direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
                     nbr->trust_value=direct_trust;
 
                     if (direct_trust<26){
@@ -1402,7 +1423,7 @@ void ids_input_benign(void)
                         remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
                     }
 
-                }
+                
                 pos = pos + sizeof(uint16_t);
                 break;
             
@@ -1412,7 +1433,8 @@ void ids_input_benign(void)
             //transmitted less than forward, update directly
             
             //Enter only if sent more than what detected.
-            if (stats->cnt_current.num_packets_tx>nbr->fw_packets || fw_packets_buf+nbr->fw_packets >= stats->cnt_current.num_packets_tx ){
+            if ((stats->cnt_current.num_packets_tx>nbr->fw_packets && fw_packets_buf>0) || 
+                (fw_packets_buf+nbr->fw_packets >= stats->cnt_current.num_packets_tx) ){
                 nbr->fw_packets = stats->cnt_current.num_packets_tx;
             }else{
                 nbr->fw_packets += fw_packets_buf;
@@ -1422,19 +1444,19 @@ void ids_input_benign(void)
             pos = pos + sizeof(uint16_t);
             nbr->verified_node=verified;
 
-            LOG_INFO("packet dropped:%d fw:%d sent:%d\n",(stats->cnt_current.num_packets_tx - nbr->fw_packets),nbr->fw_packets,stats->cnt_current.num_packets_tx);
+            LOG_INFO("packet dropped:%d fw:%d ver:%d buf:%d sent:%d\n",(stats->cnt_current.num_packets_tx - nbr->fw_packets),nbr->fw_packets,verified,fw_packets_buf,stats->cnt_current.num_packets_tx);
 
-            // if (stats->cnt_current.num_packets_tx < nbr->fw_packets) 
-            //     direct_trust=100;           
-            // else 
-            if (nbr->fw_packets==0 && verified==0)
-                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.3*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-            else if (nbr->fw_packets>0 && verified==0)
+            //Check if fw_packets from buffer is zero and customize penalty
+            if (fw_packets_buf==0 && verified==0)
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else if (fw_packets_buf>0 && verified==0)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.2*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-            else if (verified==1 && nbr->fw_packets>0)
+            else if (verified==1 && fw_packets_buf>=0)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-            else if (verified==1 && nbr->fw_packets>5)
+            else if (verified==1 && fw_packets_buf>0 && nbr->fw_packets>5)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else
+                direct_trust=0;
             
             LOG_INFO("trust:%d\n",direct_trust);
             nbr->trust_value=direct_trust;
@@ -1625,8 +1647,7 @@ void ids_output_to_benign(void *ipaddr)
             buffer[0]=1; //ids instance
             //Send blackhole to IDS   
             uip_ipaddr_t addr2;
-            // uip_ipaddr_t addr3;
-            // NETSTACK_ROUTING.get_root_ipaddr(&addr3);
+            
             if (rpl_dag_get_root_ipaddr(&addr2)){
                 addr2.u8[sizeof(addr2.u8) - 1]=1;
                 
