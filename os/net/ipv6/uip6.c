@@ -1176,7 +1176,7 @@ uint8_t checkIDS()
         if (nodes[i].last_avg_rss !=0  &&
            (tmp_rss < nodes[i].last_avg_rss-15)){
           nodes[i].spoof_suspicious=1;
-          LOG_INFO("SPOOF:%d %d %d\n",nodes[i].address,nodes[i].last_avg_rss, tmp_rss);
+          LOG_INFO("SPOOF:%d lastrss:%d %d\n",nodes[i].address,nodes[i].last_avg_rss, tmp_rss);
         }else
           nodes[i].spoof_suspicious=0;
 

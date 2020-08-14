@@ -228,7 +228,7 @@ best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2)
 
 //Here start the algorithm for OF with IDS
 #if IDS_OF==1
-if (curr_instance.instance_id)
+
 if (nbr1!=NULL && nbr2!=NULL){
   uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr1);
   uip_ipaddr_t * ip_nbr2=rpl_neighbor_get_ipaddr(nbr2);

@@ -48,6 +48,11 @@
 #include "net/nbr-table.h"
 #include "net/ipv6/uiplib.h"
 
+//IDS obj. fun
+#if IDS_OF==1
+    #include "ids.h"
+#endif
+
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "RPL"
@@ -368,11 +373,23 @@ best_parent(int fresh_only)
   /* Search for the best parent according to the OF */
   for(nbr = nbr_table_head(rpl_neighbors); nbr != NULL; nbr = nbr_table_next(rpl_neighbors, nbr)) {
 
+#if IDS_OF==1
+    uip_ipaddr_t * ip_nbr=rpl_neighbor_get_ipaddr(nbr);
+    
+    if(!acceptable_rank(rpl_neighbor_rank_via_nbr(nbr))
+        || !curr_instance.of->nbr_is_acceptable_parent(nbr)
+        || check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])) {
+        /* Exclude neighbors with a rank that is not acceptable, also blacklisted nodes */
+      continue;
+    }
+#else
     if(!acceptable_rank(rpl_neighbor_rank_via_nbr(nbr))
       || !curr_instance.of->nbr_is_acceptable_parent(nbr)) {
       /* Exclude neighbors with a rank that is not acceptable */
       continue;
     }
+#endif
+
 
     if(fresh_only && !rpl_neighbor_is_fresh(nbr)) {
       /* Filter out non-fresh nerighbors if fresh_only is set */

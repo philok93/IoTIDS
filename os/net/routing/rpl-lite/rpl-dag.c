@@ -47,6 +47,11 @@
 #include "net/nbr-table.h"
 #include "net/link-stats.h"
 
+//IDS obj. fun
+#if IDS_OF==1
+    #include "ids.h"
+#endif
+
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "RPL"
@@ -460,6 +465,14 @@ process_dio_from_current_dag(uip_ipaddr_t *from, rpl_dio_t *dio)
     {
         return;
     }
+
+  #if IDS_OF==1
+    if (check_list(from->u8[sizeof(from->u8) - 1])){
+        LOG_INFO("known attacker\n");
+        return;
+    }
+  #endif
+
 
     /* If the DIO sender is on an older version of the DAG, do not process it
    * further. The sender will eventually hear the global repair and catch up. */

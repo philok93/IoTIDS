@@ -294,7 +294,7 @@ handle_dio_timer(void *ptr)
         LOG_INFO("set ids2:%d\n",curr_instance.dag.dio_intcurrent);
 
         if (&curr_instance.dag.dag_id!=NULL){
-            LOG_INFO("fineb2\n");
+            // LOG_INFO("fineb2\n");
             dest_ipaddr=&curr_instance.dag.dag_id;
             LOG_INFO("finea2f:%d\n",dest_ipaddr->u8[15]);
 
@@ -711,17 +711,17 @@ void rpl_timers_unschedule_state_update(void)
 /*---------------------------------------------------------------------------*/
 void rpl_timers_schedule_state_update(void)
 {
-    #if IDS_CLIENT
-        if (curr_instance.used)
-        {
-            ctimer_set(&curr_instance.dag.state_update, 60, handle_state_update, NULL);
-        }
-    #else
+    // #if IDS_CLIENT
+    //     if (curr_instance.used)
+    //     {
+    //         ctimer_set(&curr_instance.dag.state_update, 60, handle_state_update, NULL);
+    //     }
+    // #else
         if (curr_instance.used)
         {
             ctimer_set(&curr_instance.dag.state_update, 0, handle_state_update, NULL);
         }
-    #endif
+    // #endif
 }
 /*---------------------------------------------------------------------------*/
 static void

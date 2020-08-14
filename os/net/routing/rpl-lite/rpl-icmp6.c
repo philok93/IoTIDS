@@ -1126,6 +1126,7 @@ void ids_blackhole_input(void)
                 }
                 if ((nodes[j].address==0 || j==NODES_NUM-1) && verified==0){
                     nodes[j].address=ipend;
+                    nodes[j].intervals=999;
                     nodes[j].blackhole_mal=1;
                     break;
                 }
@@ -1406,11 +1407,7 @@ void ids_input_benign(void)
                     else
                         direct_trust=0;
                 }
-                    // if (nbr->fw_packets>0)
-                    //     direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-                    // else if (nbr->fw_packets>5)
-                    //     direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-                    
+                
                     nbr->verified_node=verified;
                     // direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
                     nbr->trust_value=direct_trust;
