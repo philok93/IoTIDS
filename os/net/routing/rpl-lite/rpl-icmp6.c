@@ -1064,6 +1064,8 @@ void ids_output(uip_ipaddr_t *addr)
 //}
 #endif /*ends IDS_CLIENT code*/
     }
+
+    uipbuf_clear();
 }
 #endif /*IDS_CLIENT || IDS_SERVER*/
 
@@ -1591,6 +1593,7 @@ void ids_output_to_benign(void *ipaddr)
 
         if (ipaddr2==NULL){
             LOG_INFO("null here\n");
+            uipbuf_clear();
             return;
         }
 
@@ -1647,7 +1650,8 @@ void ids_output_to_benign(void *ipaddr)
             
             if (rpl_dag_get_root_ipaddr(&addr2)){
                 addr2.u8[sizeof(addr2.u8) - 1]=1;
-                
+                // LOG_INFO("root:");
+                // LOG_INFO_6ADDR(&addr2);
                 uip_icmp6_send(&addr2, ICMP6_RPL, RPL_CODE_IDS2, 2 + (m->index) * (1 + sizeof(uint8_t) + sizeof(uint16_t)));
             }
             

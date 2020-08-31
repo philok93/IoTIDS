@@ -254,7 +254,6 @@ if (nbr1!=NULL && nbr2!=NULL){
     }
 #endif
 
-
     //Check if nbr ETX is <MAX_ETX
   if(!nbr1_is_acceptable) {
     return nbr2_is_acceptable ? nbr2 : NULL;
@@ -265,8 +264,8 @@ if (nbr1!=NULL && nbr2!=NULL){
   
 #if IDS_OF ==1
 
-// const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
-// const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
+const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
+const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 
 // uint16_t values[2]={nbr1->trust_value,nbr2->trust_value};
 
@@ -284,15 +283,29 @@ if (nbr1!=NULL && nbr2!=NULL){
 
 //Keep preferred parent if trusted
 
-if ( /*(nbr1 == curr_instance.dag.preferred_parent && nbr1->trust_value>75) ||*/
-     (nbr1->trust_value > nbr2->trust_value) || 
+if ( (nbr1->trust_value > nbr2->trust_value) || 
      (nbr2->trust_value < 38) )
     return nbr1;
 
-else if ( /*(nbr2 == curr_instance.dag.preferred_parent && nbr2->trust_value>75) ||*/
-        (nbr2->trust_value > nbr1->trust_value) || 
+else if ((nbr2->trust_value > nbr1->trust_value) || 
         (nbr1->trust_value < 38))
     return nbr2;
+
+if (nbr1->trust_value == nbr2->trust_value){
+    int within_time=nbr1->better_parent_since == 0
+    || (clock_time() - nbr1->better_parent_since) <= TIME_THRESHOLD;
+    
+    int within_time2=nbr2->better_parent_since == 0
+    || (clock_time() - nbr2->better_parent_since) <= TIME_THRESHOLD;
+
+//added time hysterisis
+    if (nbr1 == curr_instance.dag.preferred_parent && within_time2)
+        return nbr1;
+    else if (nbr2 == curr_instance.dag.preferred_parent && within_time)
+        return nbr2;
+
+    return stats->cnt_total.num_packets_rx > stats2->cnt_total.num_packets_rx ? nbr1: nbr2;
+}
 
 #endif
 

@@ -246,7 +246,7 @@ link_stats_input_callback(const linkaddr_t *lladdr)
   }
 
 // #if LINK_STATS_PACKET_COUNTERS
-      LOG_INFO("linkstats lqi/rss:%d\n",packetbuf_attr(PACKETBUF_ATTR_LINK_QUALITY));
+    //   LOG_INFO("linkstats lqi/rss:%d\n",packetbuf_attr(PACKETBUF_ATTR_LINK_QUALITY));
 // #endif
 
   /* Update RSSI EWMA */
