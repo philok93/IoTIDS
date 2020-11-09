@@ -86,16 +86,34 @@ int check_list(uint8_t item){
     return 0;
 }
 
+void rm_bh_from_nbr_table(uip_ipaddr_t** from){
+        uip_ds6_nbr_t *ds6_nbr;
+        
+        if ((ds6_nbr = uip_ds6_nbr_lookup(*from)) != NULL)
+        {
+            const linkaddr_t *nbr_lladdr = (const linkaddr_t *)uip_ds6_nbr_get_ll(ds6_nbr);
+            rpl_nbr_t *rpl_nbr = rpl_neighbor_get_from_lladdr((uip_lladdr_t *)nbr_lladdr);
+
+            if (rpl_nbr != NULL && rpl_neighbor_is_parent(rpl_nbr)){
+                rpl_neighbor_set_preferred_parent(NULL);
+            }
+
+            remove_neighbor(rpl_nbr);
+            uip_ds6_nbr_rm(ds6_nbr);   
+            LOG_INFO("removed malnbr\n");
+        }
+          
+}
+
 void update_list(uint8_t ip){
     uint8_t chk=check_list(ip);
-    // LOG_INFO("already in=%d\n",chk);
-
     uint8_t size=list_length(blacklist);
 
     if (!chk && size+1<ELEMENT_COUNT){
 
         nodes[size].ipaddr=ip;
         list_add(blacklist,&nodes[size]);
+
         //  LOG_INFO("updating len:%d\n",list_length(blacklist));
 
     }else

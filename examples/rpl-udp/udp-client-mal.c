@@ -102,6 +102,7 @@ PROCESS_THREAD(udp_client_process, ev, data)
   LOG_INFO("prepare\n");
   ctimer_set(&attack_time,30*CLOCK_SECOND,rpl_attack,NULL);
   #elif MAL_BLACKHOLE==1
+    LOG_INFO("malicious BH\n");
     etimer_set(&time_sniff, (120*CLOCK_SECOND));
 #endif
 

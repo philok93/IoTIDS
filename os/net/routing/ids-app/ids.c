@@ -25,7 +25,7 @@ void checkNodes()
 {
     uint8_t j = 0;
     for (j = 0; j < NODES_NUM; j++) {
-    LOG_INFO("Running IDS %d %d\n",j,nodes[j].address);
+    // LOG_INFO("Running IDS %d %d\n",j,nodes[j].address);
 
         if (nodes[j].address > 0 && nodes[j].address != 1) {
 

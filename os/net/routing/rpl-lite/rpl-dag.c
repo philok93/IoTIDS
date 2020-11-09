@@ -471,6 +471,16 @@ process_dio_from_current_dag(uip_ipaddr_t *from, rpl_dio_t *dio)
         LOG_INFO("known attacker\n");
         return;
     }
+
+    //add: if DIO_RECEIVED > DIO_DEFAULT => malicious
+    // (sender - node)  > (parent - node)
+    //dio->rank - curr_instance.dag.rank >  curr_instance.dag->preferred_parent.rank - curr_instance.dag.rank
+    // if (curr_instance.dag.preferred_parent!=NULL && from->u8[sizeof(from->u8) - 1]!=0 && ABS((uint16_t)dio->rank - (uint16_t)curr_instance.dag.rank) >= ABS((uint16_t)curr_instance.dag.preferred_parent->rank - curr_instance.dag.rank)){
+    //     LOG_INFO("maldrop\n");
+    //     LOG_INFO("check DIO:%d, curr:%d result:%d, parent:%d, default:%d\n",dio->rank,curr_instance.dag.rank,ABS((uint16_t)dio->rank - (uint16_t)curr_instance.dag.rank),curr_instance.dag.preferred_parent->rank,ABS((uint16_t)curr_instance.dag.preferred_parent->rank - curr_instance.dag.rank));    
+    //     return;
+    // }
+  
   #endif
 
 

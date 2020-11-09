@@ -252,6 +252,7 @@ if (nbr1!=NULL && nbr2!=NULL){
         }
         
     }
+    
 #endif
 
     //Check if nbr ETX is <MAX_ETX
@@ -262,6 +263,7 @@ if (nbr1!=NULL && nbr2!=NULL){
     return nbr1_is_acceptable ? nbr1 : NULL;
   }
   
+
 #if IDS_OF ==1
 
 const struct link_stats *stats = rpl_neighbor_get_link_stats(nbr1);
@@ -282,32 +284,35 @@ const struct link_stats *stats2 = rpl_neighbor_get_link_stats(nbr2);
 //   stats2->cnt_current.num_packets_tx);
 
 //Keep preferred parent if trusted
-
-if ( (nbr1->trust_value > nbr2->trust_value) || 
-     (nbr2->trust_value < 38) )
+ if ( ((nbr1->trust_value > nbr2->trust_value) || 
+     (nbr2->trust_value < 38)) && ((uint32_t)nbr1->rank<(uint32_t) curr_instance.dag.rank) ){
     return nbr1;
 
-else if ((nbr2->trust_value > nbr1->trust_value) || 
-        (nbr1->trust_value < 38))
-    return nbr2;
-
-if (nbr1->trust_value == nbr2->trust_value){
-    int within_time=nbr1->better_parent_since == 0
+   }else if ( ((nbr2->trust_value > nbr1->trust_value) ||
+        (nbr1->trust_value < 38)) && ((uint32_t)nbr2->rank < (uint32_t) curr_instance.dag.rank) ){
+	return nbr2;
+    }
+   
+   
+//if (nbr1->trust_value == nbr2->trust_value){
+/*    int within_time=nbr1->better_parent_since == 0
     || (clock_time() - nbr1->better_parent_since) <= TIME_THRESHOLD;
     
     int within_time2=nbr2->better_parent_since == 0
     || (clock_time() - nbr2->better_parent_since) <= TIME_THRESHOLD;
-
+*/
 //added time hysterisis
-    if (nbr1 == curr_instance.dag.preferred_parent && within_time2)
+    if (nbr1 == curr_instance.dag.preferred_parent && within_hysteresis(nbr1))
         return nbr1;
-    else if (nbr2 == curr_instance.dag.preferred_parent && within_time)
+    else if (nbr2 == curr_instance.dag.preferred_parent && within_hysteresis(nbr2))
         return nbr2;
 
-    return stats->cnt_total.num_packets_rx > stats2->cnt_total.num_packets_rx ? nbr1: nbr2;
-}
+    //return stats->cnt_total.num_packets_rx > stats2->cnt_total.num_packets_rx ? nbr1: nbr2;
+//}
 
-#endif
+return nbr_link_metric(nbr1)<nbr_link_metric(nbr2)? nbr1 : nbr2;
+
+#else
 
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
@@ -320,6 +325,7 @@ if (nbr1->trust_value == nbr2->trust_value){
   }
   
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
+  #endif
 }
 /*---------------------------------------------------------------------------*/
 #if !RPL_WITH_MC

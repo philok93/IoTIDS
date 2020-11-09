@@ -343,7 +343,12 @@ rpl_neighbor_remove_all(void)
 
   nbr = nbr_table_head(rpl_neighbors);
   while(nbr != NULL) {
+    #if IDS_OF==1
+        if (nbr->trust_value<=50) //in camel1 I put <=63
+            remove_neighbor(nbr);
+    #else
     remove_neighbor(nbr);
+    #endif
     nbr = nbr_table_next(rpl_neighbors, nbr);
   }
 
@@ -378,7 +383,7 @@ best_parent(int fresh_only)
     
     if(!acceptable_rank(rpl_neighbor_rank_via_nbr(nbr))
         || !curr_instance.of->nbr_is_acceptable_parent(nbr)
-        || check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])) {
+        || ip_nbr==NULL || check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])) {
         /* Exclude neighbors with a rank that is not acceptable, also blacklisted nodes */
       continue;
     }

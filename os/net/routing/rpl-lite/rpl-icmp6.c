@@ -497,7 +497,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
 
 #if MAL_RANK
     //Modify rank
-    curr_instance.dag.rank = 129;
+    curr_instance.dag.rank = 130;
 #endif
 
     
@@ -1370,7 +1370,7 @@ void ids_input_benign(void)
 
             uip_ipaddr_t *ip_nbr = rpl_neighbor_get_ipaddr(nbr);
             // LOG_INFO("bef:%d %d\n", ipend, ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
-            if (ipend != ip_nbr->u8[sizeof(ip_nbr->u8) - 1])
+            if (ip_nbr==NULL || ipend != ip_nbr->u8[sizeof(ip_nbr->u8) - 1])
             {
                 continue;
             }
@@ -1396,7 +1396,7 @@ void ids_input_benign(void)
                 LOG_INFO("NBRFW:%d >= %d actual:%d\n",nbr->fw_packets,fw_packets_buf,stats->cnt_current.num_packets_tx);
 
                 if (verified==1){
-                    if (fw_packets_buf>=0)
+                    if (fw_packets_buf==0)
                         direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
                     else if (fw_packets_buf>0 && nbr->fw_packets>5)
                         direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
@@ -1414,11 +1414,13 @@ void ids_input_benign(void)
                     // direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
                     nbr->trust_value=direct_trust;
 
-                    if (direct_trust<26){
+                    if (ip_nbr!=NULL && direct_trust<26){
                         if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
                             update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
+                            rpl_local_repair("IDS trigger");
+                            // rm_bh_from_nbr_table(&ip_nbr);
                         }
-                    }else if (direct_trust>50){//remove from list trusted node
+                    }else if (ip_nbr!=NULL && direct_trust>50){//remove from list trusted node
                         remove_from_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);                
                     }
 
@@ -1450,10 +1452,10 @@ void ids_input_benign(void)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else if (fw_packets_buf>0 && verified==0)
                 direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.2*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
-            else if (verified==1 && fw_packets_buf>=0)
-                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.05*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+            else if (verified==1 && fw_packets_buf==0)
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.1*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else if (verified==1 && fw_packets_buf>0 && nbr->fw_packets>5)
-                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.01*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
+                direct_trust=(nbr->fw_packets/(nbr->fw_packets+0.5*(stats->cnt_current.num_packets_tx - nbr->fw_packets)))*100;
             else
                 direct_trust=0;
             
@@ -1464,8 +1466,10 @@ void ids_input_benign(void)
                 LOG_INFO("blacklst:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                 
                 //If node not in blacklist, add
-                if (!check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
+                if (ip_nbr!=NULL && !check_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1])){
                      update_list(ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
+                     rpl_local_repair("IDS trigger");
+                    //  rm_bh_from_nbr_table(&ip_nbr);
                     // LOG_INFO("added to list:%d\n",ip_nbr->u8[sizeof(ip_nbr->u8) - 1]);
                 }
 

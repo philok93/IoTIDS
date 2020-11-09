@@ -97,6 +97,7 @@ fw_stats tmp_ip_senders[NODES_NUM_CL];
 void update_list(uint8_t mal_node);
 int check_list(uint8_t item);
 void remove_from_list(uint8_t ip);
+void rm_bh_from_nbr_table(uip_ipaddr_t* from);
 
 #endif
 
