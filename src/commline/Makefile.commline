@@ -1,0 +1,42 @@
+include config.inc
+
+SRC=src/commline
+LIBS=-shared
+LDFLAGS=-fPIC
+CFLAGS=-Wall -I$(SRC)
+
+TARGET=$(BINDIR)/libwf_commline.a
+TARGET_32=$(BINDIR)/libwf_commline_32.a
+
+SRCS=$(wildcard $(SRC)/*.c)
+OBJS=$(addprefix $(BINDIR)/,$(SRCS:.c=.o))
+OBJS32=$(addprefix $(BINDIR)/,$(SRCS:.c=_32.o))
+
+ifeq ($(REL),debug)
+CFLAGS+=-g
+endif
+
+$(info $$SRCS is [${SRCS}])
+$(info $$OBJS is [${OBJS}])
+$(info $$OBJS32 is [${OBJS32}])
+
+all: $(BINDIR)/$(SRC) $(TARGET) $(TARGET_32)
+
+$(TARGET_32): $(OBJS32)
+	#gcc -o $@ $(OBJS32) $(CFLAGS) $(LDFLAGS) $(LIBS)
+	ar -rcs -o $@ $(OBJS32)
+
+$(TARGET): $(OBJS)
+	ar -rcs -o $@ $(OBJS)
+
+$(BINDIR)/%_32.o: %.c %.h $(GLOBAL_HDR)
+	gcc -m32 -c -o $@ $< $(CFLAGS) $(LDFLAGS)
+
+$(BINDIR)/%.o: %.c %.h $(GLOBAL_HDR)
+	gcc -c -o $@ $< $(CFLAGS) $(LDFLAGS)
+
+$(BINDIR)/$(SRC):
+	@mkdir -p $(BINDIR)/$(SRC)
+
+clean:
+	rm -rf $(BINDIR)/$(SRC)
