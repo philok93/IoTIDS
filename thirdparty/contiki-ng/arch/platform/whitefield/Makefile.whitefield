@@ -1,0 +1,36 @@
+ifndef CONTIKI
+  $(error CONTIKI not defined! You must specify where CONTIKI resides!)
+endif
+
+WF_DIR=../../../..
+ifeq ($(wildcard $(WF_DIR)/src/.*),)
+WF_DIR=../../../../..
+endif
+
+include $(WF_DIR)/config.inc
+CFLAGS += -I$(WF_DIR)/src
+TARGET_LIBFILES += -L$(WF_DIR)/bin -lwf_commline -ldl build/whitefield/contiki-ng-whitefield.a
+
+CONTIKI_TARGET_DIRS = . dev
+CONTIKI_TARGET_MAIN = ${addprefix $(OBJECTDIR)/,contiki-main.o}
+
+CONTIKI_TARGET_SOURCEFILES += platform.c clock.c xmem.c
+CONTIKI_TARGET_SOURCEFILES += cfs-posix.c cfs-posix-dir.c buttons.c
+CONTIKI_TARGET_SOURCEFILES += command.c command_storing_mop.c \
+							  command_ns_mop.c wfmac_driver.c \
+							  wfradio_driver.c
+
+ifeq ($(HOST_OS),Linux)
+TARGET_LIBFILES += -lrt
+endif
+
+CONTIKI_SOURCEFILES += $(CONTIKI_TARGET_SOURCEFILES)
+
+.SUFFIXES:
+
+# Enable nullmac by default
+MAKE_MAC ?= MAKE_MAC_OTHER
+
+### Define the CPU directory
+CONTIKI_CPU = $(CONTIKI_NG_RELOC_CPU_DIR)/native
+include $(CONTIKI_CPU)/Makefile.native

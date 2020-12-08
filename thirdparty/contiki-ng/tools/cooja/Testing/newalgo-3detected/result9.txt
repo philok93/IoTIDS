@@ -1,0 +1,107 @@
+
+File:read_IDS_allnodes_sciptIDS9-1.log
+SURE NODES:2, 3, 4, 5, 6, 7, 
+sure count:402
+Malicious id:7 83
+Malicious id:5 86
+Malicious id:6 55
+Malicious id:4 86
+Malicious id:2 86
+Malicious id:3 28
+FP id:6
+FP id:4
+FP id:7
+FP id:5
+FP id:2
+FP id:3
+FP id:32
+FP id:24
+FP id:16
+
+File:read_IDS_allnodes_sciptIDS9-2.log
+SURE NODES:2, 3, 4, 5, 7, 
+sure count:399
+Malicious id:2 86
+Malicious id:4 86
+Malicious id:3 84
+Malicious id:5 85
+Malicious id:7 79
+FP id:2
+FP id:4
+FP id:3
+FP id:5
+FP id:7
+FP id:6
+FP id:35
+FP id:14
+
+File:read_IDS_allnodes_sciptIDS9-3.log
+SURE NODES:2, 3, 4, 5, 6, 7, 
+sure count:397
+Malicious id:3 86
+Malicious id:2 86
+Malicious id:4 85
+Malicious id:5 86
+Malicious id:6 56
+Malicious id:7 14
+FP id:3
+FP id:2
+FP id:4
+FP id:5
+FP id:6
+FP id:7
+FP id:17
+FP id:29
+
+File:read_IDS_allnodes_sciptIDS9-4.log
+SURE NODES:2, 3, 4, 5, 7, 
+sure count:400
+Malicious id:5 85
+Malicious id:7 85
+Malicious id:2 85
+Malicious id:3 76
+Malicious id:4 86
+FP id:5
+FP id:7
+FP id:2
+FP id:3
+FP id:4
+FP id:6
+FP id:10
+FP id:16
+FP id:17
+FP id:9
+
+File:read_IDS_allnodes_sciptIDS9-5.log
+SURE NODES:2, 3, 4, 5, 6, 7, 
+sure count:415
+Malicious id:6 86
+Malicious id:3 86
+Malicious id:7 86
+Malicious id:2 27
+Malicious id:5 86
+Malicious id:4 59
+FP id:6
+FP id:3
+FP id:7
+FP id:2
+FP id:5
+FP id:4
+FP id:14
+FP id:8
+FP id:15
+FP id:31
+Total in 1: 424.0
+Total in 2: 420.0
+Total in 3: 413.0
+Total in 4: 417.0
+Total in 5: 430.0
+AVG 1: 247.6
+AVG 2: 327.0
+AVG 3: 379.8
+AVG 4: 359.4
+AVG 5: 374.4
+AVG 6: 412.8
+AVG 7: 408.6
+AVG 8: 417.4
+AVG 9: 420.8
